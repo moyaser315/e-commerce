@@ -1,8 +1,7 @@
 # modules
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
 # our modules
-from .database import DatabaseHandler
+from helpers.database import DatabaseHandler
 
 # helpers
 Base = DatabaseHandler.getBase()
@@ -14,7 +13,7 @@ class Person(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
-    
+    password = Column(String, unique=True, index=True, nullable=False)
     
     def getID(self):
         return self.id
@@ -30,6 +29,9 @@ class Person(Base):
     
     def setEmail(self, email: str):
         self.email = email
+        
+    def checkValidPassword(hashed_pass: str) -> bool:
+        pass
         
     def login():    # to be implemented
         pass

@@ -2,7 +2,7 @@
 from sqlalchemy import Column, Integer, String, Float, CheckConstraint, ForeignKey
 from sqlalchemy.orm import relationship
 # our modules
-from .database import DatabaseHandler
+from helpers.database import DatabaseHandler
 
 # helpers
 Base = DatabaseHandler.getBase()
@@ -20,8 +20,8 @@ class Product(Base):
     
     # options
     __table_args__ = (
-        CheckConstraint('price >= 1', name='min_price'),
-        CheckConstraint('quantity >= 0', name='min_quantity'),
+        CheckConstraint('price >= 1', name='min_product_price'),
+        CheckConstraint('quantity >= 0', name='min_product_quantity'),
     )
     
     # relations
@@ -69,7 +69,7 @@ class Product(Base):
     def addComment(self, comment: str, userId: int):
         pass
     
-    def getOwner(self):
+    def getSeller(self):
         return self.seller
     
     def getOrderItems(self):

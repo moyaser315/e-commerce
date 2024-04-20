@@ -2,7 +2,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 # our modules
-from .database import DatabaseHandler
+from helpers.database import DatabaseHandler
 
 # helpers
 Base = DatabaseHandler.getBase()
@@ -14,9 +14,11 @@ class Comment(Base):
     text = Column(String, nullable=False)
     productID = Column(Integer, ForeignKey("products.id"), nullable=False)
     userID = Column(Integer, ForeignKey("users.id"), nullable=False)
+    
     # relations
     product = relationship("Product", back_populates="comments")
     user = relationship("User", back_populates="comments")
+    
     # functions
     def updateComment(self, txt: str):
         self.text = txt

@@ -2,18 +2,16 @@
 from sqlalchemy import Column, Float
 from sqlalchemy.orm import relationship
 # our modules
-from .database import DatabaseHandler
+from .specializedUser import SpecializedUser
 
-# helpers
-Base = DatabaseHandler.getBase()
-
-class Seller(Base):
+class Seller(SpecializedUser):
     __tablename__ = "sellers"
     # attributes
     balance = Column(Float, nullable=False, default=0)
     
     # relations
     products = relationship("Product", back_populates="seller")
+    user = relationship("User", back_populates="sellerUser")
     
     # functions
     def getBalance(self):
