@@ -10,24 +10,63 @@ Base = DatabaseHandler.getBase()
 class Comment(Base):
     __tablename__ = "comments"
     # attributes
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    text = Column(String, nullable=False)
-    productID = Column(Integer, ForeignKey("products.id"), nullable=False)
-    userID = Column(Integer, ForeignKey("users.id"), nullable=False)
+    __id = Column(Integer, primary_key=True, autoincrement=True, name="id")
+    __text = Column(String, nullable=False, name="text")
+    __productID = Column(Integer, ForeignKey("products.id"), nullable=False, name="productID")
+    __userID = Column(Integer, ForeignKey("users.id"), nullable=False, name="userID")
     
     # relations
-    product = relationship("Product", back_populates="comments")
-    user = relationship("User", back_populates="comments")
+    __product = relationship("Product", backref="__comments")
+    __user = relationship("User", backref="__comments")
     
-    # functions
-    def updateComment(self, txt: str):
-        self.text = txt
+    # properties
+    @property
+    def id(self):
+        return self.__id
+    
+    @property
+    def text(self):
+        return self.__text
+    
+    @text.setter
+    def text(self, value: str):
+        if (value is None or value == ""):
+            raise Exception("Comment can't be empty")
         
-    def deleteComment(self):
-        pass
+        self.__text = value
+        
+    @property
+    def user(self):
+        return self.__user
     
-    def getOwner(self):
-        return self.user
+    @property
+    def userID(self):
+        return self.__userID
     
-    def getProduct(self):
-        return self.product
+    @userID.setter
+    def userID(self, value: int):
+        if (value is None or value < 0):
+            raise Exception("Invalid user id")
+        
+        if (self.userID):
+            raise Exception("Can't override current user")
+        
+        self.__userID = value
+    
+    @property
+    def product(self):
+        return self.__product
+    
+    @property
+    def productID(self):
+        return self.__productID
+    
+    @productID.setter
+    def productID(self, value: int):
+        if (value is None or value < 0):
+            raise Exception("Invalid product id")
+        
+        if (self.userID):
+            raise Exception("Can't override current product")
+        
+        self.__productID = value

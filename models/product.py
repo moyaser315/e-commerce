@@ -1,8 +1,10 @@
 # modules
 from sqlalchemy import Column, Integer, String, Float, CheckConstraint, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Session
+import re
 # our modules
 from helpers.database import DatabaseHandler
+from .comment import Comment
 
 # helpers
 Base = DatabaseHandler.getBase()
@@ -10,13 +12,13 @@ Base = DatabaseHandler.getBase()
 class Product(Base):
     __tablename__ = "products"
     # attributes
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, nullable=False)
-    description = Column(String, nullable=False)
-    price = Column(Float, nullable=False)
-    quantity = Column(Integer, nullable=False)
-    imgPath = Column(String)    # see if you need to set nullable = false
-    sellerID = Column(Integer, ForeignKey("sellers.id"), nullable=False)
+    __id = Column(Integer, primary_key=True, autoincrement=True, name="id")
+    __name = Column(String, nullable=False, name="name")
+    __description = Column(String, nullable=False, name="description")
+    __price = Column(Float, nullable=False, name="price")
+    __quantity = Column(Integer, nullable=False, name="quantity")
+    __imgPath = Column(String, name="imgPath")    # see if you need to set nullable = false
+    __sellerID = Column(Integer, ForeignKey("sellers.id"), nullable=False, name="sellerID")
     
     # options
     __table_args__ = (
@@ -25,53 +27,107 @@ class Product(Base):
     )
     
     # relations
-    comments = relationship("Comment", back_populates="product")
-    seller = relationship("Seller", back_populates="products")
-    orderItems = relationship("OrderItem", back_populates="product")
+    __comments = relationship("Comment", backref="__product")
+    __seller = relationship("Seller", backref="__products")
+    __orderItems = relationship("OrderItem", backref="__product")
+    
+    # properties
+    @property
+    def id(self):
+        return self.__id
+    
+    @property
+    def name(self):
+        return self.__name
+    
+    @name.setter
+    def name(self, value: str): # check validation later
+        value = value.strip()
+        if (value is None or value == "" or not re.match(r"^[a-zA-Z]+$", value)):
+            raise Exception("Name needs to be at least a character")
+        
+        self.__name = value
+        
+    @property
+    def description(self):
+        return self.__description
+    
+    @description.setter
+    def description(self, value: str):  # check validation later
+        value = value.strip()
+        if (value is None or value == "" or not re.match(r"^[a-zA-Z]+$", value)):
+            raise Exception("Description needs to be at least a character")
+        
+        self.__description = value
+        
+    @property
+    def price(self):
+        return self.__price
+    
+    @price.setter
+    def price(self, value: float):
+        if (value < 1):
+            raise Exception("Price needs to be at least 1")
+        
+        self.__price = value
+    
+    @property
+    def quantity(self):
+        return self.__quantity
+    
+    @quantity.setter
+    def quantity(self, value: int):
+        if (value < 0):
+            raise Exception("Quantity can't be smaller than 0")
+        
+        self.__quantity = value
+        
+    @property
+    def imgPath(self):
+        return self.__imgPath
+    
+    @imgPath.setter
+    def imgPath(self, value: str):
+        value = value.strip()
+        if (value == ""):
+            value = None
+            
+        self.__imgPath = value
+        
+    @property
+    def comments(self):
+        return self.__comments
+    
+    @property
+    def seller(self):
+        return self.__seller
+    
+    @property
+    def sellerID(self):
+        return self.__sellerID
+    
+    @sellerID.setter
+    def sellerID(self, value: int):
+        if (value < 0 or value is None):
+            raise Exception("Invalid seller id")
+        
+        if (self.sellerID):
+            raise Exception("Can't override current seller")
+        
+        self.__sellerID = value
+    
+    @property
+    def orderItems(self):
+        return self.__orderItems
+    
     
     # functions
-    def getID(self):
-        return self.id
-    
-    def getName(self):
-        return self.name
-    
-    def setName(self, name: str):
-        self.name = name
+    def addComment(self, text: str, userID: int, db: Session):
+        comment = Comment(text = text, productID = self.id, userID = userID)
+        db.add(comment)
+        db.commit()
+        db.refresh(comment)
         
-    def getDescription(self):
-        return self.description
-    
-    def setDescription(self, desc: str):
-        self.description = desc
+        return comment.id
         
-    def getPrice(self):
-        return self.price
-    
-    def setPrice(self, price: float):
-        self.price = price
-    
-    def getQuantity(self):
-        return self.quantity
-    
-    def setQuantity(self, quant: int):
-        self.quantity = quant
-        
-    def getImagePath(self):
-        return self.imgPath
-    
-    def setImagePath(self, path: str):
-        self.imgPath = path
-        
-    def getComments(self):
-        return self.comments
-    
-    def addComment(self, comment: str, userId: int):
-        pass
-    
-    def getSeller(self):
-        return self.seller
-    
-    def getOrderItems(self):
-        return self.orderItems
         

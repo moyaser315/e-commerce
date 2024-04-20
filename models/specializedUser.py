@@ -1,6 +1,6 @@
 # modules
 from sqlalchemy import Column, Integer, ForeignKey
-from sqlalchemy.orm import Relationship
+from sqlalchemy.orm import Relationship, Session
 # our modules
 from helpers.database import DatabaseHandler
 
@@ -10,45 +10,58 @@ Base = DatabaseHandler.getBase()
 class SpecializedUser(Base):
     __abstract__ = True
     # attributes
-    id = Column(Integer, ForeignKey("users.id"), primary_key=True)
-    user: Relationship
+    __id = Column(Integer, ForeignKey("users.id"), primary_key=True, name="id")
+    __user: Relationship
     
-    # functions
-    def getID(self):
-        return self.user.getID()
+    # properties
+    @property
+    def id(self):
+        return self.__id
     
-    def getName(self):
-        return self.user.getName()
-    
-    def setName(self, name: str):
-        self.user.setName(name)
+    @id.setter
+    def id(self, value: int):
+        if (value is None or value < 0):
+            raise Exception("Invalid user id")
         
-    def getEmail(self):
-        return self.user.getEmail()
+        self.__id = value
     
-    def setEmail(self, email: str):
-        self.user.setEmail(email)
+    
+    @property
+    def name(self):
+        return self.__user.name
+    
+    @name.setter
+    def name(self, value: str):
+        self.__user.name = value
         
-    def checkValidPassword(self, hashed_pass: str) -> bool:
-        return self.user.checkValidPassword(hashed_pass)
+    @property
+    def email(self):
+        return self.__user.email
+    
+    @email.setter
+    def email(self, value: str):
+        self.__user.email = value
         
-    def login(self):    # to be implemented
-        self.user.login()
+    @property
+    def mobile(self):
+        return self.__user.mobile
     
-    def getAllProducts(self):   # return all products in the database
-        self.user.getAllProducts()
+    @mobile.setter
+    def mobile(self, value: str):   # come back and verify
+        self.__user.mobile = value
+
+    # functions    
+    def login(self, password: str):    # to be implemented
+        self.__user.login(password)
     
-    def getProduct(self, id: int):    # return product with the given id
-        self.user.getProduct(id)
+    def getAllProducts(self, db: Session):   # return all products in the database
+        return self.__user.getAllProducts(db)
     
-    def getMobile(self):
-        return self.user.getMobile()
-    
-    def setMobile(self, mobile: str):
-        self.user.setMobile(mobile)
+    def getProduct(self, id: int, db: Session):    # return product with the given id
+        return self.__user.getProduct(id, db)
         
-    def makeComment(self, productID: int):    # creates a comment on the given product
-        self.user.makeComment(productID)
+    def makeComment(self, comment: str, productID: int, db: Session):
+        self.__user.makeComment(comment, productID, db)
     
-    def removeComment(self, commentID: int):
-        self.user.removeComment(commentID)
+    def removeComment(self, commentID: int, db: Session):
+        self.__user.removeComment(commentID, db)

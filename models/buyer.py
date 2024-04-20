@@ -1,35 +1,47 @@
 # modules
 from sqlalchemy import Column, Integer, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Session
 # our modules
 from .specializedUser import SpecializedUser
+from .order import Order
 
 class Buyer(SpecializedUser):
-    __tablename__ = "buyers"
-    # attributes
-    id = Column(Integer, ForeignKey("users.id"), primary_key=True)
-    
+    __tablename__ = "buyers"    
     # relations
-    user = relationship("User", back_populates="buyerUser")
-    orders = relationship("Order", back_populates="buyer")
-    cartItems = relationship("CartItem", back_populates="buyer")
+    __user = relationship("User", backref="__buyerUser")
+    __orders = relationship("Order", backref="__buyer")
+    __cartItems = relationship("CartItem", backref="__buyer")
     
     # functions
-    def getAllOrders(self):
-        return self.orders
+    @property
+    def id(self):
+        return self.__id
     
-    def getOrder(self, id: int):
+    @property
+    def orders(self):
+        return self.__orders
+    
+    @property
+    def user(self):
+        return self.__user
+    
+    @property
+    def cartItems(self):
+        return self.__cartItems
+    
+    # functions
+    def getOrder(self, id: int, db: Session):
         pass
     
-    def makeOrder(self):
+    def makeOrder(self, db: Session):
         pass
     
-    def cancelOrder(self, id: int):
+    def cancelOrder(self, id: int, db: Session):
         pass
     
-    def addToCart(self, productID: int, quantity: int):
+    def addToCart(self, productID: int, quantity: int, db: Session):
         pass
     
-    def removeFromCart(self, productID: int, quantity: int):
+    def removeFromCart(self, productID: int, quantity: int, db: Session):
         pass
     
