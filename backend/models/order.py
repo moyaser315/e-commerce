@@ -2,10 +2,7 @@
 from sqlalchemy import Column, Integer, ForeignKey, Float, CheckConstraint, Date, func
 from sqlalchemy.orm import relationship, Session
 # our modules
-from helpers.database import DatabaseHandler
-
-# helpers
-Base = DatabaseHandler.getBase()
+from ..database import Base
 
 class Order(Base):
     __tablename__ = "orders"

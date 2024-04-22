@@ -2,10 +2,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 # our modules
-from helpers.database import DatabaseHandler
-
-# helpers
-Base = DatabaseHandler.getBase()
+from ..database import Base
 
 class Comment(Base):
     __tablename__ = "comments"
