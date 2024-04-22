@@ -38,26 +38,26 @@ class SpecializedUser(Base):
     def email(self, value: str):
         self.__user.email = value
         
-    @property
-    def mobile(self):
-        return self.__user.mobile
+    # @property
+    # def mobile(self):
+    #     return self.__user.mobile
     
-    @mobile.setter
-    def mobile(self, value: str):   # come back and verify
-        self.__user.mobile = value
+    # @mobile.setter
+    # def mobile(self, value: str):   # come back and verify
+    #     self.__user.mobile = value
 
     # functions    
-    def login(self, password: str):    # to be implemented
-        self.__user.login(password)
+    # def password(self):    # to be implemented
+    #     return self.__user.password
     
-    def getAllProducts(self, db: Session):   # return all products in the database
-        return self.__user.getAllProducts(db)
+    # def getAllProducts(self, db: Session):   # return all products in the database
+    #     return self.__user.getAllProducts(db)
     
-    def getProduct(self, id: int, db: Session):    # return product with the given id
-        return self.__user.getProduct(id, db)
+    # def getProduct(self, id: int, db: Session):    # return product with the given id
+    #     return self.__user.getProduct(id, db)
         
-    def makeComment(self, comment: str, productID: int, db: Session):
-        self.__user.makeComment(comment, productID, db)
+    # def makeComment(self, comment: str, productID: int, db: Session):
+    #     self.__user.makeComment(comment, productID, db)
     
-    def removeComment(self, commentID: int, db: Session):
-        self.__user.removeComment(commentID, db)
+    # def removeComment(self, commentID: int, db: Session):
+    #     self.__user.removeComment(commentID, db)
