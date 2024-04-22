@@ -1,0 +1,56 @@
+.login {
+  width: 100%;
+  height: 80vh;
+  background: rgb(163, 163, 223);
+  padding-top: 100px;
+  margin-left: 0;
+}
+
+.loginContainer {
+  width: 550px;
+  height: 350px;
+  background: white;
+  margin: auto;
+  margin-top: 60px;
+  padding: 40px 60px;
+}
+
+.loginContainer h1 {
+  margin: 20px 0px;
+}
+
+.loginFields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.loginFields input {
+  height: 50px;
+  width: 90%;
+  padding-left: 20px;
+  border: 1px solid grey;
+  outline: none;
+  color: rgb(20, 45, 155);
+  font-size: 18 px;
+}
+
+.loginContainer button {
+  width: 94%;
+  height: 55px;
+  background: rgb(38, 142, 186);
+  color: white;
+  margin-top: 30px;
+  margin-left: 17px;
+  border: none;
+  font-size: 24px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.loginContainer button:hover {
+  background: rgb(114, 168, 192);
+  color: rgb(82, 72, 72);
+}
