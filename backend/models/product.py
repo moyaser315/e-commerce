@@ -3,11 +3,10 @@ from sqlalchemy import Column, Integer, String, Float, CheckConstraint, ForeignK
 from sqlalchemy.orm import relationship, Session
 import re
 # our modules
-from helpers.database import DatabaseHandler
+from ..database import Base
 from .comment import Comment
 
-# helpers
-Base = DatabaseHandler.getBase()
+
 
 class Product(Base):
     __tablename__ = "products"

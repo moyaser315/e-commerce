@@ -2,10 +2,7 @@
 from sqlalchemy import Column, Integer, CheckConstraint, ForeignKey
 from sqlalchemy.orm import relationship
 # our modules
-from helpers.database import DatabaseHandler
-
-# helpers
-Base = DatabaseHandler.getBase()
+from ..database import Base
 
 class CartItem(Base):
     __tablename__ = "cartItems"

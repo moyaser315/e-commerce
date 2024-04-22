@@ -4,11 +4,11 @@ from sqlalchemy.orm import Session
 import re
 from passlib.context import CryptContext
 # our modules
-from helpers.database import DatabaseHandler
+from ..database import Base
 from .product import Product
 
 # helpers
-Base = DatabaseHandler.getBase()
+
 PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class Person(Base):
