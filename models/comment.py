@@ -15,10 +15,10 @@ class Comment(Base):
     
     # relations
     __productID: Mapped[int] = mapped_column("productID", ForeignKey("products.id"), nullable=False)
-    product: Mapped[Product] = relationship("Product", back_populates="comments")
+    product: Mapped[Product] = relationship(back_populates="comments")
     
     __userID: Mapped[int] = mapped_column("userID", ForeignKey("users.id"), nullable=False)
-    user: Mapped[User] = relationship("User", back_populates="comments")
+    user: Mapped[User] = relationship(back_populates="comments")
      
     
     # properties

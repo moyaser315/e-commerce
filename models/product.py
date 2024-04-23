@@ -21,10 +21,10 @@ class Product(Base):
     
     # relations
     __sellerID: Mapped[int] = mapped_column("sellerID", ForeignKey("sellers.id"), nullable=False)
-    seller: Mapped[Seller] = relationship("Seller", back_populates="products")
+    seller: Mapped[Seller] = relationship(back_populates="products")
     
-    comments = relationship("Comment", back_populates="product")
-    orderItems = relationship("OrderItem", back_populates="product")
+    comments: Mapped[list["Comment"]] = relationship(back_populates="product")
+    orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="product")
     
     # options
     __table_args__ = (  # may throw an error

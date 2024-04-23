@@ -17,7 +17,7 @@ class User(Base):
     __type: Mapped[str] = mapped_column("type", nullable=False)
     
     # relations
-    comments = relationship("Comment", back_populates="user")
+    comments: Mapped[list["Comment"]] = relationship(back_populates="user")
     
     # options
     __mapper_args__ = {

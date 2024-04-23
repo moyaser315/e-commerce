@@ -16,8 +16,8 @@ class Order(Base):
     
     # relations
     __buyerID: Mapped[int] = mapped_column("buyerID", ForeignKey("buyers.id"), nullable=False)
-    buyer: Mapped[Buyer] = relationship("Buyer", back_populates="orders")
-    orderItems = relationship("OrderItem", back_populates="order")
+    buyer: Mapped[Buyer] = relationship(back_populates="orders")
+    orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="order")
     
     # # options
     # __table_args__ = (

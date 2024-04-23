@@ -12,7 +12,7 @@ class Seller(User):
     __balance: Mapped[float] = mapped_column("balance", nullable=False, default=0)
     
     # relations
-    products = relationship("Product", back_populates="seller", cascade="delete")
+    products: Mapped[list["Product"]] = relationship(back_populates="seller", cascade="delete")
     
     # options
     __mapper_args__ = {

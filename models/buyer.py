@@ -11,8 +11,8 @@ class Buyer(User):
     __id: Mapped[int] = mapped_column("id", ForeignKey("users.id"), primary_key=True)
     
     # relations
-    orders = relationship("Order", back_populates="buyer")
-    cartItems = relationship("CartItem", back_populates="buyer")
+    orders: Mapped[list["Order"]] = relationship(back_populates="buyer")
+    cartItems: Mapped[list["CartItem"]] = relationship(back_populates="buyer")
     
     #options
     __mapper_args__ = {

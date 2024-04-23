@@ -16,10 +16,10 @@ class OrderItem(Base):
     
     # relations
     __productID: Mapped[int] = mapped_column("productID", ForeignKey("products.id"))
-    product: Mapped[Product] = relationship("Product", back_populates="orderItems")
+    product: Mapped[Product] = relationship(back_populates="orderItems")
     
     __orderID: Mapped[int] = mapped_column("orderID", ForeignKey("orders.id"), nullable=False)
-    order = relationship("Order", back_populates="orderItems")
+    order: Mapped["Order"] = relationship(back_populates="orderItems")
     
     # options
     __table_args__ = (
