@@ -1,30 +1,32 @@
 # modules
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.ext.hybrid import hybrid_property
 # our modules
-from helpers.database import DatabaseHandler
-
-# helpers
-Base = DatabaseHandler.getBase()
+from database import Base
+from .product import Product
+from .user import User
 
 class Comment(Base):
     __tablename__ = "comments"
     # attributes
-    __id = Column(Integer, primary_key=True, autoincrement=True, name="id")
-    __text = Column(String, nullable=False, name="text")
-    __productID = Column(Integer, ForeignKey("products.id"), nullable=False, name="productID")
-    __userID = Column(Integer, ForeignKey("users.id"), nullable=False, name="userID")
+    __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
+    __text: Mapped[str] = mapped_column("text", nullable=False)
     
     # relations
-    __product = relationship("Product", backref="__comments")
-    __user = relationship("User", backref="__comments")
+    __productID: Mapped[int] = mapped_column("productID", ForeignKey("products.id"), nullable=False)
+    product: Mapped[Product] = relationship("Product", back_populates="comments")
+    
+    __userID: Mapped[int] = mapped_column("userID", ForeignKey("users.id"), nullable=False)
+    user: Mapped[User] = relationship("User", back_populates="comments")
+     
     
     # properties
-    @property
+    @hybrid_property
     def id(self):
         return self.__id
     
-    @property
+    @hybrid_property
     def text(self):
         return self.__text
     
@@ -34,12 +36,8 @@ class Comment(Base):
             raise Exception("Comment can't be empty")
         
         self.__text = value
-        
-    @property
-    def user(self):
-        return self.__user
     
-    @property
+    @hybrid_property
     def userID(self):
         return self.__userID
     
@@ -53,11 +51,7 @@ class Comment(Base):
         
         self.__userID = value
     
-    @property
-    def product(self):
-        return self.__product
-    
-    @property
+    @hybrid_property
     def productID(self):
         return self.__productID
     
@@ -66,7 +60,7 @@ class Comment(Base):
         if (value is None or value < 0):
             raise Exception("Invalid product id")
         
-        if (self.userID):
+        if (self.productID):
             raise Exception("Can't override current product")
         
         self.__productID = value

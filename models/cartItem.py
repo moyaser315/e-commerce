@@ -1,35 +1,33 @@
 # modules
-from sqlalchemy import Column, Integer, CheckConstraint, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey, CheckConstraint
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.ext.hybrid import hybrid_property
 # our modules
-from helpers.database import DatabaseHandler
+from database import Base
+from .product import Product
+from .buyer import Buyer
 
-# helpers
-Base = DatabaseHandler.getBase()
 
 class CartItem(Base):
     __tablename__ = "cartItems"
     # attributes
-    __productID = Column(Integer, ForeignKey("products.id"), primary_key=True, name="productID")
-    __buyerID = Column(Integer, ForeignKey("buyers.id"), nullable=True, name="buyerID")
-    __quantity = Column(Integer, nullable=False, name="quantity")
+    __quantity: Mapped[int] = mapped_column("quantity", nullable=False)
     
+    # relations
+    __productID: Mapped[int] = mapped_column("productID", ForeignKey("products.id"), primary_key=True)
+    product: Mapped[Product] = relationship("Product")
+    
+    __buyerID: Mapped[int] = mapped_column("buyerID", ForeignKey("buyers.id"), nullable=True, primary_key=True)
+    buyer: Mapped[Buyer] = relationship("Buyer", back_populates="cartItems")
     
     # options
     __table_args__ = (
         CheckConstraint('quantity >= 1', name='min_cartItem_quantity'),
     )
     
-    # relations
-    __product = relationship("Product")
-    __buyer = relationship("Buyer", backref="__cartItems")
     
-    # properties
-    @property
-    def product(self):
-        return self.__product
-    
-    @property
+    # properties   
+    @hybrid_property
     def productID(self):
         return self.__productID
     
@@ -42,12 +40,8 @@ class CartItem(Base):
             raise Exception("Can't override product user")
         
         self.__productID = value
-        
-    @property
-    def buyer(self):
-        return self.__buyer
     
-    @property
+    @hybrid_property
     def buyerID(self):
         return self.__buyerID
     
