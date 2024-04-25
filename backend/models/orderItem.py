@@ -1,77 +1,66 @@
 # modules
-from sqlalchemy import Column, String, Integer, ForeignKey, Float, CheckConstraint
-from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey, CheckConstraint
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.ext.hybrid import hybrid_property
 # our modules
-from ..database import Base
+from database import Base
+from .product import Product
+
 
 class OrderItem(Base):
     __tablename__ = "orderItems"
     # attributes
-    __id = Column(Integer, primary_key=True, name="id")
-    __productName = Column(String, nullable= False, name="productName")
-    __productPrice = Column(Float, nullable=False, name="productPrice")
-    __quantity = Column(Integer, nullable=False, default=1, name="quantity")
-    __productID = Column(Integer, ForeignKey("products.id"), name="productID")
-    __orderID = Column(Integer, ForeignKey("orders.id"), nullable=False, name="orderID")
+    __id: Mapped[int] = mapped_column("id", primary_key=True)
+    __quantity: Mapped[int] = mapped_column("quantity", nullable=False)
+    __buyPrice: Mapped[float] = mapped_column("buyPrice", nullable=False)
+    
+    # relations
+    __productID: Mapped[int] = mapped_column("productID", ForeignKey("products.id"))
+    product: Mapped[Product] = relationship(back_populates="orderItems")
+    
+    __orderID: Mapped[int] = mapped_column("orderID", ForeignKey("orders.id"), nullable=False)
+    order: Mapped["Order"] = relationship(back_populates="orderItems")
     
     # options
     __table_args__ = (
         CheckConstraint('quantity >= 1', name='min_orderItem_quantity'),
     )
     
-    # relations
-    __product = relationship("Product", backref="__orderItems")
-    __order = relationship("Order", backref="__orderItems")
     
-    # functions
-    @property
-    def productName(self):
-        return self.__productName
+    # properties
+    @hybrid_property
+    def id(self):
+        return self.__id
     
-    @productName.setter
-    def productName(self, value: str):
-        value = value.strip()
-        if (value is None or value == ""):
-            raise Exception("Product Name can't be empty")
-        
-        if (self.productName):
-            raise Exception("Can't override product name")
-        
-        self.__productName = value
-    
-    @property
-    def productPrice(self):
-        return self.__productPrice
-    
-    @productPrice.setter
-    def productPrice(self, value: float):
-        if (value < 1):
-            raise Exception("Product price can't be smaller than 1")
-        
-        if (self.productPrice):
-            raise Exception("Can't override product price")
-        
-        self.__productPrice = value
-    
-    @property
+    @hybrid_property
     def quantity(self):
         return self.__quantity
     
     @quantity.setter
     def quantity(self, value: int):
-        if (value < 1):
+        if (value is None or value < 1):
             raise Exception("Quantity can't be smaller than 1")
         
         if (self.quantity):
             raise Exception("Can't override current quantity")
         
         self.__quantity = value
+        
+    @hybrid_property
+    def buyPrice(self):
+        return self.__buyPrice
     
-    @property
-    def product(self):
-        return self.__product
+    @buyPrice.setter
+    def buyPrice(self, value: int):
+        if (value is None or value < 1):
+            raise Exception("Buy Price can't be smaller than 1")
+        
+        if (self.buyPrice):
+            raise Exception("Can't override current buy price")
+        
+        self.__buyPrice = value
     
-    @property
+    @hybrid_property
     def productID(self):
         return self.__productID
     
@@ -85,11 +74,7 @@ class OrderItem(Base):
         
         self.__productID = value
         
-    @property
-    def order(self):
-        return self.__order
-        
-    @property
+    @hybrid_property
     def orderID(self):
         return self.__orderID
     
@@ -102,5 +87,3 @@ class OrderItem(Base):
             raise Exception("Can't override order id")
         
         self.__orderID = value
-        
-    

@@ -1,41 +1,44 @@
 # modules
-from sqlalchemy import Column, Integer, String, Float, CheckConstraint, ForeignKey
-from sqlalchemy.orm import relationship, Session
+from sqlalchemy import ForeignKey, CheckConstraint
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.ext.hybrid import hybrid_property
 import re
 # our modules
-from ..database import Base
-from .comment import Comment
-
+from database import Base
+from .seller import Seller
+# from .comment import Comment
 
 
 class Product(Base):
     __tablename__ = "products"
     # attributes
-    __id = Column(Integer, primary_key=True, autoincrement=True, name="id")
-    __name = Column(String, nullable=False, name="name")
-    __description = Column(String, nullable=False, name="description")
-    __price = Column(Float, nullable=False, name="price")
-    __quantity = Column(Integer, nullable=False, name="quantity")
-    __imgPath = Column(String, name="imgPath")    # see if you need to set nullable = false
-    __sellerID = Column(Integer, ForeignKey("sellers.id"), nullable=False, name="sellerID")
+    __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
+    __name: Mapped[str] = mapped_column("name", nullable=False)
+    __description: Mapped[str] = mapped_column("description", nullable=False)
+    __price: Mapped[float] = mapped_column("price", nullable=False)
+    __quantity: Mapped[int] = mapped_column("quantity", nullable=False)
+    __imgPath: Mapped[str] = mapped_column("imgPath", nullable=True)    # see if you need to set nullable = false
+    
+    # relations
+    __sellerID: Mapped[int] = mapped_column("sellerID", ForeignKey("sellers.id"), nullable=False)
+    seller: Mapped[Seller] = relationship(back_populates="products")
+    
+    comments: Mapped[list["Comment"]] = relationship(back_populates="product")
+    orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="product")
     
     # options
-    __table_args__ = (
+    __table_args__ = (  # may throw an error
         CheckConstraint('price >= 1', name='min_product_price'),
         CheckConstraint('quantity >= 0', name='min_product_quantity'),
     )
     
-    # relations
-    __comments = relationship("Comment", backref="__product")
-    __seller = relationship("Seller", backref="__products")
-    __orderItems = relationship("OrderItem", backref="__product")
     
     # properties
-    @property
+    @hybrid_property
     def id(self):
         return self.__id
     
-    @property
+    @hybrid_property
     def name(self):
         return self.__name
     
@@ -47,7 +50,7 @@ class Product(Base):
         
         self.__name = value
         
-    @property
+    @hybrid_property
     def description(self):
         return self.__description
     
@@ -59,29 +62,29 @@ class Product(Base):
         
         self.__description = value
         
-    @property
+    @hybrid_property
     def price(self):
         return self.__price
     
     @price.setter
     def price(self, value: float):
-        if (value < 1):
+        if (value is None or value < 1):
             raise Exception("Price needs to be at least 1")
         
         self.__price = value
     
-    @property
+    @hybrid_property
     def quantity(self):
         return self.__quantity
     
     @quantity.setter
     def quantity(self, value: int):
-        if (value < 0):
+        if (value is None or value < 0):
             raise Exception("Quantity can't be smaller than 0")
         
         self.__quantity = value
         
-    @property
+    @hybrid_property
     def imgPath(self):
         return self.__imgPath
     
@@ -92,41 +95,27 @@ class Product(Base):
             value = None
             
         self.__imgPath = value
-        
-    @property
-    def comments(self):
-        return self.__comments
     
-    @property
-    def seller(self):
-        return self.__seller
-    
-    @property
+    @hybrid_property
     def sellerID(self):
         return self.__sellerID
     
     @sellerID.setter
     def sellerID(self, value: int):
-        if (value < 0 or value is None):
+        if (value is None or value < 0):
             raise Exception("Invalid seller id")
         
-        if (self.sellerID):
-            raise Exception("Can't override current seller")
+    #     if (self.sellerID):
+    #         raise Exception("Can't override current seller")
         
-        self.__sellerID = value
-    
-    @property
-    def orderItems(self):
-        return self.__orderItems
+    #     self.__sellerID = value
     
     
-    # functions
-    def addComment(self, text: str, userID: int, db: Session):
-        comment = Comment(text = text, productID = self.id, userID = userID)
-        db.add(comment)
-        db.commit()
-        db.refresh(comment)
+    # # functions
+    # def addComment(self, text: str, userID: int, db: Session):
+    #     comment = Comment(text = text, productID = self.id, userID = userID)
+    #     db.add(comment)
+    #     db.commit()
+    #     db.refresh(comment)
         
-        return comment.id
-        
-        
+    #     return comment.id
