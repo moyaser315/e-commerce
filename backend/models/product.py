@@ -17,7 +17,7 @@ class Product(Base):
     __price = Column(Float, nullable=False, name="price")
     __quantity = Column(Integer, nullable=False, name="quantity")
     __imgPath = Column(String, name="imgPath")    # see if you need to set nullable = false
-    __sellerID = Column(Integer, ForeignKey("sellers.id"), nullable=False, name="sellerID")
+   # __sellerID = Column(Integer, ForeignKey("sellers.id"), nullable=False, name="sellerID")
     
     # options
     __table_args__ = (
@@ -26,8 +26,8 @@ class Product(Base):
     )
     
     # relations
-    __comments = relationship("Comment", backref="__product")
-    __seller = relationship("Seller", backref="__products")
+    #__comments = relationship("Comment", backref="__product")
+    #__seller = relationship("Seller", backref="__products")
     __orderItems = relationship("OrderItem", backref="__product")
     
     # properties
@@ -97,23 +97,23 @@ class Product(Base):
     def comments(self):
         return self.__comments
     
-    @property
-    def seller(self):
-        return self.__seller
+    # @property
+    # def seller(self):
+    #     return self.__seller
     
-    @property
-    def sellerID(self):
-        return self.__sellerID
+    # @property
+    # def sellerID(self):
+    #     return self.__sellerID
     
-    @sellerID.setter
-    def sellerID(self, value: int):
-        if (value < 0 or value is None):
-            raise Exception("Invalid seller id")
+    # @sellerID.setter
+    # def sellerID(self, value: int):
+    #     if (value < 0 or value is None):
+    #         raise Exception("Invalid seller id")
         
-        if (self.sellerID):
-            raise Exception("Can't override current seller")
+    #     if (self.sellerID):
+    #         raise Exception("Can't override current seller")
         
-        self.__sellerID = value
+    #     self.__sellerID = value
     
     @property
     def orderItems(self):

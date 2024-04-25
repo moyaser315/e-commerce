@@ -1,8 +1,8 @@
 # modules
 from sqlalchemy import Column, Integer, ForeignKey, Float, CheckConstraint, Date, func
-from sqlalchemy.orm import relationship, Session
+from sqlalchemy.orm import relationship
 # our modules
-from ..database import Base
+from ..database import Base,get_db
 
 class Order(Base):
     __tablename__ = "orders"
@@ -10,7 +10,7 @@ class Order(Base):
     __id = Column(Integer, primary_key=True, autoincrement=True, name="id")
     __orderDate = Column(Date, nullable=False, default=func.current_date(), name="orderDate")
     __totalCost = Column(Float, nullable= False, name="totalCost")
-    __buyerID = Column(Integer, ForeignKey("buyers.id"), nullable=False, name="buyerID")
+    #__buyerID = Column(Integer, ForeignKey("buyers.id"), nullable=False, name="buyerID")
     
     # options
     __table_args__ = (
@@ -18,7 +18,7 @@ class Order(Base):
     )
     
     # relations
-    __orderItems = relationship("OrderItem", backref="__order")
+    #__orderItems = relationship("OrderItem", backref="__order")
     __buyer = relationship("Buyer", backref="__orders")
     
     # properties
@@ -26,9 +26,9 @@ class Order(Base):
     def id(self):
         return self.__id
     
-    @property
-    def orderItems(self):
-        return self.__orderItems
+    # @property
+    # def orderItems(self):
+    #     return self.__orderItems
     
     @property
     def totalCost(self):
@@ -67,10 +67,10 @@ class Order(Base):
         self.__buyerID = value
     
     # functions
-    def getOrderItem(self, productID: int, db: Session):
-        pass
+    # def getOrderItem(self, productID: int):
+    #     pass
     
-    def addOrderItem(self, productID: int, quantity: int, db: Session):
-        pass
+    # def addOrderItem(self, productID: int, quantity: int):
+    #     pass
     
     
