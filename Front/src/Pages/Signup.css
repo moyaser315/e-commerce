@@ -1,17 +1,18 @@
 .signup {
   width: 100%;
-  height: 80vh;
+  height: 100vh;
   background: rgb(163, 163, 223);
   padding-top: 100px;
+  padding-bottom: 20px;
   margin-left: 0;
 }
 
 .signupContainer {
   width: 550px;
-  height: 600px;
+  height: 650px;
   background: white;
   margin: auto;
-  padding: 40px 60px;
+  padding: 50px 60px;
 }
 
 .signupContainer h1 {
