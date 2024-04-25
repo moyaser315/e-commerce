@@ -1,58 +1,54 @@
 # modules
-from sqlalchemy import Column, Integer, ForeignKey, Float, CheckConstraint, Date, func
-from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey, CheckConstraint, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.ext.hybrid import hybrid_property
+from datetime import date
 # our modules
-from ..database import Base,get_db
+from database import Base
+from .buyer import Buyer
 
 class Order(Base):
     __tablename__ = "orders"
     # attributes
-    __id = Column(Integer, primary_key=True, autoincrement=True, name="id")
-    __orderDate = Column(Date, nullable=False, default=func.current_date(), name="orderDate")
-    __totalCost = Column(Float, nullable= False, name="totalCost")
-    #__buyerID = Column(Integer, ForeignKey("buyers.id"), nullable=False, name="buyerID")
-    
-    # options
-    __table_args__ = (
-        CheckConstraint('totalCost >= 1', name='min_total_cost'),
-    )
+    __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
+    __orderDate: Mapped[date] = mapped_column("orderDate", nullable=False, default=func.current_date())
+    # __totalCost: Mapped[float] = mapped_column("totalCost", nullable= False)
     
     # relations
-    #__orderItems = relationship("OrderItem", backref="__order")
-    __buyer = relationship("Buyer", backref="__orders")
+    __buyerID: Mapped[int] = mapped_column("buyerID", ForeignKey("buyers.id"), nullable=False)
+    buyer: Mapped[Buyer] = relationship(back_populates="orders")
+    orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="order")
+    
+    # # options
+    # __table_args__ = (
+    #     CheckConstraint('totalCost >= 1', name='min_total_cost'),
+    # ) 
+    
     
     # properties
-    @property
+    @hybrid_property
     def id(self):
         return self.__id
     
-    # @property
-    # def orderItems(self):
-    #     return self.__orderItems
+    # @hybrid_property
+    # def totalCost(self):
+    #     return self.__totalCost
     
-    @property
-    def totalCost(self):
-        return self.__totalCost
-    
-    @totalCost.setter
-    def totalCost(self, value: float):
-        if (value < 1):
-            raise Exception("Total Price can't be smaller than 1")
+    # @totalCost.setter
+    # def totalCost(self, value: float):
+    #     if (value < 1):
+    #         raise Exception("Total Price can't be smaller than 1")
         
-        if (self.totalCost):
-            raise Exception("Can't override total cost")
+    #     if (self.totalCost):
+    #         raise Exception("Can't override total cost")
         
-        self.__totalCost = value
+    #     self.__totalCost = value
     
-    @property
+    @hybrid_property
     def orderDate(self):
         return self.__orderDate
     
-    @property
-    def buyer(self):
-        return self.__buyer
-    
-    @property
+    @hybrid_property
     def buyerID(self):
         return self.__buyerID
     
@@ -66,11 +62,10 @@ class Order(Base):
         
         self.__buyerID = value
     
-    # functions
-    # def getOrderItem(self, productID: int):
+    
+    # # functions
+    # def getOrderItem(self, productID: int, db: Session):
     #     pass
     
-    # def addOrderItem(self, productID: int, quantity: int):
+    # def addOrderItem(self, productID: int, quantity: int, db: Session):
     #     pass
-    
-    
