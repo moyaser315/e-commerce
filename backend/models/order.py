@@ -4,7 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import date
 # our modules
-from database import Base
+from ..database import Base
 from .buyer import Buyer
 
 class Order(Base):

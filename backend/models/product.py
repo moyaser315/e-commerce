@@ -4,7 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 import re
 # our modules
-from database import Base
+from ..database import Base
 from .seller import Seller
 # from .comment import Comment
 

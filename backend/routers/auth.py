@@ -26,3 +26,9 @@ def login(
         )
     token = create_access_token({"user_id" : user.id})
     return {"access_token": token, "token_type": "Bearer"}
+
+@router.post("/test",response_model=Token)
+def login(
+    user_cerd : OAuth2PasswordRequestForm = Depends()
+):
+    return {"access_token": user_cerd.username}
