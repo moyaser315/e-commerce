@@ -1,34 +1,24 @@
 # modules
-from sqlalchemy import Column, Integer, ForeignKey
-from sqlalchemy.orm import relationship, Session
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 # our modules
-from .specializedUser import SpecializedUser
-from ..database import Base
-# from .order import Order
+from .user import User
 
-class Buyer(SpecializedUser,Base):
-    __tablename__ = "buyers"    
+
+class Buyer(User):
+    __tablename__ = "buyers"
+    # attributes
+    __id: Mapped[int] = mapped_column("id", ForeignKey("users.id"), primary_key=True)
+    
     # relations
-    __user = relationship("User", backref="__buyerUser")
-    # __orders = relationship("Order", backref="__buyer")
-    # __cartItems = relationship("CartItem", backref="__buyer")
+    orders: Mapped[list["Order"]] = relationship(back_populates="buyer")
+    cartItems: Mapped[list["CartItem"]] = relationship(back_populates="buyer")
     
-    # functions
-    @property
-    def id(self):
-        return self.__id
+    #options
+    __mapper_args__ = {
+        "polymorphic_identity": "buyer",
+    }
     
-    # @property
-    # def orders(self):
-    #     return self.__orders
-    
-    @property
-    def user(self):
-        return self.__user
-    
-    # @property
-    # def cartItems(self):
-    #     return self.__cartItems
     
     # # functions
     # def getOrder(self, id: int, db: Session):
@@ -45,4 +35,3 @@ class Buyer(SpecializedUser,Base):
     
     # def removeFromCart(self, productID: int, quantity: int, db: Session):
     #     pass
-    
