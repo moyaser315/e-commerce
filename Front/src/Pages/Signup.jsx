@@ -60,7 +60,7 @@ const Singup = () => {
   return (
     <div className="signup">
       <div className="signupContainer">
-        <form onSubmit={registerUser}>
+        <form onSubmit={registerUser} method="post">
           <h1>Sign Up</h1>
           <div className="signupFields">
               <Select
