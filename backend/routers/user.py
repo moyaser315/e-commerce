@@ -1,6 +1,5 @@
 from ..schemas import person
 from .. import utils
-from ..models.person import Person
 from ..models.user import User
 from fastapi import status, HTTPException, Depends, APIRouter
 from ..database import get_db
