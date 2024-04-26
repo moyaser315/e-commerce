@@ -10,6 +10,7 @@ app =FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:8080",
+    "http://localhost:5173"
 ]
 
 app.add_middleware(
@@ -29,7 +30,7 @@ app.add_middleware(
 async def root():
     return {"message": "Hello World"}
 
-@app.post("login/test")
+@app.post("/login/test")
 def login(
     user_cerd : OAuth2PasswordRequestForm = Depends()
 ):
