@@ -5,7 +5,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 import re
 # our modules
 from ..database import Base
-from .seller import Seller
+# from .seller import Seller
 # from .comment import Comment
 
 
@@ -20,11 +20,11 @@ class Product(Base):
     __imgPath: Mapped[str] = mapped_column("imgPath", nullable=True)    # see if you need to set nullable = false
     
     # relations
-    __sellerID: Mapped[int] = mapped_column("sellerID", ForeignKey("sellers.id"), nullable=False)
-    seller: Mapped[Seller] = relationship(back_populates="products")
+    # __sellerID: Mapped[int] = mapped_column("sellerID", ForeignKey("sellers.id"), nullable=False)
+    # seller: Mapped[Seller] = relationship(back_populates="products")
     
-    comments: Mapped[list["Comment"]] = relationship(back_populates="product")
-    orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="product")
+    # comments: Mapped[list["Comment"]] = relationship(back_populates="product")
+    # orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="product")
     
     # options
     __table_args__ = (  # may throw an error
@@ -57,8 +57,8 @@ class Product(Base):
     @description.setter
     def description(self, value: str):  # check validation later
         value = value.strip()
-        if (value is None or value == "" or not re.match(r"^[a-zA-Z]+$", value)):
-            raise Exception("Description needs to be at least a character")
+        # if (value is None or value == "" or not re.match(r"^[a-zA-Z]+$", value)):
+        #     raise Exception("Description needs to be at least a character")
         
         self.__description = value
         
@@ -96,14 +96,14 @@ class Product(Base):
             
         self.__imgPath = value
     
-    @hybrid_property
-    def sellerID(self):
-        return self.__sellerID
+    # @hybrid_property
+    # def sellerID(self):
+    #     return self.__sellerID
     
-    @sellerID.setter
-    def sellerID(self, value: int):
-        if (value is None or value < 0):
-            raise Exception("Invalid seller id")
+    # @sellerID.setter
+    # def sellerID(self, value: int):
+    #     if (value is None or value < 0):
+    #         raise Exception("Invalid seller id")
         
     #     if (self.sellerID):
     #         raise Exception("Can't override current seller")
