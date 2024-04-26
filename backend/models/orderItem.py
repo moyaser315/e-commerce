@@ -3,7 +3,7 @@ from sqlalchemy import ForeignKey, CheckConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 # our modules
-from database import Base
+from ..database import Base
 from .product import Product
 
 
