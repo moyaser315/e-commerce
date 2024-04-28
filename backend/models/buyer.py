@@ -11,7 +11,6 @@ class Buyer(User):
     __tablename__ = "buyers"
     # attributes
     __id: Mapped[int] = mapped_column("id", ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
-
     # relations
     # orders: Mapped[list["Order"]] = relationship(back_populates="buyer")
     # cartItems: Mapped[list["CartItem"]] = relationship(back_populates="buyer")
