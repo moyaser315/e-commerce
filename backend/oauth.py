@@ -1,8 +1,8 @@
-from fastapi import Depends ,HTTPException ,status
+from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
-from jose import JWTError ,jwt
-from datetime import datetime,timedelta,UTC
+from jose import JWTError, jwt
+from datetime import datetime, timedelta, UTC
 from typing import Annotated
 
 
@@ -24,6 +24,7 @@ def create_access_token(data: dict):
 
     enc = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return enc
+
 
 def verify_access_token(
     token: Annotated[str, Depends(oauth2_scheme)], credentials_exception

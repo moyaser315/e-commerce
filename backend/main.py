@@ -1,20 +1,16 @@
-from fastapi import FastAPI , Depends
+from fastapi import FastAPI, Depends
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine
 from .models import product as db_product
-from .models import seller,user,buyer
-from .routers import product ,homepage ,auth
+from .models import seller, user, buyer
+from .routers import product, homepage, auth
 from .routers import user as routers_user
-app =FastAPI()
+
+app = FastAPI()
 
 
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-    "http://localhost:5173" ,
-    "*"
-]
+origins = ["http://localhost", "http://localhost:8080", "http://localhost:5173", "*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -42,4 +38,3 @@ app.include_router(homepage.router)
 app.include_router(product.router)
 app.include_router(routers_user.router)
 app.include_router(auth.router)
-
