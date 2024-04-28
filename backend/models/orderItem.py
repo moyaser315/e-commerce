@@ -16,7 +16,11 @@ class OrderItem(Base):
     __buyPrice: Mapped[float] = mapped_column("buyPrice", nullable=False)
 
     # relations
-    __productID: Mapped[int] = mapped_column("productID", ForeignKey("products.id", ondelete="SET NULL", onupdate="CASCADE"), nullable=True)
+    __productID: Mapped[int] = mapped_column(
+        "productID",
+        ForeignKey("products.id", ondelete="SET NULL", onupdate="CASCADE"),
+        nullable=True,
+    )
     product: Mapped[Product] = relationship(back_populates="orderItems")
 
     __orderID: Mapped[int] = mapped_column(

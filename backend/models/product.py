@@ -16,7 +16,9 @@ class Product(Base):
     # attributes
     __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
     __name: Mapped[str] = mapped_column("name", String(40), nullable=False)
-    __description: Mapped[str] = mapped_column("description", String(200), nullable=False)
+    __description: Mapped[str] = mapped_column(
+        "description", String(200), nullable=False
+    )
     __price: Mapped[float] = mapped_column("price", nullable=False)
     __quantity: Mapped[int] = mapped_column("quantity", nullable=False)
     __imgPath: Mapped[str] = mapped_column(

@@ -18,7 +18,7 @@ class User(Base):
         "email", unique=True, index=True, nullable=False
     )
     __password: Mapped[str] = mapped_column("password", nullable=False)
-    __mobile: Mapped[str] = mapped_column("mobile",unique=True, nullable=True)
+    __mobile: Mapped[str] = mapped_column("mobile", unique=True, nullable=True)
     __user_type: Mapped[str] = mapped_column("user_type", nullable=False)
 
     # relations

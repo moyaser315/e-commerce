@@ -12,7 +12,11 @@ from ..database import Base
 class Seller(User):
     __tablename__ = "sellers"
     # attributes
-    __id: Mapped[int] = mapped_column("id", ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
+    __id: Mapped[int] = mapped_column(
+        "id",
+        ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"),
+        primary_key=True,
+    )
     __balance: Mapped[float] = mapped_column("balance", nullable=False, default=0)
 
     # relations
