@@ -8,7 +8,7 @@ from .user import User
 class Buyer(User):
     __tablename__ = "buyers"
     # attributes
-    __id: Mapped[int] = mapped_column("id", ForeignKey("users.id"), primary_key=True)
+    __id: Mapped[int] = mapped_column("id", ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
     
     # relations
     orders: Mapped[list["Order"]] = relationship(back_populates="buyer")

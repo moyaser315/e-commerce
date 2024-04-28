@@ -8,11 +8,11 @@ from .user import User
 class Seller(User):
     __tablename__ = "sellers"
     # attributes
-    __id: Mapped[int] = mapped_column("id", ForeignKey("users.id"), primary_key=True)
+    __id: Mapped[int] = mapped_column("id", ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
     __balance: Mapped[float] = mapped_column("balance", nullable=False, default=0)
     
     # relations
-    products: Mapped[list["Product"]] = relationship(back_populates="seller", cascade="delete")
+    products: Mapped[list["Product"]] = relationship(back_populates="seller")
     
     # options
     __mapper_args__ = {

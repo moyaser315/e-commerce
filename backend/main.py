@@ -1,8 +1,8 @@
 from fastapi import FastAPI , Depends
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine
-from .models import product as db_product
+from .database import engine, Base
+from .models import product as db_product, admin, buyer, cartItem, comment, order, orderItem, seller, user
 from .routers import product ,homepage
 app =FastAPI()
 
@@ -20,7 +20,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-db_product.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 # person.Base.metadata.create_all(bind=engine)
 # user.Base.metadata.create_all(bind=engine)
 # buyer.Base.metadata.create_all(bind=engine)

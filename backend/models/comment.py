@@ -1,5 +1,5 @@
 # modules
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 # our modules
@@ -11,13 +11,13 @@ class Comment(Base):
     __tablename__ = "comments"
     # attributes
     __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
-    __text: Mapped[str] = mapped_column("text", nullable=False)
+    __text: Mapped[str] = mapped_column("text", String(100), nullable=False)
     
     # relations
-    __productID: Mapped[int] = mapped_column("productID", ForeignKey("products.id"), nullable=False)
+    __productID: Mapped[int] = mapped_column("productID", ForeignKey("products.id", ondelete="CASCADE", onupdate="CASCADE"), nullable=False)
     product: Mapped[Product] = relationship(back_populates="comments")
     
-    __userID: Mapped[int] = mapped_column("userID", ForeignKey("users.id"), nullable=False)
+    __userID: Mapped[int] = mapped_column("userID", ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"), nullable=False)
     user: Mapped[User] = relationship(back_populates="comments")
      
     
