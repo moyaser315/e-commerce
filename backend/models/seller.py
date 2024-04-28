@@ -2,9 +2,11 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.hybrid import hybrid_property
+
 # our modules
 from .user import User
-
+from ..database import Base
+# from .product import Product
 class Seller(User):
     __tablename__ = "sellers"
     # attributes

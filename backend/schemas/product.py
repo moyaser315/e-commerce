@@ -6,7 +6,8 @@ class Product(BaseModel):
     description : str
     price :  float 
     quantity : int
-    #imgPath : Optional[str] = None
+    # sellerID : Optional[int]
+    imgPath : Optional[str] = ""
     
     
 class GetProduct(Product):

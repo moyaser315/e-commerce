@@ -1,20 +1,25 @@
+from fastapi import status, HTTPException, Depends, APIRouter
+from sqlalchemy.orm import Session
+
+
 from ..schemas import person
 from .. import utils
-from ..models.user import User
-from fastapi import status, HTTPException, Depends, APIRouter
+from ..models import seller , buyer ,user
 from ..database import get_db
-from sqlalchemy.orm import Session
-from typing import List
+
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=person.GetPerson)
+
+@router.post("/signup", status_code=status.HTTP_201_CREATED, response_model=person.GetPerson)
 def create_user(user: person.CreatePerson, db: Session = Depends(get_db)):
 
     user.password = utils.hash(user.password)
-    
-    new_user = User(**user.model_dump())
+    if user.user_type == 'seller':
+        new_user = seller.Seller(**user.model_dump())
+    else :
+        new_user = buyer.Buyer(**user.model_dump())
     print(new_user)
     db.add(new_user)
     db.commit()
@@ -27,7 +32,7 @@ def create_user(user: person.CreatePerson, db: Session = Depends(get_db)):
 
 @router.get("/{id}", response_model=person.GetPerson)
 def get_user(id: int, db: Session = Depends(get_db)):
-    usr = db.query(User).filter(User.id == id).first()
+    usr = db.query(user.User).filter(user.User.id == id).first()
     if not usr:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

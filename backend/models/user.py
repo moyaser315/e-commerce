@@ -11,19 +11,21 @@ class User(Base):
     __tablename__ = "users"
     # attributes
     __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
-    __name: Mapped[str] = mapped_column("name", String(40), nullable=False)
-    __email: Mapped[str] = mapped_column("email", String(40), unique=True, index=True, nullable=False)
-    __password: Mapped[str] = mapped_column("password", String(20), nullable=False)
-    __mobile: Mapped[str] = mapped_column("mobile", String(20), nullable=True)
-    __type: Mapped[str] = mapped_column("type", String(10), nullable=False)
+
+    __name: Mapped[str] = mapped_column("name", nullable=False)
+    __email: Mapped[str] = mapped_column("email", unique=True, index=True, nullable=False)
+    __password: Mapped[str] = mapped_column("password", nullable=False)
+    __mobile: Mapped[str] = mapped_column("mobile", nullable=True)
+    __user_type: Mapped[str] = mapped_column("user_type", nullable=False)
+
     
     # relations
-    comments: Mapped[list["Comment"]] = relationship(back_populates="user")
+    # comments: Mapped[list["Comment"]] = relationship(back_populates="user")
     
     # options
     __mapper_args__ = {
         "polymorphic_identity": "user",
-        "polymorphic_on": __type,
+        "polymorphic_on": __user_type,
     }
     
     
@@ -79,22 +81,16 @@ class User(Base):
         self.__mobile = value
         
     @hybrid_property
-    def type(self):
-        return self.__type  
+    def user_type(self):
+        return self.__user_type  
+    
+    @user_type.setter
+    def user_type(self , value:str):
+        value = value.strip()
+        self.__user_type =value
 
 
     # functions
-    # def login(self, password: str):    # to be implemented
-    #     if (not PWD_CONTEXT.verify(password, self.__password)):
-    #         raise Exception("Invalid Password")
-        
-    #     pass    # login logic should go here
-    
-    # def getAllProducts(self, db: Session):   # return all products in the database
-    #     return db.query(Product).all()
-    
-    # def getProduct(self, id: int, db: Session):    # return product with the given id
-    #     return db.query(Product).filter(Product.id == id).first()
     
     # def makeComment(self, comment: str, productID: int, db: Session):
     #     product = db.query(Product).filter(Product.id == productID).first()
