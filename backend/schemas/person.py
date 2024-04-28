@@ -4,23 +4,28 @@ from pydantic import BaseModel, ConfigDict ,EmailStr
 
 
 
-
-
-class CreatePerson(BaseModel):
-   # model_config = ConfigDict(from_attributes=True)
+class PersonBase(BaseModel) :
     name: str
     email: EmailStr
+    mobile : str
+    user_type : str
+
+class CreatePerson(PersonBase):
     password: str
+
     
 
-class GetPerson(BaseModel):
+class GetPerson(PersonBase):
     model_config = ConfigDict(from_attributes=True)
-    name:str
-    email: EmailStr
-    created_at : datetime
+    id : int
+
     
 class Token(BaseModel):
     access_token: str
-    token_type : Optional[str] = "Bearer"
+    token_type: str
+
+
+class TokenData(BaseModel):
+    id: Optional[int] = None
     
     
