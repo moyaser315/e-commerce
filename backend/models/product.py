@@ -1,5 +1,5 @@
 # modules
-from sqlalchemy import ForeignKey, CheckConstraint
+from sqlalchemy import ForeignKey, CheckConstraint, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 import re
@@ -13,18 +13,18 @@ class Product(Base):
     __tablename__ = "products"
     # attributes
     __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
-    __name: Mapped[str] = mapped_column("name", nullable=False)
-    __description: Mapped[str] = mapped_column("description", nullable=False)
+    __name: Mapped[str] = mapped_column("name", String(40), nullable=False)
+    __description: Mapped[str] = mapped_column("description", String(200), nullable=False)
     __price: Mapped[float] = mapped_column("price", nullable=False)
     __quantity: Mapped[int] = mapped_column("quantity", nullable=False)
-    __imgPath: Mapped[str] = mapped_column("imgPath", nullable=True)    # see if you need to set nullable = false
+    __imgPath: Mapped[str] = mapped_column("imgPath", String(200), nullable=True)    # see if you need to set nullable = false
     
     # relations
     __sellerID: Mapped[int] = mapped_column("sellerID", ForeignKey("sellers.id"), nullable=False)
     seller: Mapped[Seller] = relationship(back_populates="products")
     
-    # comments: Mapped[list["Comment"]] = relationship(back_populates="product")
-    # orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="product")
+    comments: Mapped[list["Comment"]] = relationship(back_populates="product")
+    orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="product")
     
     # options
     __table_args__ = (  # may throw an error

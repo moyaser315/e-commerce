@@ -1,11 +1,13 @@
 from fastapi import FastAPI , Depends
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
+
 from .database import engine
 from .models import product as db_product
 from .models import seller,user,buyer
 from .routers import product ,homepage ,auth
 from .routers import user as routers_user
+
 app =FastAPI()
 
 
@@ -23,6 +25,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 db_product.Base.metadata.create_all(bind=engine)
 user.Base.metadata.create_all(bind=engine)

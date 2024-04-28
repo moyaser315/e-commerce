@@ -1,4 +1,5 @@
 # modules
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 import re
@@ -10,11 +11,13 @@ class User(Base):
     __tablename__ = "users"
     # attributes
     __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
+
     __name: Mapped[str] = mapped_column("name", nullable=False)
     __email: Mapped[str] = mapped_column("email", unique=True, index=True, nullable=False)
     __password: Mapped[str] = mapped_column("password", nullable=False)
     __mobile: Mapped[str] = mapped_column("mobile", nullable=True)
     __user_type: Mapped[str] = mapped_column("user_type", nullable=False)
+
     
     # relations
     # comments: Mapped[list["Comment"]] = relationship(back_populates="user")
