@@ -1,6 +1,6 @@
 import "./Signup.css";
 import { Link } from "react-router-dom";
-import Select from 'react-select'
+import Select from "react-select";
 import { useState } from "react";
 import axios from "axios";
 
@@ -9,27 +9,24 @@ import axios from "axios";
 // axios.get('/')
 
 const options = [
-  { value: 'Buyer', label: 'Buyer' },
-  { value: 'Seller', label: 'Seller' },
-]
+  { value: "Buyer", label: "Buyer" },
+  { value: "Seller", label: "Seller" },
+];
 
 const customStyles = {
   control: (provided) => ({
     ...provided,
-    border: '1px solid grey',
-    color: 'rgb(20, 45, 155)',
-    fontSize: '16px',
+    border: "1px solid grey",
+    color: "rgb(20, 45, 155)",
+    fontSize: "16px",
   }),
   singleValue: (provided) => ({
     ...provided,
-    color: 'rgb(20, 45, 155)',
+    color: "rgb(20, 45, 155)",
   }),
 };
 
-
-
-
-const Singup = () => {
+const Signup = () => {
   const [data, setData] = useState({
     accountType: "",
     name: "",
@@ -56,29 +53,64 @@ const Singup = () => {
     //   console.error('Error creating user', error);
     // }
     // console.log("User registered");
-  }
+  };
   return (
     <div className="signup">
       <div className="signupContainer">
         <form onSubmit={registerUser} method="post">
           <h1>Sign Up</h1>
           <div className="signupFields">
-              <Select
-                styles={customStyles}
-                options={options} 
-                placeholder="Account Type" 
-                value={options.find((option) => option.value === data.accountType)} 
-                onChange={(selectedOption) => setData({ ...data, accountType: selectedOption.value })}/>
-              <input type="text" placeholder="Your Name" value={data.name} onChange={(e) => setData({...data, name: e.target.value})}/>
-              <input type="email" placeholder="Email Address" value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
-              <input type="password" placeholder="Password" value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
-              <input type="password" placeholder="Re-enter password" value={data.confirmPassword} onChange={(e) => setData({...data, confirmPassword: e.target.value})}/>
+            <Select
+              styles={customStyles}
+              options={options}
+              placeholder="Account Type"
+              value={options.find(
+                (option) => option.value === data.accountType
+              )}
+              onChange={(selectedOption) =>
+                setData({ ...data, accountType: selectedOption.value })
+              }
+            />
+            <input
+              type="text"
+              placeholder="Your Name"
+              value={data.name}
+              onChange={(e) => setData({ ...data, name: e.target.value })}
+            />
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={data.password}
+              onChange={(e) => setData({ ...data, password: e.target.value })}
+            />
+            <input
+              type="password"
+              placeholder="Re-enter password"
+              value={data.confirmPassword}
+              onChange={(e) =>
+                setData({ ...data, confirmPassword: e.target.value })
+              }
+            />
           </div>
           <div className="agree">
-            <input type="checkbox" name="" id="" checked={data.agreesToConditions} onChange={(e) => setData({...data, agreesToConditions: e.target.checked})}/>
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              checked={data.agreesToConditions}
+              onChange={(e) =>
+                setData({ ...data, agreesToConditions: e.target.checked })
+              }
+            />
             <p>By continuing, I agree to the terms of use & privacy policy.</p>
           </div>
-        <button type="submit">Continue</button>
+          <button type="submit">Continue</button>
         </form>
         <p className="loginDirect">
           Already have an account ?
@@ -91,4 +123,4 @@ const Singup = () => {
   );
 };
 
-export default Singup;
+export default Signup;
