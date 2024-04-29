@@ -4,15 +4,15 @@ import "./Categories.css";
 const Categories = () => {
   return (
     <div className="category-selection">
-      <button>
-        <Link to="/electronics">Electronics & Devices</Link>
-      </button>
-      <button>
-        <Link to="/clothes">Clothes</Link>
-      </button>
-      <button>
-        <Link to="/accessories">Accessories</Link>
-      </button>
+      <Link to="/electronics">
+        <button>Electronics & Devices</button>
+      </Link>
+      <Link to="/clothes">
+        <button>Clothes</button>
+      </Link>
+      <Link to="/accessories">
+        <button>Accessories</button>
+      </Link>
       {/* Add more categories as needed */}
     </div>
   );

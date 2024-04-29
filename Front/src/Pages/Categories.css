@@ -10,10 +10,10 @@
   
   .category-selection ul {
     list-style-type: none;
-    padding: 0;
+    padding: 5;
   }
   
-  .category-selection button {
+  .category-selection a button {
     padding: 5px;
     outline: none;
     border: 1px solid grey;
@@ -23,12 +23,6 @@
     font-weight: 500;
     background: white;
     cursor: pointer;
-  }
-  
-  .category-selection button a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.2rem;
   }
   
   .category-selection button:hover{
