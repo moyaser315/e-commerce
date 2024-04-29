@@ -5,8 +5,9 @@ import Login from "./Pages/Login";
 import Product from "./Pages/Product";
 import Profile from "./Pages/Profile";
 import Signup from "./Pages/Signup";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ShopCategory from "./Pages/ShopCategory.jsx";
+
 function App() {
   return (
     <div>
@@ -14,8 +15,20 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/products" element={<Product />}>
-            <Route path=":productID" element={<Product />} />
+          <Route
+            path="/electronics"
+            element={<ShopCategory category="Electronics" />}
+          />
+          <Route
+            path="/clothes"
+            element={<ShopCategory category="Clothes" />}
+          />
+          <Route
+            path="/accessories"
+            element={<ShopCategory category="Accessories" />}
+          />
+          <Route path="/product" element={<Product />}>
+            <Route path=":productId" element={<Product />} />
           </Route>
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
