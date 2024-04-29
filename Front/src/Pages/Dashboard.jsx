@@ -1,21 +1,26 @@
-import Card from "./Card.jsx";
-import Categories from "./Categories.jsx";
-import photo from "../../public/iphone.jpeg";
+import Item from "../Components/Item/Item.jsx";
+import Categories from "../Components/Categories/Categories.jsx";
 import "./Dashboard.css";
+import data_product from "../assets/data.js";
 
 const Dashboard = () => {
   return (
     <div>
       <Categories />
       <div className="cards">
-        <Card image={photo} name="Name" description="Description" price="100" />
-        <Card image={photo} name="Name" description="Description" price="100" />
-        <Card image={photo} name="Name" description="Description" price="100" />
-        <Card image={photo} name="Name" description="Description" price="100" />
-        <Card image={photo} name="Name" description="Description" price="100" />
-        <Card image={photo} name="Name" description="Description" price="100" />
-        <Card image={photo} name="Name" description="Description" price="100" />
-        <Card image={photo} name="Name" description="Description" price="100" />
+        {data_product.map((item, i) => {
+          return (
+            <Item
+              key={i}
+              id={item.id}
+              name={item.name}
+              image={item.image}
+              description={item.description}
+              price={item.price}
+              category={item.category}
+            />
+          );
+        })}
       </div>
     </div>
   );
