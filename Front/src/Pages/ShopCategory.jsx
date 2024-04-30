@@ -3,6 +3,7 @@ import PropTypes from "prop-types"; // Import PropTypes
 import { ShopContext } from "../Context/ShopContext";
 import Item from "../Components/Item/Item.jsx";
 import Categories from "../Components/Categories/Categories.jsx";
+import "./ShopCategory.css";
 
 const ShopCategory = (props) => {
   const { all_product } = useContext(ShopContext);
