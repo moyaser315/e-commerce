@@ -1,5 +1,6 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, ConfigDict
+from .person import GetPerson
 
 
 class Product(BaseModel):
@@ -13,5 +14,10 @@ class Product(BaseModel):
 
 class GetProduct(Product):
     id: int
-    imgPath: Optional[str] = None
+    model_config = ConfigDict(from_attributes=True)
+
+
+class GetDashboard(BaseModel):
+    product: List[GetProduct]
+    user_info: GetPerson
     model_config = ConfigDict(from_attributes=True)

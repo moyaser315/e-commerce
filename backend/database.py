@@ -6,11 +6,14 @@ from .config import settings
 
 # constants
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+# f"postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}"
 # SQLALCHEMY_DATABASE_URL = "mysql://user:password@localhost/shop"
 
 # setup database
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
 
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

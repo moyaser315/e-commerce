@@ -1,16 +1,24 @@
 from fastapi import APIRouter, HTTPException, Response, status, Depends
 from sqlalchemy.orm import Session
-from typing import List, Optional
+from typing import Optional
 
 from ..database import get_db
 from ..models import product as model
+from ..models import user as user_type
 from ..schemas import product as schema
 from .. import oauth
 
 router = APIRouter(prefix="/dashboard", tags=["dealing with products"])
 
 
-@router.get("/", response_model=List[schema.GetProduct])
+def get_info(db: Session, current_user) -> schema.GetPerson:
+    user_info = (
+        db.query(user_type.User).filter(current_user.id == user_type.User.id).first()
+    )
+    return user_info
+
+
+@router.get("/", response_model=schema.GetDashboard)
 async def get_products(
     db: Session = Depends(get_db),
     limit: int = 20,
@@ -28,7 +36,13 @@ async def get_products(
         .offset(page * limit)
         .all()
     )
-    return items
+
+    user_info = get_info(db, current_user)
+    items = [schema.GetProduct.model_validate(item) for item in items]
+    user_info = schema.GetPerson.model_validate(user_info)
+    print(user_info)
+    ret = schema.GetDashboard(product=items, user_info=user_info)
+    return ret
 
 
 @router.post("/additem", response_model=schema.GetProduct)
