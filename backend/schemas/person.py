@@ -6,7 +6,6 @@ from pydantic import BaseModel, ConfigDict, EmailStr
 class PersonBase(BaseModel):
     name: str
     email: EmailStr
-    mobile: str
     user_type: str
 
 
