@@ -19,6 +19,7 @@ async def get_products(
     current_user=Depends(oauth.get_current_user),
 ):
     current_user = user_scheme.GetPerson.model_validate(current_user)
+    
     items = (
         db.query(model.CartItem)
         .filter(model.CartItem.buyerID == current_user.id)
@@ -39,6 +40,11 @@ async def add_item(
     orig_quan = (
         db.query(model.Product).filter(model.Product.id == item.productID).first()
     )
+    
+    if current_user.user_type == "seller" :
+        if orig_quan.sellerID == current_user.id :
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN ,detail = "you can't buy your own items")
+    
 
     if not orig_quan:
         raise HTTPException(
@@ -81,7 +87,6 @@ def delete_item(
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth.get_current_user),
 ):
-    pass
     query_item = db.query(model.CartItem).filter(model.CartItem.productID == id)
     del_item = query_item.first()
     if not del_item:
@@ -90,6 +95,8 @@ def delete_item(
         )
     if del_item.buyerID != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
+    pro = db.query(model.Product).filter(model.Product.id == del_item.productID).first()
+    pro.quantity += del_item.quantity
     query_item.delete(False)
     db.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)

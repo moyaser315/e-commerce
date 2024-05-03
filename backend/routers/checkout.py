@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends ,HTTPException, status
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import cartItem as cart_model
@@ -16,11 +16,14 @@ async def get_products(
     current_user=Depends(oauth.get_current_user),
 ):
 
-    items = (
+    items_query = (
         db.query(cart_model.CartItem)
         .filter(cart_model.CartItem.buyerID == current_user.id)
-        .all()
+        
     )
+    items = items_query.all()
+    if not items :
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN , detail = "please add items to cart first")
     cur_order = order.Order(buyerID=current_user.id, totalCost=1.0)
     db.add(cur_order)
     db.commit()
@@ -47,6 +50,7 @@ async def get_products(
         db.add(new_item)
 
     current_user.balance -= cur_order.totalCost
+    items_query.delete(False)
     db.commit()
     db.refresh(cur_order)
     print(current_user.email, current_user.balance)
@@ -56,6 +60,6 @@ async def get_products(
     ]
 
     cur_order = schema.OrderCheckOut.model_validate(
-        {"totalCost": cur_order.totalCost, "order_item": cur_order_items}
+        {"totalCost": cur_order.totalCost, "order_item": cur_order_items ,"id":cur_order.id}
     )
     return cur_order

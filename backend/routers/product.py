@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Response, status, Depends
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from typing import Optional, Union
 
@@ -32,7 +33,7 @@ async def get_products(
             db.query(model.Product)
             .filter(
                 model.Product.sellerID == current_user.id,
-            )
+            ).order_by(model.Product.id)
             .limit(limit=limit)
             .offset(page * limit)
             .all()
@@ -46,7 +47,7 @@ async def get_products(
             .filter(
                 model.Product.name.contains(search),
                 order_model.Order.buyerID == current_user.id,
-            )
+            ).order_by(desc(order_model.Order.id))
             .all()
         )
         if not items:
@@ -64,10 +65,13 @@ async def add_item(
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth.get_current_user),
 ):
-    ## TODO : quey first if product exist in user and raise exeption
+
+    if current_user.user_type != "seller" :
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN ,detail="not allowed")
+    # pro = db.query(model.Product).filter(model.Product.name == item.name)
     new_item = model.Product(
         sellerID=current_user.id, **item.model_dump()
-    )  # TODO : sellerID == current_user.id
+    )  
     db.add(new_item)
     db.commit()
     db.refresh(new_item)
@@ -114,12 +118,12 @@ def update_item(
     return query_item.first()
 
 
-# TODO get order details
+
 @router.get("/{id}", response_model=order_schema.OrderCheckOut)
 async def get_order(
+    id : int ,
     db: Session = Depends(get_db),
-    search: Optional[str] = "",
-    current_user=Depends(oauth.get_current_user),
+    current_user=Depends(oauth.get_current_user)
 ):
     current_user = schema.GetPerson.model_validate(current_user)
     ret = None
@@ -127,15 +131,19 @@ async def get_order(
     items = (
         db.query(order_model.Order)
         .filter(
-            model.Product.name.contains(search),
-            order_model.Order.buyerID == current_user.id,
+            order_model.Order.id == id
         )
-        .all()
+        .first()
     )
+    print(items.id)
     if not items:
-        ret = schema.GetPerson.model_validate(current_user)
-    else:
-        items = [order_schema.OrderInfo.model_validate(item) for item in items]
-        ret = order_schema.OrderDashboard(user_info=current_user, order_info=items)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND ,detail="please use the interface")
+    cur_order_items = items.orderItems
+    cur_order_items = [
+        order_schema.OrderItem.model_validate(item) for item in cur_order_items
+    ]
+    ret = order_schema.OrderCheckOut.model_validate(
+        {"totalCost": items.totalCost, "order_item": cur_order_items ,"id":items.id}
+    )
 
     return ret
