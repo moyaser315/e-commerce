@@ -3,7 +3,7 @@ import { ShopContext } from "../Context/ShopContext";
 import { useParams } from "react-router-dom";
 import ProductDisplay from "../Components/ProductDisplay/ProductDisplay";
 import DescriptionBox from "../Components/DescriptionBox/DescriptionBox";
-// import RelatedProducts from "../Components/RelatedProducts/RelatedProducts";
+import RelatedProducts from "../Components/RelatedProducts/RelatedProducts";
 
 const Product = () => {
   const { all_product } = useContext(ShopContext);
