@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .database import engine
 from .models import product as db_product
-from .models import seller, user, buyer, cartItem ,order ,orderItem
-from .routers import product, homepage, auth, cartItems ,checkout
+from .models import seller, user, buyer, cartItem, order, orderItem
+from .routers import product, homepage, auth, cartItems, checkout
 from .routers import user as routers_user
 
 app = FastAPI()

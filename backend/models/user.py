@@ -12,7 +12,7 @@ class User(Base):
     __tablename__ = "users"
     # attributes
     __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
-    __balance: Mapped[float] = mapped_column("balance", nullable=True ,default=0)
+    __balance: Mapped[float] = mapped_column("balance", nullable=True, default=0)
     __name: Mapped[str] = mapped_column("name", nullable=False)
     __email: Mapped[str] = mapped_column(
         "email", unique=True, index=True, nullable=False

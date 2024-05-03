@@ -17,7 +17,7 @@ class Seller(User):
         ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"),
         primary_key=True,
     )
-    #__balance: Mapped[float] = mapped_column("balance", nullable=False, default=0)
+    # __balance: Mapped[float] = mapped_column("balance", nullable=False, default=0)
 
     # relations
     products: Mapped[list["Product"]] = relationship(

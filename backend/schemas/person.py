@@ -7,7 +7,7 @@ class PersonBase(BaseModel):
     name: str
     email: EmailStr
     user_type: str
-    balance : Optional[float] = 0.0
+    balance: Optional[float] = 0.0
 
 
 class CreatePerson(PersonBase):
