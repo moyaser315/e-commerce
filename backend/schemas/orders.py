@@ -19,6 +19,7 @@ class OrderItem(BaseModel):
 
 class OrderCheckOut(BaseModel):
     order_item: List[OrderItem]
+    id: int
     totalCost: float
     model_config = ConfigDict(from_attributes=True)
 
