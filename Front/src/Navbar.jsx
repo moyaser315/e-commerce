@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
 import cart_icon from "/cart_icon.jpg";
 import logo from "/R.png";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ShopContext } from "./Context/ShopContext";
-import MultiSearch from "./Pages/Search";
 
 const Navbar = () => {
   const { getTotalCartItems } = useContext(ShopContext);
- 
   return (
     <div className="navbar">
       <div className="nave-logo">
@@ -34,7 +32,6 @@ const Navbar = () => {
           <hr />
         </li>
       </ul>
-      <MultiSearch />
       <div className="nav-cart-login-signup">
         <Link to="/login">
           <button>Login</button>
@@ -52,8 +49,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-
