@@ -8,7 +8,7 @@ const MultiSearch = () => {
   const handleSearch = async () => {
     try {
       // Fetch data from the API
-      const response = await fetch(`YOUR_API_ENDPOINT?q=${searchTerm}`);
+      const response = await fetch(`localhost:8000?search=${searchTerm}`);
       const data = await response.json();
 
       // Perform the search operation on the fetched data
