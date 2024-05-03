@@ -31,8 +31,9 @@ async def get_products(
     return items
 
 
-@router.post("/", response_model=schema.CartItems)
+@router.post("/{id}", response_model=schema.CartItems)
 async def add_item(
+    id:int ,
     item: schema.CartItems,
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth.get_current_user),
