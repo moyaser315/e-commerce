@@ -8,6 +8,7 @@ import Signup from "./Pages/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ShopCategory from "./Pages/ShopCategory.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
+import MultiSearch from "./Pages/Search.jsx";
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
+
+          <Route path="/search" element={<MultiSearch />} />
         </Routes>
         <Footer />
       </BrowserRouter>
