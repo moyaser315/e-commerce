@@ -1,47 +1,58 @@
 from fastapi import APIRouter, HTTPException, Response, status, Depends
 from sqlalchemy.orm import Session
-from typing import Optional
+from typing import Optional ,Union
 
 from ..database import get_db
 from ..models import product as model
-from ..models import user as user_type
+from ..models import order as order_model
 from ..schemas import product as schema
+from ..schemas import orders as order_schema
 from .. import oauth
 
 router = APIRouter(prefix="/dashboard", tags=["dealing with products"])
 
 
-def get_info(db: Session, current_user) -> schema.GetPerson:
-    user_info = (
-        db.query(user_type.User).filter(current_user.id == user_type.User.id).first()
-    )
-    return user_info
-
-
-@router.get("/", response_model=schema.GetDashboard)
+@router.get("/", response_model=Union[schema.GetDashboard , order_schema.OrderDashboard , schema.GetPerson])
 async def get_products(
     db: Session = Depends(get_db),
     limit: int = 20,
     page: int = 0,
     search: Optional[str] = "",
-    current_user: int = Depends(oauth.get_current_user),
+    current_user=Depends(oauth.get_current_user),
 ):
-    items = (
-        db.query(model.Product)
-        .filter(
-            model.Product.name.contains(search),
-            model.Product.sellerID == current_user.id,
+    current_user = schema.GetPerson.model_validate(current_user)
+    ret =None
+    if current_user.user_type == "seller":
+        items = (
+            db.query(model.Product)
+            .filter(
+                model.Product.sellerID == current_user.id,
+            )
+            .limit(limit=limit)
+            .offset(page * limit)
+            .all()
         )
-        .limit(limit=limit)
-        .offset(page * limit)
-        .all()
-    )
+        items = [schema.GetProduct.model_validate(item) for item in items]
+        ret = schema.GetDashboard(product=items, user_info=current_user)
 
-    user_info = get_info(db, current_user)
-    items = [schema.GetProduct.model_validate(item) for item in items]
-    user_info = schema.GetPerson.model_validate(user_info)
-    print(user_info)
-    ret = schema.GetDashboard(product=items, user_info=user_info)
+    else :
+        items = (
+            db.query(order_model.Order)
+            .filter(
+                model.Product.name.contains(search),
+                order_model.Order.buyerID == current_user.id
+            )
+            .all()
+        )
+        if not items :
+            ret = schema.GetPerson.model_validate(current_user)
+        else :
+            items = [order_schema.OrderInfo.model_validate(item) for item in items]
+            ret = order_schema.OrderDashboard(user_info=current_user,order_info=items)
+        
+
+
+    
     return ret
 
 

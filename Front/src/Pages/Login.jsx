@@ -36,7 +36,7 @@ const Login = () => {
     // .catch(error => console.error('Error:', error));
     try {
       const response = await axios.post(
-        "http://localhost:8000/login/test",
+        "http://localhost:8000/users/login/",
         qs.stringify({
           username: data.email,
           password: data.password,

@@ -16,7 +16,7 @@ class Order(Base):
     __orderDate: Mapped[date] = mapped_column(
         "orderDate", nullable=False, default=func.current_date()
     )
-    # __totalCost: Mapped[float] = mapped_column("totalCost", nullable= False)
+    __totalCost: Mapped[float] = mapped_column("totalCost", nullable= False)
 
     # relations
     __buyerID: Mapped[int] = mapped_column(
@@ -26,28 +26,22 @@ class Order(Base):
     orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="order")
 
     # # options
-    # __table_args__ = (
-    #     CheckConstraint('totalCost >= 1', name='min_total_cost'),
-    # )
+    __table_args__ = (
+        CheckConstraint('totalCost >= 1', name='min_total_cost'),
+    )
 
     # properties
     @hybrid_property
     def id(self):
         return self.__id
 
-    # @hybrid_property
-    # def totalCost(self):
-    #     return self.__totalCost
+    @hybrid_property
+    def totalCost(self):
+        return self.__totalCost
 
-    # @totalCost.setter
-    # def totalCost(self, value: float):
-    #     if (value < 1):
-    #         raise Exception("Total Price can't be smaller than 1")
-
-    #     if (self.totalCost):
-    #         raise Exception("Can't override total cost")
-
-    #     self.__totalCost = value
+    @totalCost.setter
+    def totalCost(self, value: float):
+        self.__totalCost = value
 
     @hybrid_property
     def orderDate(self):

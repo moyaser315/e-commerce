@@ -32,7 +32,7 @@ class Product(Base):
     seller: Mapped[Seller] = relationship(back_populates="products")
 
     # comments: Mapped[list["Comment"]] = relationship(back_populates="product")
-    # orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="product")
+    orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="product")
 
     # options
     __table_args__ = (  # may throw an error

@@ -12,13 +12,13 @@ class User(Base):
     __tablename__ = "users"
     # attributes
     __id: Mapped[int] = mapped_column("id", primary_key=True, autoincrement=True)
-
+    __balance: Mapped[float] = mapped_column("balance", nullable=True ,default=0)
     __name: Mapped[str] = mapped_column("name", nullable=False)
     __email: Mapped[str] = mapped_column(
         "email", unique=True, index=True, nullable=False
     )
     __password: Mapped[str] = mapped_column("password", nullable=False)
-    __mobile: Mapped[str] = mapped_column("mobile", unique=True, nullable=True)
+    # __mobile: Mapped[str] = mapped_column("mobile", unique=True, nullable=True)
     __user_type: Mapped[str] = mapped_column("user_type", nullable=False)
 
     # relations
@@ -62,6 +62,14 @@ class User(Base):
         self.__email = value
 
     @hybrid_property
+    def balance(self):
+        return self.__balance
+
+    @balance.setter
+    def balance(self, value: str):  # come back and verify
+        self.__balance = value
+
+    @hybrid_property
     def password(self):
         return self.__password
 
@@ -75,17 +83,17 @@ class User(Base):
 
         self.__password = value
 
-    @hybrid_property
-    def mobile(self):
-        return self.__mobile
+    # @hybrid_property
+    # def mobile(self):
+    #     return self.__mobile
 
-    @mobile.setter
-    def mobile(self, value: str):  # come back and verify
-        value = value.strip()
-        # if (value is None or not re.match(r"^[0-9]+$", value)):
-        #     raise Exception("Invalid mobile number")
+    # @mobile.setter
+    # def mobile(self, value: str):  # come back and verify
+    #     value = value.strip()
+    #     # if (value is None or not re.match(r"^[0-9]+$", value)):
+    #     #     raise Exception("Invalid mobile number")
 
-        self.__mobile = value
+    #     self.__mobile = value
 
     @hybrid_property
     def user_type(self):

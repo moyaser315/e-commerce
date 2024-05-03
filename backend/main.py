@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .database import engine
 from .models import product as db_product
-from .models import seller, user, buyer
-from .routers import product, homepage, auth
+from .models import seller, user, buyer, cartItem ,order ,orderItem
+from .routers import product, homepage, auth, cartItems ,checkout
 from .routers import user as routers_user
 
 app = FastAPI()
@@ -26,7 +26,9 @@ db_product.Base.metadata.create_all(bind=engine)
 user.Base.metadata.create_all(bind=engine)
 buyer.Base.metadata.create_all(bind=engine)
 seller.Base.metadata.create_all(bind=engine)
-
+cartItem.Base.metadata.create_all(bind=engine)
+orderItem.Base.metadata.create_all(bind=engine)
+order.Base.metadata.create_all(bind=engine)
 # @app.get("/")
 # async def root():
 #     return {"message": "Hello World"}
@@ -40,3 +42,5 @@ app.include_router(homepage.router)
 app.include_router(product.router)
 app.include_router(routers_user.router)
 app.include_router(auth.router)
+app.include_router(cartItems.router)
+app.include_router(checkout.router)
