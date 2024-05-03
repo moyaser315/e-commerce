@@ -17,7 +17,7 @@ class Seller(User):
         ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"),
         primary_key=True,
     )
-    __balance: Mapped[float] = mapped_column("balance", nullable=False, default=0)
+    #__balance: Mapped[float] = mapped_column("balance", nullable=False, default=0)
 
     # relations
     products: Mapped[list["Product"]] = relationship(
@@ -30,16 +30,16 @@ class Seller(User):
     }
 
     # properties
-    @hybrid_property
-    def balance(self):
-        return self.__balance
+    # @hybrid_property
+    # def balance(self):
+    #     return self.__balance
 
-    @balance.setter
-    def balance(self, value: float):
-        if value is None or value < 0:
-            raise Exception("Balance can't be smaller than 0")
+    # @balance.setter
+    # def balance(self, value: float):
+    #     if value is None or value < 0:
+    #         raise Exception("Balance can't be smaller than 0")
 
-        self.__balance = value
+    #     self.__balance = value
 
     # # functions
     # def getSellingProduct(self, id: int, db: Session):
