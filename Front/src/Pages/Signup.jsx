@@ -1,12 +1,9 @@
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useState } from "react";
 import axios from "axios";
 
-// axios.default.baseURL = "http://localhost:8000";
-// axios.defaults.withCredentials = true;
-// axios.get('/')
 
 const options = [
   { value: "Buyer", label: "Buyer" },
@@ -26,6 +23,7 @@ const customStyles = {
   }),
 };
 
+
 const Signup = () => {
   const [data, setData] = useState({
     accountType: "",
@@ -35,24 +33,51 @@ const Signup = () => {
     confirmPassword: "",
     agreesToConditions: false,
   });
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
+  const validateUsername = (name) => {
+    return name.length >=3 && !/\s/.test(name);
+  }
   const registerUser = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
     if (data.password !== data.confirmPassword) {
-      alert("Passwords do not match");
+      setErrorMessage("Passwords do not match");
       return;
     }
     if (!data.agreesToConditions) {
-      alert("You must agree to the terms and conditions");
+      setErrorMessage("Please agree to the terms and conditions")
       return;
     }
-    // try {
-    //   const response = await axios.post('http://localhost:8000/users/', data);
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.error('Error creating user', error);
-    // }
-    // console.log("User registered");
+    if (!validateUsername(data.name)) {
+      setErrorMessage("Username must be at least 3 characters long and contain no spaces")
+      return;
+    }
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/users/signup',
+        {
+          name: data.name,
+          email: data.email,
+          user_type: data.accountType,
+          balance: 0,
+          password: data.password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      console.log(response.data);
+      console.log("User registered");
+      navigate("/login");
+      alert("User registered successfully, Please login to your account.")
+    } catch (error) {
+      console.error('Error creating user', error.response);
+      setErrorMessage("An error occured while creating the user. Please try again.")
+    }
   };
   return (
     <div className="signup">
@@ -110,6 +135,7 @@ const Signup = () => {
             />
             <p>By continuing, I agree to the terms of use & privacy policy.</p>
           </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
           <button type="submit">Continue</button>
         </form>
         <p className="loginDirect">

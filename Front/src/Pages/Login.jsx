@@ -8,39 +8,15 @@ const Login = () => {
     email: "",
     password: "",
   });
-  // const requestOptions = {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify(data),
-  // }
-  // const submitLogin = async () => {
-  //   const response = await fetch("http://localhost:8000/login/test", requestOptions);
-  //   const data = await response.json();
-  // }
   const loginUser = async (e) => {
     e.preventDefault();
-    // submitLogin();
-    // axios.post("http://localhost:8000/login/test", {
-    //   username: data.email,
-    //   password: data.password,
-    // })
-    // fetch("http://localhost:8000/login/test", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "'application/x-www-form-urlencoded'",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data))
-    // .catch(error => console.error('Error:', error));
     try {
       const response = await axios.post(
-        "http://localhost:8000/login/test",
-        qs.stringify({
+        "http://localhost:8000/users/login/",
+        {
           username: data.email,
           password: data.password,
-        }),
+        },
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
