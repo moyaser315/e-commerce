@@ -24,16 +24,16 @@ async def get_products(
     limit: int = 20,
     page: int = 0,
     search: Optional[str] = "",
+    cat: Optional[str] = "",
     current_user=Depends(oauth.get_current_user),
 ):
     current_user = schema.GetPerson.model_validate(current_user)
     ret = None
-    if current_user.user_type == "seller":
+    if current_user.user_type.lower() == "seller":
         items = (
             db.query(model.Product)
-            .filter(
-                model.Product.sellerID == current_user.id,
-            ).order_by(model.Product.id)
+            .filter(model.Product.sellerID == current_user.id, model.Product.cat == cat)
+            .order_by(model.Product.id)
             .limit(limit=limit)
             .offset(page * limit)
             .all()
@@ -45,9 +45,9 @@ async def get_products(
         items = (
             db.query(order_model.Order)
             .filter(
-                model.Product.name.contains(search),
                 order_model.Order.buyerID == current_user.id,
-            ).order_by(desc(order_model.Order.id))
+            )
+            .order_by(desc(order_model.Order.id))
             .all()
         )
         if not items:
@@ -66,12 +66,10 @@ async def add_item(
     current_user: int = Depends(oauth.get_current_user),
 ):
 
-    if current_user.user_type != "seller" :
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN ,detail="not allowed")
+    if current_user.user_type.lower() != "seller":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="not allowed")
     # pro = db.query(model.Product).filter(model.Product.name == item.name)
-    new_item = model.Product(
-        sellerID=current_user.id, **item.model_dump()
-    )  
+    new_item = model.Product(sellerID=current_user.id, **item.model_dump())
     db.add(new_item)
     db.commit()
     db.refresh(new_item)
@@ -118,32 +116,25 @@ def update_item(
     return query_item.first()
 
 
-
 @router.get("/{id}", response_model=order_schema.OrderCheckOut)
 async def get_order(
-    id : int ,
-    db: Session = Depends(get_db),
-    current_user=Depends(oauth.get_current_user)
+    id: int, db: Session = Depends(get_db), current_user=Depends(oauth.get_current_user)
 ):
     current_user = schema.GetPerson.model_validate(current_user)
     ret = None
 
-    items = (
-        db.query(order_model.Order)
-        .filter(
-            order_model.Order.id == id
-        )
-        .first()
-    )
+    items = db.query(order_model.Order).filter(order_model.Order.id == id).first()
     print(items.id)
     if not items:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND ,detail="please use the interface")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="please use the interface"
+        )
     cur_order_items = items.orderItems
     cur_order_items = [
         order_schema.OrderItem.model_validate(item) for item in cur_order_items
     ]
     ret = order_schema.OrderCheckOut.model_validate(
-        {"totalCost": items.totalCost, "order_item": cur_order_items ,"id":items.id}
+        {"totalCost": items.totalCost, "order_item": cur_order_items, "id": items.id}
     )
 
     return ret

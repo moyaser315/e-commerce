@@ -24,7 +24,7 @@ class Product(Base):
     __imgPath: Mapped[str] = mapped_column(
         "imgPath", nullable=True
     )  # see if you need to set nullable = false
-
+    __cat: Mapped[str] = mapped_column("cat", nullable=False)
     # relations
     __sellerID: Mapped[int] = mapped_column(
         "sellerID", ForeignKey("sellers.id"), nullable=False
@@ -56,6 +56,18 @@ class Product(Base):
             raise Exception("Name needs to be at least a character")
 
         self.__name = value
+
+    @hybrid_property
+    def cat(self):
+        return self.__cat
+
+    @cat.setter
+    def cat(self, value: str):  # check validation later
+        value = value.strip()
+        if value is None or value == "" or not re.match(r"^[a-zA-Z]+$", value):
+            raise Exception("Name needs to be at least a character")
+
+        self.__cat = value
 
     @hybrid_property
     def description(self):
