@@ -19,7 +19,7 @@ async def get_products(
     current_user=Depends(oauth.get_current_user),
 ):
     current_user = user_scheme.GetPerson.model_validate(current_user)
-    
+
     items = (
         db.query(model.CartItem)
         .filter(model.CartItem.buyerID == current_user.id)
@@ -33,7 +33,7 @@ async def get_products(
 
 @router.post("/{id}", response_model=schema.CartItems)
 async def add_item(
-    id:int ,
+    id: int,
     item: schema.CartItems,
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth.get_current_user),
@@ -41,11 +41,13 @@ async def add_item(
     orig_quan = (
         db.query(model.Product).filter(model.Product.id == item.productID).first()
     )
-    
-    if current_user.user_type == "seller" :
-        if orig_quan.sellerID == current_user.id :
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN ,detail = "you can't buy your own items")
-    
+
+    if current_user.user_type == "seller":
+        if orig_quan.sellerID == current_user.id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="you can't buy your own items",
+            )
 
     if not orig_quan:
         raise HTTPException(

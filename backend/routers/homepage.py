@@ -13,11 +13,12 @@ def get_items_homepage(
     db: Session = Depends(get_db),
     limit: int = 20,
     page: int = 0,
+    cat: Optional[str] = "",
     search: Optional[str] = "",
 ):
     items = (
         db.query(model.Product)
-        .filter(model.Product.name.contains(search))
+        .filter(model.Product.name.contains(search), model.Product.cat == cat)
         .limit(limit=limit)
         .offset(page * limit)
         .all()
