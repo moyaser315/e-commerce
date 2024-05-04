@@ -54,3 +54,10 @@
     background: rgb(114, 168, 192);
     color: rgb(82, 72, 72);
   }
+  .error-message {
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 17px;
+    margin-top: 20px;
+  }

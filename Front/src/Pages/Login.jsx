@@ -1,13 +1,15 @@
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import qs from "qs";
 
 const Login = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate()
   const loginUser = async (e) => {
     e.preventDefault();
     try {
@@ -24,10 +26,18 @@ const Login = () => {
         }
       );
       console.log(response.data);
+      // Store the access token
+      localStorage.setItem("accessToken", response.data.access_token)
+      
+      console.log("User logged in");
+
+      navigate("/");
+      alert("Login successful! Welcome!");
+
     } catch (error) {
       console.error("Error logging in", error);
+      setErrorMessage("Email or Password may be incorrect. Please try again.")
     }
-    console.log("User logged in");
   };
   return (
     <div className="login">
@@ -48,6 +58,7 @@ const Login = () => {
               onChange={(e) => setData({ ...data, password: e.target.value })}
             />
           </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
           <button type="submit">Continue</button>
         </form>
       </div>
