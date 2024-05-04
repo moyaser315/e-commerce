@@ -10,7 +10,7 @@ from ..schemas import product as schema
 from ..schemas import orders as order_schema
 from .. import oauth
 
-router = APIRouter(prefix="/dashboard", tags=["dealing with products"])
+router = APIRouter(prefix="/dashboard", tags=["dealing with dashboard"])
 
 
 @router.get(
