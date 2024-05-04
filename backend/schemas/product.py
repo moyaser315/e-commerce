@@ -8,6 +8,7 @@ class Product(BaseModel):
     description: str
     price: float
     quantity: int
+    cat : str
     # sellerID : Optional[int]
     imgPath: Optional[str] = ""
 
