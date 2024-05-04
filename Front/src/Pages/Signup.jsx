@@ -6,8 +6,8 @@ import axios from "axios";
 
 
 const options = [
-  { value: "Buyer", label: "Buyer" },
-  { value: "Seller", label: "Seller" },
+  { value: "buyer", label: "Buyer" },
+  { value: "seller", label: "Seller" },
 ];
 
 const customStyles = {

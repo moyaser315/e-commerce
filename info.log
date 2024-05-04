@@ -1,1 +1,130 @@
 INFO:backend.main:{'request': {'method': 'GET', 'url': URL('http://127.0.0.1:8000/'), 'headers': {'host': '127.0.0.1:8000', 'connection': 'keep-alive', 'sec-ch-ua': '"Chromium";v="124", "Microsoft Edge";v="124", "Not-A.Brand";v="99"', 'sec-ch-ua-mobile': '?0', 'sec-ch-ua-platform': '"Linux"', 'dnt': '1', 'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0', 'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'sec-fetch-site': 'none', 'sec-fetch-mode': 'navigate', 'sec-fetch-user': '?1', 'sec-fetch-dest': 'document', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en-US,en;q=0.9,ar;q=0.8'}, 'body': b''}, 'response': {'status_code': 200, 'time_taken': 0.02064688399877923, 'body': '[b\'[{"name":"lol","description":"lol lol","price":200.0,"quantity":0,"imgPath":null,"id":1},{"name":"lol","description":"lol lol","price":200.0,"quantity":1,"imgPath":null,"id":2},{"name":"lol","description":"lol lol","price":200.0,"quantity":1,"imgPath":null,"id":3},{"name":"lol","description":"lol lol","price":200.0,"quantity":3,"imgPath":null,"id":4},{"name":"lol","description":"lol lol","price":200.0,"quantity":5,"imgPath":null,"id":5},{"name":"lol","description":"lol lol","price":200.0,"quantity":5,"imgPath":null,"id":6},{"name":"lol","description":"lol lol","price":200.0,"quantity":5,"imgPath":null,"id":7},{"name":"lol","description":"lol lol","price":200.0,"quantity":5,"imgPath":null,"id":8}]\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:30]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[31:39]
+DEBUG:multipart.multipart:Calling on_field_data with data[40:49]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'OPTIONS', 'url': URL('http://localhost:8000/users/signup'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'accept': '*/*', 'access-control-request-method': 'POST', 'access-control-request-headers': 'content-type', 'origin': 'http://localhost:5173', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-site', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b''}, 'response': {'status_code': 200, 'time_taken': 0.0006702999962726608, 'body': "[b'OK']"}}
+WARNING:passlib.handlers.bcrypt:(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\mohdy\anaconda3\envs\machine-learning\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+DEBUG:passlib.handlers.bcrypt:detected 'bcrypt' backend, version '<unknown>'
+DEBUG:passlib.handlers.bcrypt:'bcrypt' backend lacks $2$ support, enabling workaround
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/signup'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '113', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/json', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'{"name":"MohdTestBuyer","email":"mohdtestbuyer@gmail.com","user_type":"Buyer","balance":0,"password":"123456789"}'}, 'response': {'status_code': 201, 'time_taken': 0.631129500005045, 'body': '[b\'{"name":"MohdTestBuyer","email":"mohdtestbuyer@gmail.com","user_type":"Buyer","balance":0.0,"id":10}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:34]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[35:43]
+DEBUG:multipart.multipart:Calling on_field_data with data[44:53]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/signup'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '115', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/json', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'{"name":"MohdTestBuyer1","email":"mohdtestbuyer1@gmail.com","user_type":"buyer","balance":0,"password":"123456789"}'}, 'response': {'status_code': 201, 'time_taken': 0.5939518000013777, 'body': '[b\'{"name":"MohdTestBuyer1","email":"mohdtestbuyer1@gmail.com","user_type":"buyer","balance":0.0,"id":11}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:35]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[36:44]
+DEBUG:multipart.multipart:Calling on_field_data with data[45:54]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/login/'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '54', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'username=mohdtestbuyer1%40gmail.com&password=123456789'}, 'response': {'status_code': 200, 'time_taken': 0.6447899000049802, 'body': '[b\'{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMSwiZXhwIjoxNzE0ODQxNDE2fQ.1V9TDhJQDjrMsIU2NY0kUew25WXuTvARAdFMH9sBtVw","token_type":"Bearer"}\']'}}
+INFO:backend.main:{'request': {'method': 'OPTIONS', 'url': URL('http://localhost:8000/users/signup'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'accept': '*/*', 'access-control-request-method': 'POST', 'access-control-request-headers': 'content-type', 'origin': 'http://localhost:5173', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-site', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b''}, 'response': {'status_code': 200, 'time_taken': 0.00022139999782666564, 'body': "[b'OK']"}}
+WARNING:passlib.handlers.bcrypt:(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\mohdy\anaconda3\envs\machine-learning\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+DEBUG:passlib.handlers.bcrypt:detected 'bcrypt' backend, version '<unknown>'
+DEBUG:passlib.handlers.bcrypt:'bcrypt' backend lacks $2$ support, enabling workaround
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/signup'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '113', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/json', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'{"name":"MohdBuyerTest","email":"mohdbuyertest@gmail.com","user_type":"buyer","balance":0,"password":"123456789"}'}, 'response': {'status_code': 201, 'time_taken': 0.5493480000004638, 'body': '[b\'{"name":"MohdBuyerTest","email":"mohdbuyertest@gmail.com","user_type":"buyer","balance":0.0,"id":1}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:34]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[35:43]
+DEBUG:multipart.multipart:Calling on_field_data with data[44:53]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/login/'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '53', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'username=mohdbuyertest%40gmail.com&password=123456789'}, 'response': {'status_code': 200, 'time_taken': 0.2864627999952063, 'body': '[b\'{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MTQ4NDIyMjB9.s3q64f4RGRS0npmt4Ns2uEbtgtCEWh0AfA06Oh10lHo","token_type":"Bearer"}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:34]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[35:43]
+DEBUG:multipart.multipart:Calling on_field_data with data[44:52]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/login/'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '52', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'username=mohdbuyertest%40gmail.com&password=12345678'}, 'response': {'status_code': 403, 'time_taken': 1.3602356999981566, 'body': '[b\'{"detail":"invalid cerdintials"}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:34]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[35:43]
+DEBUG:multipart.multipart:Calling on_field_data with data[44:53]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/login/'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '53', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'username=mohdbuyertest%40gmail.com&password=123456789'}, 'response': {'status_code': 200, 'time_taken': 0.9016717999984394, 'body': '[b\'{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MTQ4NDIzMzh9.xe1-KRBH3DwVce5I9wpUlMZ9Li7tZBRRKYmZkYY8Qb0","token_type":"Bearer"}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:34]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[35:43]
+DEBUG:multipart.multipart:Calling on_field_data with data[44:51]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/login/'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '51', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'username=mohdbuyertest%40gmail.com&password=1234567'}, 'response': {'status_code': 403, 'time_taken': 1.044491200002085, 'body': '[b\'{"detail":"invalid cerdintials"}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:34]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[35:43]
+DEBUG:multipart.multipart:Calling on_field_data with data[44:51]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/login/'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '51', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'username=mohdbuyertest%40gmail.com&password=1234567'}, 'response': {'status_code': 403, 'time_taken': 1.1442456000004313, 'body': '[b\'{"detail":"invalid cerdintials"}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:34]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[35:43]
+DEBUG:multipart.multipart:Calling on_field_data with data[44:51]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/login/'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '51', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'username=mohdbuyertest%40gmail.com&password=1234567'}, 'response': {'status_code': 403, 'time_taken': 1.004169699997874, 'body': '[b\'{"detail":"invalid cerdintials"}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:34]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[35:43]
+DEBUG:multipart.multipart:Calling on_field_data with data[44:50]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/login/'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '50', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'username=mohdbuyertest%40gmail.com&password=123456'}, 'response': {'status_code': 403, 'time_taken': 0.21311069999501342, 'body': '[b\'{"detail":"invalid cerdintials"}\']'}}
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[0:8]
+DEBUG:multipart.multipart:Calling on_field_data with data[9:34]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_field_start with no data
+DEBUG:multipart.multipart:Calling on_field_name with data[35:43]
+DEBUG:multipart.multipart:Calling on_field_data with data[44:53]
+DEBUG:multipart.multipart:Calling on_field_end with no data
+DEBUG:multipart.multipart:Calling on_end with no data
+INFO:backend.main:{'request': {'method': 'POST', 'url': URL('http://localhost:8000/users/login/'), 'headers': {'host': 'localhost:8000', 'connection': 'keep-alive', 'content-length': '53', 'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"', 'accept': 'application/json, text/plain, */*', 'content-type': 'application/x-www-form-urlencoded', 'sec-ch-ua-mobile': '?0', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'sec-ch-ua-platform': '"Windows"', 'origin': 'http://localhost:5173', 'sec-fetch-site': 'same-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'http://localhost:5173/', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'en,ar;q=0.9'}, 'body': b'username=mohdbuyertest%40gmail.com&password=123456789'}, 'response': {'status_code': 200, 'time_taken': 1.0305985000013607, 'body': '[b\'{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MTQ4NDI1NjJ9.J-LieRM4DU3oCcN94c0LftxqsZ53GyKAw3t9RZ-rtOY","token_type":"Bearer"}\']'}}
