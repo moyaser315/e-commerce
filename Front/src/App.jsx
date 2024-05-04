@@ -5,40 +5,45 @@ import Login from "./Pages/Login";
 import Product from "./Pages/Product";
 import Profile from "./Pages/Profile";
 import Signup from "./Pages/Signup";
+import { AuthContext } from "./AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import ShopCategory from "./Pages/ShopCategory.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
 
 function App() {
+  const [isLoggedIn, setLoggedIn] = useState(false);
   return (
-    <div>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route
-            path="/electronics"
-            element={<ShopCategory category="Electronics" />}
-          />
-          <Route
-            path="/clothes"
-            element={<ShopCategory category="Clothes" />}
-          />
-          <Route
-            path="/accessories"
-            element={<ShopCategory category="Accessories" />}
-          />
-          <Route path="/product" element={<Product />}>
-            <Route path=":productId" element={<Product />} />
-          </Route>
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </div>
+    <AuthContext.Provider value={{isLoggedIn, setLoggedIn}}>
+      <div>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route
+              path="/electronics"
+              element={<ShopCategory category="Electronics" />}
+            />
+            <Route
+              path="/clothes"
+              element={<ShopCategory category="Clothes" />}
+            />
+            <Route
+              path="/accessories"
+              element={<ShopCategory category="Accessories" />}
+            />
+            <Route path="/product" element={<Product />}>
+              <Route path=":productId" element={<Product />} />
+            </Route>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </div>
+    </AuthContext.Provider>
   );
 }
 

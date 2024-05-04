@@ -1,6 +1,7 @@
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../AuthContext";
 import axios from "axios";
 
 const Login = () => {
@@ -10,6 +11,7 @@ const Login = () => {
   });
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate()
+  const {setLoggedIn} = useContext(AuthContext);
   const loginUser = async (e) => {
     e.preventDefault();
     try {
@@ -30,7 +32,7 @@ const Login = () => {
       localStorage.setItem("accessToken", response.data.access_token)
       
       console.log("User logged in");
-
+      setLoggedIn(true);
       navigate("/");
       alert("Login successful! Welcome!");
 
