@@ -2,3 +2,4 @@ __pycache__
 venv/
 virtual
 sql_app.db
+info.log
