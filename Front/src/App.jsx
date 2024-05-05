@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Navbar from "./Navbar";
 import Cart from "./Pages/Cart";
 import Dashboard from "./Pages/Dashboard";
