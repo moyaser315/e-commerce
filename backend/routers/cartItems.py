@@ -41,7 +41,7 @@ async def update_cart(
     if current_user.user_type == "seller":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="you can't buy items",
+            detail="Please login into a buyer's account to buy this item.",
         )
         
     if (data.quantity < 0):
