@@ -3,9 +3,9 @@ import "./SellerItem.css";
 
 const SellerItem = (props) => {
   return (
-    <div className="card">
+    <div className="row">
       <img src={props.image} alt={props.name} /> <hr />
-      <div className="card-content">
+      <div className="row-content">
         <h3>{props.name}</h3>
         <p>{props.description}</p>
         <p>Quantity: {props.quantity}</p>

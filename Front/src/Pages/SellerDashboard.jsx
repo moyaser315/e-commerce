@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import AddProductForm from "./AddProductForm.jsx";
 import "./SellerDashboard.css";
 import SellerItem from "../Components/SellerItem/SellerItem.jsx";

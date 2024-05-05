@@ -58,7 +58,7 @@
 }
 
 .productdisplay-right-price{
-    color: #ff4141;
+    color: rgb(38, 142, 186);
 }
 
 .productdisplay-right-color h1{
@@ -88,9 +88,12 @@
     font-size: 16px;
     font-weight: 600;
     color: white;
-    background: #FF4141;
+    background: rgb(31, 116, 152);
     margin-bottom: 40px;
     border: none;
     outline: none;
     cursor: pointer;
+}
+.productdisplay-right button:hover{
+    background: rgb(22, 21, 21);
 }
