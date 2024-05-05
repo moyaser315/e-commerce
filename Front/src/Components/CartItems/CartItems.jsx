@@ -23,8 +23,9 @@ const CartItems = () => {
         <p>Remove</p>
       </div>
       <hr />
-      {all_product.map((e) => {
-        if (cartItems[e.id] > 0) {
+      {all_product.map((e) => { //<-- we need to loop over the products
+        // Get user's cart items
+        if (cartItems[e.id] > 0) { //<-- instead of this
           return (
             <div key={e.id}>
               <div className="cartitems-format cartitems-format-main">
