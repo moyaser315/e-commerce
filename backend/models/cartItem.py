@@ -63,7 +63,7 @@ class CartItem(Base):
 
     @quantity.setter
     def quantity(self, value: int):
-        if value is None or value < 1:
-            raise Exception("Quantity must be greater than 1")
+        if value is None or value < 0:
+            raise Exception("Quantity must be greater than or equal to 0")
 
         self.__quantity = value
