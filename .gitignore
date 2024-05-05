@@ -3,3 +3,5 @@ venv/
 virtual
 sql_app.db
 info.log
+*.log
+*.db
