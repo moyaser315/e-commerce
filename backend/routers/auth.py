@@ -11,7 +11,7 @@ from ..oauth import create_access_token
 router = APIRouter(prefix="/users/login", tags=["authnication"])
 
 
-@router.post("/", response_model=Token)
+@router.post("", response_model=Token)
 def login(
     user_cerd: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
