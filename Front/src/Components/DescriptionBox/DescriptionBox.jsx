@@ -1,6 +1,8 @@
 import "./DescriptionBox.css";
+import PropTypes from "prop-types";
 
-const DescriptionBox = () => {
+const DescriptionBox = (props) => {
+  const { product } = props;
   return (
     <div className="descriptionbox">
       <div className="descriptionbox-navigator">
@@ -9,20 +11,17 @@ const DescriptionBox = () => {
       </div>
       <div className="descriptionbox-description">
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid
-          pariatur atque tenetur iusto minima necessitatibus fugit voluptas
-          sequi amet eum. Pariatur sed error minima, porro ut assumenda
-          accusantium nulla. Dolorum?
-        </p>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam
-          labore alias rerum unde dolorem molestiae aut maiores libero quasi
-          corrupti voluptate magni dolorum, earum obcaecati fugit deserunt.
-          Illo, error quam.
+          {product.description}
         </p>
       </div>
     </div>
   );
+};
+
+DescriptionBox.propTypes = {
+  product: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default DescriptionBox;

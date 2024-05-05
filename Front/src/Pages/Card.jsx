@@ -8,7 +8,6 @@ const Card = ({ image, name, description, price }) => {
       <hr />
       <div className="card-content">
         <h3>{name}</h3>
-        <p>{description}</p>
         <p>Price: ${price}</p>
       </div>
     </div>

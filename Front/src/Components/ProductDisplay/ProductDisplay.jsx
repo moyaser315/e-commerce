@@ -35,10 +35,7 @@ const ProductDisplay = (props) => {
           {product && <div className="productdisplay-right-price">${product.price}.00</div>}
         </div>
         <div className="productdisplay-right-description">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis debitis
-          aspernatur nam, at libero voluptates fuga quam praesentium blanditiis
-          sapiente harum vel dolore beatae facilis nobis accusantium totam
-          soluta optio.
+          {product.description}
         </div>
         <div className="productdisplay-right-color">
           <h1>Select Color</h1>
@@ -68,6 +65,7 @@ ProductDisplay.propTypes = {
     imgPath: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    description: PropTypes.string,
   }).isRequired,
 };
 

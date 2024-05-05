@@ -15,7 +15,6 @@ const Item = (props) => {
       <hr />
       <div className="card-content">
         <h3>{props.name}</h3>
-        <p>{props.description}</p>
         <div className="price-btn">
           <span>Price: ${props.price}</span>
           <button>
