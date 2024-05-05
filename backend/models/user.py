@@ -45,10 +45,10 @@ class User(Base):
         if (
             value is None
             or value == ""
-            or not re.match(r"^[a-zA-Z][a-zA-Z0-9]+$", value)
+            or len(value) < 2
         ):
             raise Exception(
-                "Name needs to start with a character and its length should be 2 or greater"
+                "Name needs to be at least of length 2"
             )
 
         self.__name = value
@@ -58,7 +58,7 @@ class User(Base):
         return self.__email
 
     @email.setter
-    def email(self, value: str):  # come back and verify
+    def email(self, value: str):
         self.__email = value
 
     @hybrid_property
@@ -66,7 +66,13 @@ class User(Base):
         return self.__balance
 
     @balance.setter
-    def balance(self, value: str):  # come back and verify
+    def balance(self, value: str):
+        if value is None:
+            raise Exception("Balance can't be none")
+        
+        if (value < 0):
+            raise Exception("Balance can't be smaller than 0")
+        
         self.__balance = value
 
     @hybrid_property
