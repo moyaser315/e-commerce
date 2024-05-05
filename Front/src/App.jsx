@@ -4,9 +4,10 @@ import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
 import Product from "./Pages/Product";
 import Signup from "./Pages/Signup";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "./Context/AuthContext.jsx";
+import  { ProductProvider } from "./Context/ProductContext.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ShopCategory from "./Pages/ShopCategory.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
 import SellerDashboard from "./Pages/SellerDashboard.jsx";
@@ -15,9 +16,17 @@ import MultiSearch from "./Pages/Search"; // Import the MultiSearch component
 import SearchResults from "./Pages/SearchResults";
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(() => {
+    const savedLoginStatus = localStorage.getItem('isLoggedIn');
+    return savedLoginStatus ? JSON.parse(savedLoginStatus) : false;
+  });
+  
+  useEffect(() => {
+    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
   return (
     <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>
+      <ProductProvider>
       <div>
         <BrowserRouter>
           <Navbar />
@@ -49,6 +58,7 @@ function App() {
           <Footer />
         </BrowserRouter>
       </div>
+      </ProductProvider>
     </AuthContext.Provider>
   );
 }

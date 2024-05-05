@@ -15,7 +15,6 @@ const Item = (props) => {
       <hr />
       <div className="card-content">
         <h3>{props.name}</h3>
-        <p>{props.description}</p>
         <div className="price-btn">
           <span>Price: ${props.price}</span>
           <button>
@@ -29,7 +28,7 @@ const Item = (props) => {
 
 // Prop types validation
 Item.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,

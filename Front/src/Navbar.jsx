@@ -6,7 +6,7 @@ import logo from "/R.png";
 import { useContext, useState } from "react";
 import { ShopContext } from "./Context/ShopContext";
 import MultiSearch from "./Pages/Search";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "./Context/AuthContext";
 
 const Navbar = () => {
   const { isLoggedIn, setLoggedIn } = useContext(AuthContext);

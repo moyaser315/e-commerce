@@ -8,7 +8,6 @@ const Card = ({ image, name, description, price }) => {
       <hr />
       <div className="card-content">
         <h3>{name}</h3>
-        <p>{description}</p>
         <p>Price: ${price}</p>
       </div>
     </div>
@@ -17,7 +16,7 @@ const Card = ({ image, name, description, price }) => {
 
 // Prop types validation
 Card.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,

@@ -13,17 +13,16 @@ const ProductDisplay = (props) => {
     <div className="productdisplay">
       <div className="productdisplay-left">
         <div className="productdisplay-img-list">
-          <img src={product.image} alt="" />
-          <img src={product.image} alt="" />
-          <img src={product.image} alt="" />
-          <img src={product.image} alt="" />
+        {product && <img src={product.imgPath} alt="" />}
+        {product && <img src={product.imgPath} alt="" />}
+        {product && <img src={product.imgPath} alt="" />}
+        {product && <img src={product.imgPath} alt="" />}
         </div>
         <div className="productdisplay-img">
-          <img className="productdisplay-main-img" src={product.image} alt="" />
-        </div>
+        {product && <img className="productdisplay-main-img" src={product.imgPath} alt="" />}        </div>
       </div>
       <div className="productdisplay-right">
-        <h1>{product.name}</h1>
+        {product && <h1>{product.name}</h1>}
         <div className="productdisplay-right-stars">
           <img src={star_icon} alt="" />
           <img src={star_icon} alt="" />
@@ -33,13 +32,10 @@ const ProductDisplay = (props) => {
           <p>(122)</p>
         </div>
         <div className="productdisplay-right-prices">
-          <div className="productdisplay-right-price">${product.price}.00</div>
+          {product && <div className="productdisplay-right-price">${product.price}.00</div>}
         </div>
         <div className="productdisplay-right-description">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis debitis
-          aspernatur nam, at libero voluptates fuga quam praesentium blanditiis
-          sapiente harum vel dolore beatae facilis nobis accusantium totam
-          soluta optio.
+          {product.description}
         </div>
         <div className="productdisplay-right-color">
           <h1>Select Color</h1>
@@ -66,9 +62,10 @@ const ProductDisplay = (props) => {
 ProductDisplay.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
+    imgPath: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    description: PropTypes.string,
   }).isRequired,
 };
 
