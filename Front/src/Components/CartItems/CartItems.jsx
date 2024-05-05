@@ -2,10 +2,16 @@ import { useContext } from "react";
 import "./CartItems.css";
 import remove_icon from "../../../public/removeicon.png";
 import { ShopContext } from "../../Context/ShopContext.jsx";
+import { Link } from "react-router-dom";
 
 const CartItems = () => {
-  const { getTotalCartAmount, all_product, cartItems, removeFromCart } =
-    useContext(ShopContext);
+  const {
+    getTotalCartAmount,
+    all_product,
+    cartItems,
+    removeFromCart,
+    clearCart,
+  } = useContext(ShopContext);
   return (
     <div className="cartitems">
       <div className="cartitems-format-main">
@@ -63,13 +69,25 @@ const CartItems = () => {
               <h3>${getTotalCartAmount()}</h3>
             </div>
           </div>
-          <button>Proceed To Checkout</button>
         </div>
-        <div className="cartitems-promocode">
-          <p>If you have a promo code, Enter it here</p>
-          <div className="cartitems-promobox">
-            <input type="text" placeholder="promo code" />
-            <button>Submit</button>
+        <div className="cartitems-payment">
+          <p>Personal Details</p>
+          <div className="cartitems-paymentbox">
+            <input type="text" placeholder="Mobile Number" />
+            <input type="text" placeholder="Address" />
+            <input type="text" placeholder="Credit Card Number" />
+            <hr />
+            <Link to="/">
+              {/*To Do*/}
+              <button
+                onClick={() => {
+                  clearCart();
+                  alert("Your order has been completed successfully");
+                }}
+              >
+                Checkout
+              </button>
+            </Link>
           </div>
         </div>
       </div>
