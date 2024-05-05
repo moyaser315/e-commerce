@@ -1,6 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import "./AddProductForm.css";
+import {hostname} from "../assets/globalVars.js"
+import axios from "axios";
 
 const AddProductForm = ({ addProduct }) => {
   const [formData, setFormData] = useState({
@@ -20,10 +22,10 @@ const AddProductForm = ({ addProduct }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => { // TODO: Handle Error
     e.preventDefault();
     // Call a function to add the product to your data store
-    addProduct(formData);
+    // addProduct(formData);
     // Clear the form fields
     setFormData({
       image: "",
@@ -33,6 +35,32 @@ const AddProductForm = ({ addProduct }) => {
       quantity: 0,
       category: "Electronics & Devices",
     });
+
+    try {
+      const response = await axios.post(
+        `${hostname}/dashboard/additem`,
+        {
+          name: formData.name,
+          description: formData.description,
+          price: formData.price,
+          quantity: formData.quantity,
+          cat: formData.category,
+          imgPath: formData.image
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+          }
+        }
+      );
+
+      console.log(response.data);
+      // navigate("/dashboard");
+    } catch (error) {
+      console.error('Error creating user', error.response);
+      // setErrorMessage("An error occured while creating the user. Please try again.")
+    }
   };
 
   return (

@@ -10,7 +10,7 @@ from .. import oauth
 router = APIRouter(prefix="/checkout", tags=["checkout"])
 
 
-@router.get("/", response_model=schema.OrderCheckOut)
+@router.get("", response_model=schema.OrderCheckOut)
 async def get_products(
     db: Session = Depends(get_db),
     current_user=Depends(oauth.get_current_user),
