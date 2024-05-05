@@ -8,6 +8,7 @@ let data_product = [
         image: jacket_image,
         name: "Name",
         description: "Description",
+        quantity: 0,
         price: 100,
         category: "Clothes"
     },
@@ -16,6 +17,7 @@ let data_product = [
         image: iphone_image,
         name: "Name",
         description: "Description",
+        quantity: 2,
         price: 100,
         category: "Electronics"
     },
@@ -24,6 +26,7 @@ let data_product = [
         image: jacket_image,
         name: "Name",
         description: "Description",
+        quantity: 4,
         price: 100,
         category: "Clothes"
     },
@@ -32,6 +35,7 @@ let data_product = [
         image: accessories_image,
         name: "Name",
         description: "Description",
+        quantity: 0,
         price: 100,
         category: "Accessories"
     },
@@ -40,6 +44,7 @@ let data_product = [
         image: accessories_image,
         name: "Name",
         description: "Description",
+        quantity: 2,
         price: 100,
         category: "Accessories"
     },
@@ -48,6 +53,7 @@ let data_product = [
         image: iphone_image,
         name: "Name",
         description: "Description",
+        quantity: 1,
         price: 100,
         category: "Electronics"
     },
@@ -56,6 +62,7 @@ let data_product = [
         image: jacket_image,
         name: "Name",
         description: "Description",
+        quantity: 5,
         price: 100,
         category: "Clothes"
     },
@@ -64,6 +71,7 @@ let data_product = [
         image: jacket_image,
         name: "Name",
         description: "Description",
+        quantity: 4,
         price: 100,
         category: "Clothes"
     },
@@ -72,6 +80,7 @@ let data_product = [
         image: accessories_image,
         name: "Name",
         description: "Description",
+        quantity: 3,
         price: 100,
         category: "Accessories"
     },
@@ -80,6 +89,7 @@ let data_product = [
         image: iphone_image,
         name: "Name",
         description: "Description",
+        quantity: 7,
         price: 100,
         category: "Electronics"
     },
@@ -88,6 +98,7 @@ let data_product = [
         image: iphone_image,
         name: "Name",
         description: "Description",
+        quantity: 2,
         price: 100,
         category: "Electronics"
     },
@@ -96,6 +107,7 @@ let data_product = [
         image: accessories_image,
         name: "Name",
         description: "Description",
+        quantity: 4,
         price: 100,
         category: "Accessories"
     },
@@ -104,6 +116,7 @@ let data_product = [
         image: iphone_image,
         name: "Name",
         description: "Description",
+        quantity: 2,
         price: 100,
         category: "Electronics"
     },
@@ -112,6 +125,7 @@ let data_product = [
         image: jacket_image,
         name: "Name",
         description: "Description",
+        quantity: 5,
         price: 100,
         category: "Clothes"
     },
@@ -120,6 +134,7 @@ let data_product = [
         image: iphone_image,
         name: "Name",
         description: "Description",
+        quantity: 1,
         price: 100,
         category: "Electronics"
     },

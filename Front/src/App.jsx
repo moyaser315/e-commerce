@@ -3,18 +3,19 @@ import Cart from "./Pages/Cart";
 import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
 import Product from "./Pages/Product";
-import Profile from "./Pages/Profile";
 import Signup from "./Pages/Signup";
 import { AuthContext } from "./AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import ShopCategory from "./Pages/ShopCategory.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
+import SellerDashboard from "./Pages/SellerDashboard.jsx";
+import Profile from "./Pages/Profile.jsx";
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   return (
-    <AuthContext.Provider value={{isLoggedIn, setLoggedIn}}>
+    <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>
       <div>
         <BrowserRouter>
           <Navbar />
@@ -39,6 +40,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/products" element={<SellerDashboard />} />
           </Routes>
           <Footer />
         </BrowserRouter>
