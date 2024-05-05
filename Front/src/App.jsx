@@ -11,6 +11,8 @@ import ShopCategory from "./Pages/ShopCategory.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
 import SellerDashboard from "./Pages/SellerDashboard.jsx";
 import Profile from "./Pages/Profile.jsx";
+import MultiSearch from "./Pages/Search"; // Import the MultiSearch component
+import SearchResults from "./Pages/SearchResults";
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -41,6 +43,8 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/products" element={<SellerDashboard />} />
+            <Route path="/search" element={<MultiSearch />} /> {/* Route for the search page */}
+            <Route path="/search-results" element={<SearchResults />} /> {/* Define route for SearchResults component */}
           </Routes>
           <Footer />
         </BrowserRouter>
