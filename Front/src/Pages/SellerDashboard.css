@@ -1,0 +1,35 @@
+.seller-dashboard {
+    position: relative;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.seller-dashboard h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: black;
+    font-family: Arial, sans-serif;
+}
+  
+.add-product-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+  
+.add-product-btn:hover {
+    background-color: #0056b3;
+}
+  
+.product-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
