@@ -3,12 +3,17 @@ import { ShopContext } from "../Context/ShopContext";
 import { useParams } from "react-router-dom";
 import ProductDisplay from "../Components/ProductDisplay/ProductDisplay";
 import DescriptionBox from "../Components/DescriptionBox/DescriptionBox";
+import { ProductContext } from "../Context/ProductContext";
+
 //import RelatedProducts from "../Components/RelatedProducts/RelatedProducts";
 
 const Product = () => {
-  const { all_product } = useContext(ShopContext);
+  const {products, loading} = useContext(ProductContext);
   const { productId } = useParams();
-  const product = all_product.find((e) => e.id === Number(productId));
+  const product = products?.find((e) => e.id === Number(productId));
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div>

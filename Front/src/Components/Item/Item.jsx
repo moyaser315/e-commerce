@@ -29,7 +29,7 @@ const Item = (props) => {
 
 // Prop types validation
 Item.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,

@@ -17,7 +17,7 @@ const Card = ({ image, name, description, price }) => {
 
 // Prop types validation
 Card.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
