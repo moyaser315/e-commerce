@@ -4,6 +4,7 @@ from typing import List
 
 from ..database import get_db
 from ..models import cartItem as model
+from ..models import user as user_model
 from ..schemas import orders as schema
 from ..schemas import person as user_scheme
 from .. import oauth
@@ -11,7 +12,7 @@ from .. import oauth
 router = APIRouter(prefix="/cart", tags=["Cart Item"])
 
 
-@router.get("/", response_model=List[schema.CartItems])
+@router.get("", response_model=List[schema.CartItems])
 async def get_products(
     db: Session = Depends(get_db),
     limit: int = 20,
@@ -31,23 +32,22 @@ async def get_products(
     return items
 
 
-@router.post("/{id}", response_model=schema.CartItems)
+@router.post("", response_model=schema.CartItems)
 async def add_item(
-    id: int,
     item: schema.CartItems,
     db: Session = Depends(get_db),
-    current_user: int = Depends(oauth.get_current_user),
+    current_user: user_model = Depends(oauth.get_current_user),
 ):
+    if current_user.user_type == "seller":  # TODO: I was wrong, a seller can't be buyer
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="you can't buy items",
+        )
+            
     orig_quan = (
         db.query(model.Product).filter(model.Product.id == item.productID).first()
     )
 
-    if current_user.user_type == "seller":
-        if orig_quan.sellerID == current_user.id:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="you can't buy your own items",
-            )
 
     if not orig_quan:
         raise HTTPException(
