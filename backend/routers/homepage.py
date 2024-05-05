@@ -13,16 +13,44 @@ def get_items_homepage(
     db: Session = Depends(get_db),
     limit: int = 20,
     page: int = 0,
-    cat: Optional[str] = "",
-    search: Optional[str] = "",
+    cat: Optional[str] = None,
+    search: Optional[str] = None,
 ):
-    items = (
-        db.query(model.Product)
-        .filter(model.Product.name.contains(search), model.Product.cat == cat)
-        .limit(limit=limit)
-        .offset(page * limit)
-        .all()
-    )
+    if cat and search:
+        items = (
+            db.query(model.Product)
+            .filter(model.Product.name.contains(search), model.Product.cat == cat)
+            .limit(limit=limit)
+            .offset(page * limit)
+            .all()
+        )
+        
+    elif search:
+        items = (
+            db.query(model.Product)
+            .filter(model.Product.name.contains(search))
+            .limit(limit=limit)
+            .offset(page * limit)
+            .all()
+        )
+        
+    elif cat:
+        items = (
+            db.query(model.Product)
+            .filter(model.Product.cat == cat)
+            .limit(limit=limit)
+            .offset(page * limit)
+            .all()
+        )
+    
+    else:
+        items = (
+            db.query(model.Product)
+            .limit(limit=limit)
+            .offset(page * limit)
+            .all()
+        )
+    
     return items
 
 

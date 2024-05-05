@@ -15,16 +15,19 @@ router = APIRouter(prefix="/users", tags=["users"])
     "/signup", status_code=status.HTTP_201_CREATED, response_model=person.GetPerson
 )
 def create_user(user: person.CreatePerson, db: Session = Depends(get_db)):
-
     user.password = utils.hash(user.password)
     if user.user_type == "seller":
         new_user = seller.Seller(**user.model_dump())
     else:
         new_user = buyer.Buyer(**user.model_dump())
-    print(new_user)
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
+
+    try:
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
+    except Exception as error:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email is already used")
+    
     return new_user
 
 
@@ -36,7 +39,8 @@ def get_user(id: int, db: Session = Depends(get_db)):
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"there's no user with id : {id}",
         )
-    return
+        
+    return usr
 
 
 #### dev only :

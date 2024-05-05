@@ -14,7 +14,7 @@ router = APIRouter(prefix="/dashboard", tags=["dealing with dashboard"])
 
 
 @router.get(
-    "/",
+    "",
     response_model=Union[
         schema.GetDashboard, order_schema.OrderDashboard, schema.GetPerson
     ],
