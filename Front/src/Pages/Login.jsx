@@ -1,7 +1,7 @@
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../Context/AuthContext";
 import axios from "axios";
 
 const Login = () => {
@@ -11,7 +11,7 @@ const Login = () => {
   });
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate()
-  const {setLoggedIn} = useContext(AuthContext);
+  const { setLoggedIn } = useContext(AuthContext);
   const loginUser = async (e) => {
     e.preventDefault();
     try {
