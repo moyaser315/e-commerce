@@ -1,7 +1,6 @@
 # modules
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, Session
-from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import Mapped, mapped_column
 
 # our modules
 from .user import User

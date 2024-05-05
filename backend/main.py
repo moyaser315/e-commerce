@@ -87,9 +87,9 @@ async def root(req: Request, call_next):
 #     return {"access_token": user_cerd.username}
 
 
-app.include_router(homepage.router)
 app.include_router(product.router)
 app.include_router(routers_user.router)
 app.include_router(auth.router)
 app.include_router(cartItems.router)
 app.include_router(checkout.router)
+app.include_router(homepage.router)

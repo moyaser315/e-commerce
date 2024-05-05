@@ -52,8 +52,8 @@ class Product(Base):
     @name.setter
     def name(self, value: str):  # check validation later
         value = value.strip()
-        if value is None or value == "" or not re.match(r"^[a-zA-Z]+$", value):
-            raise Exception("Name needs to be at least a character")
+        if value is None or value == "" or len(value) < 1:
+            raise Exception("Name needs to be at least of length l")
 
         self.__name = value
 
@@ -64,8 +64,8 @@ class Product(Base):
     @cat.setter
     def cat(self, value: str):  # check validation later
         value = value.strip()
-        if value is None or value == "" or not re.match(r"^[a-zA-Z]+$", value):
-            raise Exception("Name needs to be at least a character")
+        if value is None or value == "":
+            raise Exception("Category can't be none")
 
         self.__cat = value
 
@@ -76,8 +76,8 @@ class Product(Base):
     @description.setter
     def description(self, value: str):  # check validation later
         value = value.strip()
-        # if (value is None or value == "" or not re.match(r"^[a-zA-Z]+$", value)):
-        #     raise Exception("Description needs to be at least a character")
+        if value is None or value == "" or len(value) < 1:
+            raise Exception("Description needs to be at least a character")
 
         self.__description = value
 
