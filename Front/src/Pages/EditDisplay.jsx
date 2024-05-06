@@ -40,12 +40,12 @@ const EditDisplay = (props) => {
   };
 
   return (
-    <div className="productdisplay">
-      <div className="productdisplay-left">
-        <div className="productdisplay-img">
+    <div className="editdisplay">
+      <div className="editdisplay-left">
+        <div className="editdisplay-img">
           {product && (
             <img
-              className="productdisplay-main-img"
+              className="editdisplay-main-img"
               src={product.imgPath}
               alt={formData.name}
             />
@@ -56,7 +56,7 @@ const EditDisplay = (props) => {
         <p>Quantity: {formData.quantity}</p>
         <div className="price">Price: ${formData.price}</div>
       </div>
-      <div className="productdisplay-right">
+      <div className="editdisplay-right">
         <form className="add-product-form" onSubmit={handleSubmit}>
           {" "}
           {/*TODO   Edit Product specified by seller*/}

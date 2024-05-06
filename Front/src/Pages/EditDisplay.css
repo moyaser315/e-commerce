@@ -1,10 +1,10 @@
-.productdisplay{
+.editdisplay{
     display: flex;
     margin: 15px 170px 0px 170px;
     justify-content: space-between;
 }
 
-.productdisplay-left {
+.editdisplay-left {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -12,11 +12,11 @@
     padding: 20px;
 }
   
-.productdisplay-img {
+.editdisplay-img {
     margin-bottom: 20px;
 }
   
-.productdisplay-main-img {
+.editdisplay-main-img {
     width: 200px;
     height: 200px;
     object-fit: cover;
@@ -38,13 +38,13 @@ h3 {
     font-weight: bold;
 }
 
-.productdisplay-right {
+.editdisplay-right {
     flex: 1;
     padding: 20px;
 }
 
-.productdisplay-left,
-.productdisplay-right {
+.editdisplay-left,
+.editdisplay-right {
   border: 1px solid #ccc;
 }
   
