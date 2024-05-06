@@ -50,18 +50,19 @@ const SellerDashboard = () => {
       {showForm && <AddProductForm />}
       <h1>Your Products:</h1>
       <div className="product-cards">
-        {Array.isArray(products) && products.map((item, i) => (
-          <SellerItem
-            key={i}
-            id={item.id}
-            name={item.name}
-            image={item.imgPath}
-            description={item.description}
-            quantity={item.quantity}
-            price={item.price}
-            category={item.category}
-          />
-        ))}
+        {Array.isArray(products) &&
+          products.map((item, i) => (
+            <SellerItem
+              key={i}
+              id={item.id}
+              name={item.name}
+              image={item.imgPath}
+              description={item.description}
+              quantity={item.quantity}
+              price={item.price}
+              category={item.category}
+            />
+          ))}
       </div>
     </div>
   );

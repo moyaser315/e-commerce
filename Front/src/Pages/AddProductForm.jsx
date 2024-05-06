@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import "./AddProductForm.css";
-import {hostname} from "../assets/globalVars.js"
+import { hostname } from "../assets/globalVars.js";
 import axios from "axios";
 
 const AddProductForm = ({ addProduct }) => {
@@ -22,7 +22,8 @@ const AddProductForm = ({ addProduct }) => {
     });
   };
 
-  const handleSubmit = async (e) => { // TODO: Handle Error
+  const handleSubmit = async (e) => {
+    // TODO: Handle Error
     e.preventDefault();
     // Call a function to add the product to your data store
     // addProduct(formData);
@@ -45,20 +46,20 @@ const AddProductForm = ({ addProduct }) => {
           price: formData.price,
           quantity: formData.quantity,
           cat: formData.category,
-          imgPath: formData.image
+          imgPath: formData.image,
         },
         {
           headers: {
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
-          }
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }
       );
 
       console.log(response.data);
       // navigate("/dashboard");
     } catch (error) {
-      console.error('Error creating user', error.response);
+      console.error("Error creating user", error.response);
       // setErrorMessage("An error occured while creating the user. Please try again.")
     }
   };
@@ -121,7 +122,6 @@ const AddProductForm = ({ addProduct }) => {
         required
       />
       <button type="submit" className="submit-btn">
-        {/*To Do*/}
         Submit
       </button>
     </form>
