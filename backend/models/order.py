@@ -20,7 +20,7 @@ class Order(Base):
 
     # relations
     __buyerID: Mapped[int] = mapped_column(
-        "buyerID", ForeignKey("buyers.id"), nullable=False
+        "buyerID", ForeignKey("buyers.id", ondelete="SET NULL", onupdate="CASCADE"), nullable=True
     )
     buyer: Mapped[Buyer] = relationship(back_populates="orders")
     orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="order")

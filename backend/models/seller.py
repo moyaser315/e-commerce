@@ -21,7 +21,7 @@ class Seller(User):
 
     # relations
     products: Mapped[list["Product"]] = relationship(
-        back_populates="seller", cascade="delete"
+        back_populates="seller"
     )
 
     # options

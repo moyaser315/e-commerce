@@ -16,12 +16,12 @@ class CartItem(Base):
 
     # relations
     __productID: Mapped[int] = mapped_column(
-        "productID", ForeignKey("products.id"), primary_key=True
+        "productID", ForeignKey("products.id", ondelete="CASCADE", onupdate="CASCADE"), primary_key=True
     )
     product: Mapped[Product] = relationship()
 
     __buyerID: Mapped[int] = mapped_column(
-        "buyerID", ForeignKey("buyers.id"), nullable=True, primary_key=True
+        "buyerID", ForeignKey("buyers.id", ondelete="CASCADE", onupdate="CASCADE"), nullable=True, primary_key=True
     )
     buyer: Mapped[Buyer] = relationship(back_populates="cartItems")
 

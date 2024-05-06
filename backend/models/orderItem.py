@@ -24,7 +24,7 @@ class OrderItem(Base):
     product: Mapped[Product] = relationship(back_populates="orderItems")
 
     __orderID: Mapped[int] = mapped_column(
-        "orderID", ForeignKey("orders.id"), nullable=False
+        "orderID", ForeignKey("orders.id", ondelete="CASCADE", onupdate="CASCADE"), nullable=False
     )
     order: Mapped["Order"] = relationship(back_populates="orderItems")
 
