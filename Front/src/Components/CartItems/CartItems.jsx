@@ -74,6 +74,7 @@ console.log(products);
             <input type="text" placeholder="Address" />
             <input type="text" placeholder="Credit Card Number" />
             <hr />
+            {/* TODO: handle checkout (backend)*/}
               <button
                 onClick={() => {
                   clearCart();

@@ -33,7 +33,8 @@ const Navbar = () => {
             </Link>
             <hr />
           </li>
-          <li>
+          <li>  
+            {/* TODO: products link only visible to seller*/}
             <Link className="link" to="/products">
               Products
             </Link>

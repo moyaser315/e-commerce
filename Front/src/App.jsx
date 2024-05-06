@@ -28,51 +28,23 @@ function App() {
   return (
     <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>
       <ProductProvider>
-<<<<<<< HEAD
-          <div>
-            <BrowserRouter>
-              <Navbar />
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route
-                  path="/electronics"
-                  element={<ShopCategory category="Electronics" />}
-                />
-                <Route
-                  path="/clothes"
-                  element={<ShopCategory category="Clothes" />}
-                />
-                <Route
-                  path="/accessories"
-                  element={<ShopCategory category="Accessories" />}
-                />
-                <Route path="/product" element={<Product />}>
-                  <Route path=":productId" element={<Product />} />
-                </Route>
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/products" element={<SellerDashboard />} />
-              </Routes>
-              <Footer />
-            </BrowserRouter>
-          </div>
-=======
       <div>
         <BrowserRouter>
           <Navbar />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route
+            //TODO: electronics filter
               path="/electronics"
               element={<ShopCategory category="Electronics" />}
             />
             <Route
+            //TODO: clothes filter
               path="/clothes"
               element={<ShopCategory category="Clothes" />}
             />
             <Route
+            //TODO: accessories filter
               path="/accessories"
               element={<ShopCategory category="Accessories" />}
             />
@@ -90,7 +62,6 @@ function App() {
           <Footer />
         </BrowserRouter>
       </div>
->>>>>>> 657b80674f056a2e5e24505cb31c5aa1e91fe169
       </ProductProvider>
     </AuthContext.Provider>
   );
