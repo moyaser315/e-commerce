@@ -7,12 +7,14 @@ const EditDisplay = (props) => {
   const { product } = props;
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+
     imgPath: "",
     name: "",
     description: "",
     price: 0,
     quantity: 0,
     cat: "Electronics & Devices",
+
   });
   const handleChange = (e) => {
     const { name, value } = e.target;

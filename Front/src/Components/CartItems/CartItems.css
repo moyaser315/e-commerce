@@ -74,31 +74,31 @@
     margin: 0 auto;
   }
   
-  .cartitems-payment p {
+.cartitems-payment p {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
-  }
+}
   
-  .cartitems-paymentbox {
+.cartitems-paymentbox {
     margin-bottom: 20px;
-  }
+}
   
-  .cartitems-paymentbox input {
+.cartitems-paymentbox input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
+}
   
-  .cartitems-paymentbox hr {
+.cartitems-paymentbox hr {
     border: none;
     border-top: 1px solid #ccc;
     margin: 20px 0;
-  }
+}
   
-  .cartitems-paymentbox button {
+.cartitems-paymentbox button {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -106,9 +106,60 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-  }
+}
   
-  .cartitems-paymentbox button:hover {
+.cartitems-paymentbox button:hover {
     background-color: #0056b3;
-  }
+}
+  
+.cartitems-format.button-container {
+    display: flex;
+    gap: 10px;
+}
+  
+.cartitems-format.button-container button {
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cartitems-format.button-container .add{
+  background-color: #007bff;
+}
+
+.cartitems-format.button-container .remove{
+  background-color: #ff0000;
+}
+  
+.cartitems-format.button-container .add:hover {
+    background-color: #0056b3;
+}
+
+.cartitems-format.button-container .remove:hover {
+  background-color: #ac0000;
+}
+
+.order-details {
+  margin-top: 40px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.order-details h3 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.order-details pre {
+  white-space: pre-wrap;
+  font-size: 16px;
+  color: #666;
+}
+
   
