@@ -16,7 +16,27 @@ const CartItems = () => {
     addToCart
   } = useContext(ShopContext);
 const {products} = useContext(ProductContext);
+const [orderDetails, setOrderDetails] = useState(null);
 console.log(products);
+const handleCheckout = async () => {
+  try {
+      const response = await axios.get('http://localhost:8000/checkout', {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      
+      setOrderDetails(response.data);
+      alert('Your order has been completed successfully');
+      
+      clearCart();
+  } catch (error) {
+      // Handle errors
+      console.error('Error during checkout:', error);
+      alert('Checkout failed. Please try again.');
+  }
+};
   return (
       <div className="cartitems">
         <div className="cartitems-format-main">
@@ -75,17 +95,20 @@ console.log(products);
             <input type="text" placeholder="Credit Card Number" />
             <hr />
             {/* TODO: handle checkout (backend)*/}
-              <button
-                onClick={() => {
-                  clearCart();
-                  alert("Your order has been completed successfully");
-                }}
-              >
+              <button onClick={handleCheckout} >
                 Checkout
               </button>
           </div>
         </div>
       </div>
+      {orderDetails && (
+    <div className="order-details">
+        <h3>Order Details:</h3>
+        <pre>{JSON.stringify(orderDetails, null, 2)}</pre>
+    </div>
+)}
+
+
     </div>
   );
 };
