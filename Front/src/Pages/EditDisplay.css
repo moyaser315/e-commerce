@@ -1,0 +1,97 @@
+.productdisplay{
+    display: flex;
+    margin: 15px 170px 0px 170px;
+    justify-content: space-between;
+}
+
+.productdisplay-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+  
+.productdisplay-img {
+    margin-bottom: 20px;
+}
+  
+.productdisplay-main-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+  
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+  
+.description {
+    margin-bottom: 15px;
+}
+  
+.price{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.productdisplay-right {
+    flex: 1;
+    padding: 20px;
+}
+
+.productdisplay-left,
+.productdisplay-right {
+  border: 1px solid #ccc;
+}
+  
+.add-product-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+  
+.add-product-form p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+  
+.add-product-form input[type="text"],
+.add-product-form textarea,
+.add-product-form select,
+.add-product-form input[type="number"] {
+    width: calc(100% - 10px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+  
+.add-product-form textarea {
+    resize: vertical;
+}
+  
+.add-product-form select {
+    width: 100%;
+}
+  
+.add-product-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+  
+.add-product-form button:hover {
+    background-color: #0056b3;
+}
+  
