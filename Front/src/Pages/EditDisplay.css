@@ -46,6 +46,7 @@ h3 {
 .editdisplay-left,
 .editdisplay-right {
   border: 1px solid #ccc;
+  margin-bottom: 20px;
 }
   
 .add-product-form {

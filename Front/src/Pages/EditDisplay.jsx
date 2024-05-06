@@ -7,11 +7,11 @@ const EditDisplay = (props) => {
   const { product } = props;
 
   const [formData, setFormData] = useState({
-    image: "",
-    name: "",
-    description: "",
-    price: 0,
-    quantity: 0,
+    image: product.imgPath,
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    quantity: product.quantity,
     category: "Electronics & Devices",
   });
 
