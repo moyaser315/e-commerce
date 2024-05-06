@@ -4,12 +4,12 @@ from .person import GetPerson
 
 
 class Product(BaseModel):
+
     name: str
     description: str
     price: float
     quantity: int
-    cat : str
-    # sellerID : Optional[int]
+    cat: str
     imgPath: Optional[str] = ""
 
 

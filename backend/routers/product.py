@@ -24,54 +24,22 @@ async def get_products(
     db: Session = Depends(get_db),
     limit: int = 20,
     page: int = 0,
-    search: Optional[str] = None,
-    cat: Optional[str] = None,
-    current_user: user_model.User=Depends(oauth.get_current_user),
+    search: Optional[str] = "",
+    cat: Optional[str] = "",
+    current_user: user_model.User = Depends(oauth.get_current_user),
 ):
     print(current_user)
     current_user = schema.GetPerson.model_validate(current_user)
     ret = None
     if current_user.user_type.lower() == "seller":
-        if cat and search:
-            items = (
-                db.query(model.Product)
-                .filter(model.Product.sellerID == current_user.id, model.Product.cat == cat, model.Product.name.contains(search))
-                .order_by(model.Product.id)
-                .limit(limit=limit)
-                .offset(page * limit)
-                .all()
+        items = (
+            db.query(model.Product)
+            .filter(
+                model.Product.name.contains(search), model.Product.cat.contains(cat)
             )
-        
-        elif search:
-            items = (
-                db.query(model.Product)
-                .filter(model.Product.sellerID == current_user.id, model.Product.name.contains(search))
-                .order_by(model.Product.id)
-                .limit(limit=limit)
-                .offset(page * limit)
-                .all()
-            )
-            
-        elif cat:
-            items = (
-                db.query(model.Product)
-                .filter(model.Product.sellerID == current_user.id, model.Product.cat == cat)
-                .order_by(model.Product.id)
-                .limit(limit=limit)
-                .offset(page * limit)
-                .all()
-            )
-        
-        else:
-            items = (
-                db.query(model.Product)
-                .filter(model.Product.sellerID == current_user.id)
-                .order_by(model.Product.id)
-                .limit(limit=limit)
-                .offset(page * limit)
-                .all()
-            )
-            
+            .limit(limit=limit)
+            .all()
+        )
         items = [schema.GetProduct.model_validate(item) for item in items]
         ret = schema.GetDashboard(product=items, user_info=current_user)
     else:
@@ -83,7 +51,7 @@ async def get_products(
             .order_by(desc(order_model.Order.id))
             .all()
         )
-        
+
         if not items:
             ret = schema.GetPerson.model_validate(current_user)
         else:
@@ -118,7 +86,7 @@ def delete_item(
 ):
     if current_user.user_type.lower() != "seller":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="not allowed")
-    
+
     query_item = db.query(model.Product).filter(model.Product.id == id)
     del_item = query_item.first()
     if not del_item:
@@ -141,7 +109,6 @@ def update_item(
 ):
     if current_user.user_type.lower() != "seller":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="not allowed")
-    
     query_item = db.query(model.Product).filter(model.Product.id == id)
     new_item = query_item.first()
     if not new_item:
@@ -150,7 +117,6 @@ def update_item(
         )
     if new_item.sellerID != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="not allowed")
-
     query_item.update(item.model_dump(), synchronize_session=False)
     db.commit()
     return query_item.first()
@@ -158,7 +124,9 @@ def update_item(
 
 @router.get("/{id}", response_model=order_schema.OrderCheckOut)
 async def get_order(
-    id: int, db: Session = Depends(get_db), current_user: user_model.User =Depends(oauth.get_current_user)
+    id: int,
+    db: Session = Depends(get_db),
+    current_user: user_model.User = Depends(oauth.get_current_user),
 ):  # TODO: is it for buyer only?
     current_user = schema.GetPerson.model_validate(current_user)
     ret = None

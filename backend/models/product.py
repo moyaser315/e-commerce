@@ -27,7 +27,9 @@ class Product(Base):
     __cat: Mapped[str] = mapped_column("cat", nullable=False)
     # relations
     __sellerID: Mapped[int] = mapped_column(
-        "sellerID", ForeignKey("sellers.id", ondelete="CASCADE", onupdate="CASCADE"), nullable=False
+        "sellerID",
+        ForeignKey("sellers.id", ondelete="CASCADE", onupdate="CASCADE"),
+        nullable=False,
     )
     seller: Mapped[Seller] = relationship(back_populates="products")
 

@@ -38,20 +38,23 @@ async def get_products(
             .filter(item.productID == cart_model.Product.id)
             .first()
         )
-        
+
         if item.quantity > pr.quantity:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"invalid quantity for {pr.name}, current quantity is {pr.quantity}")
-        
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"invalid quantity for {pr.name}, current quantity is {pr.quantity}",
+            )
+
         new_item = orderItem.OrderItem(
             buyPrice=pr.price, orderID=cur_order.id, **item.model_dump()
         )
-        
+
         pr.quantity -= item.quantity
 
         seller_user = (
             db.query(seller.Seller).filter(pr.sellerID == seller.Seller.id).first()
         )
-        
+
         cost = new_item.buyPrice * new_item.quantity
         seller_user.balance += cost
         cur_order.totalCost += cost
@@ -62,7 +65,7 @@ async def get_products(
     db.commit()
     db.refresh(cur_order)
     print(current_user.email, current_user.balance)
-    
+
     cur_order_items = cur_order.orderItems
     cur_order_items = [
         schema.OrderItem.model_validate(item) for item in cur_order_items
@@ -75,5 +78,5 @@ async def get_products(
             "id": cur_order.id,
         }
     )
-    
+
     return cur_order

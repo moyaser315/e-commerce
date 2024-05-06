@@ -42,14 +42,8 @@ class User(Base):
     @name.setter
     def name(self, value: str):
         value = value.strip()
-        if (
-            value is None
-            or value == ""
-            or len(value) < 2
-        ):
-            raise Exception(
-                "Name needs to be at least of length 2"
-            )
+        if value is None or value == "" or len(value) < 2:
+            raise Exception("Name needs to be at least of length 2")
 
         self.__name = value
 
@@ -69,10 +63,10 @@ class User(Base):
     def balance(self, value: str):
         if value is None:
             raise Exception("Balance can't be none")
-        
-        if (value < 0):
+
+        if value < 0:
             raise Exception("Balance can't be smaller than 0")
-        
+
         self.__balance = value
 
     @hybrid_property

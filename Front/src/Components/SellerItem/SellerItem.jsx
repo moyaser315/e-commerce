@@ -27,28 +27,6 @@ const SellerItem = (props) => {
     }
   };
 
-  //   const handleEdit = async (updatedData) => {
-  //     try {
-  //         const url = `http://localhost:8000/dashboard/${props.id}`;
-
-  //         const response = await axios.patch(url, updatedData, {
-  //             headers: {
-  //                 "Content-Type": "application/json",
-  //                 Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //             },
-  //         });
-
-  //         if (response.status === 200) {
-  //             alert('Item updated successfully!');
-  //             window.location.reload();
-  //         }
-
-  //     } catch (error) {
-  //         console.error('Error updating item:', error);
-  //         alert('Failed to update the item. Please try again.');
-  //     }
-  // };
-
   return (
     <div className="sellercard">
       <img src={props.image} alt={props.name} />
