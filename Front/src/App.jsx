@@ -37,7 +37,7 @@ function App() {
               <Route
                 //TODO: electronics filter
                 path="/electronics"
-                element={<ShopCategory category="Electronics" />}
+                element={<ShopCategory category="Electronics & Devices" />}
               />
               <Route
                 //TODO: clothes filter

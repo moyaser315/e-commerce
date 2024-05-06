@@ -7,13 +7,15 @@ import "./ShopCategory.css";
 
 const ShopCategory = (props) => {
   const { products } = useContext(ShopContext);
+  console.log(products);
+  console.log(props.category);
 
   return (
     <>
       <Categories />
       <div className="shopcategory-products">
         {products.map((item, i) => {
-          if (props.category === item.category) {
+          if (props.category === item.cat) {
             return (
               <Item
                 key={i}
