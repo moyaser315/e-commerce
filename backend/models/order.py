@@ -26,7 +26,7 @@ class Order(Base):
     orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="order")
 
     # # options
-    __table_args__ = (CheckConstraint("totalCost >= 1", name="min_total_cost"),)
+    __table_args__ = (CheckConstraint("totalCost >= 0", name="min_total_cost"),)
 
     # properties
     @hybrid_property

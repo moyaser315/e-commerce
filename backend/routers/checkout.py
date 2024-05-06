@@ -25,7 +25,7 @@ async def get_products(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="please add items to cart first",
         )
-    cur_order = order.Order(buyerID=current_user.id, totalCost=1.0)
+    cur_order = order.Order(buyerID=current_user.id, totalCost=0)
     db.add(cur_order)
     db.commit()
     db.refresh(cur_order)
