@@ -9,7 +9,11 @@ from .user import User
 class Admin(User):
     __tablename__ = "admins"
     # attributes
-    __id: Mapped[int] = mapped_column("id", ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
+    __id: Mapped[int] = mapped_column(
+        "id",
+        ForeignKey("users.id", ondelete="CASCADE", onupdate="CASCADE"),
+        primary_key=True,
+    )
 
     # options
     __mapper_args__ = {

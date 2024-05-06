@@ -16,11 +16,12 @@ def get_items_homepage(
     cat: Optional[str] = "",
     search: Optional[str] = "",
 ):
-    items = db.query(model.Product).filter(model.Product.name.contains(search) , model.Product.cat.contains(cat)).limit(limit=limit).all()
-
-        
-    
-    
+    items = (
+        db.query(model.Product)
+        .filter(model.Product.name.contains(search), model.Product.cat.contains(cat))
+        .limit(limit=limit)
+        .all()
+    )
     return items
 
 

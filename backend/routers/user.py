@@ -26,8 +26,10 @@ def create_user(user: person.CreatePerson, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(new_user)
     except Exception as error:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email is already used")
-    
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Email is already used"
+        )
+
     return new_user
 
 
@@ -39,7 +41,7 @@ def get_user(id: int, db: Session = Depends(get_db)):
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"there's no user with id : {id}",
         )
-        
+
     return usr
 
 

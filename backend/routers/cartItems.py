@@ -43,26 +43,25 @@ async def update_cart(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Please login into a buyer's account to buy this item.",
         )
-        
-    if (data.quantity < 0):
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="invalid quantity")
-    
-            
-    prod = (
-        db.query(model.Product).filter(model.Product.id == data.productID).first()
-    )
+
+    if data.quantity < 0:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="invalid quantity"
+        )
+
+    prod = db.query(model.Product).filter(model.Product.id == data.productID).first()
 
     if not prod:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail="non existent product"
         )
-        
+
     if data.quantity > prod.quantity:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"The quantity you ordered exceed the available quantity by {data.quantity - prod.quantity}",
         )
-        
+
     cart_item = (
         db.query(model.CartItem)
         .filter(
@@ -71,7 +70,7 @@ async def update_cart(
         )
         .first()
     )
-    
+
     remove: bool = False
     if cart_item:
         diff: int = data.quantity - cart_item.quantity
@@ -80,27 +79,28 @@ async def update_cart(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"The quantity you ordered exceed the available quantity by {diff}",
             )
-            
+
         cart_item.quantity += diff
-        if (cart_item.quantity == 0):
+        if cart_item.quantity == 0:
             remove = True
-            
+
     else:
-        if (data.quantity == 0):
+        if data.quantity == 0:
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail="Can't add new cart item with quantity 0"
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Can't add new cart item with quantity 0",
             )
-            
+
         cart_item = model.CartItem(buyerID=current_user.id, **data.model_dump())
         db.add(cart_item)
-            
-    if (remove):
+
+    if remove:
         db.delete(cart_item)
 
     db.commit()
     if not remove:
         db.refresh(cart_item)
-    
+
     return cart_item
 
 

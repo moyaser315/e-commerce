@@ -1,20 +1,21 @@
 import "./EditDisplay.css";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const EditDisplay = (props) => {
   const { product } = props;
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    image: product.imgPath,
-    name: product.name,
-    description: product.description,
-    price: product.price,
-    quantity: product.quantity,
-    category: "Electronics & Devices",
-  });
 
+    imgPath: "",
+    name: "",
+    description: "",
+    price: 0,
+    quantity: 0,
+    cat: "Electronics & Devices",
+
+  });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,14 +30,31 @@ const EditDisplay = (props) => {
     // Call a function to add the product to your data store
     // addProduct(formData);
     // Clear the form fields
-    setFormData({
-      image: "",
-      name: "",
-      description: "",
-      price: 0,
-      quantity: 0,
-      category: "Electronics & Devices",
-    });
+    await handleEdit(formData);
+  };
+
+  const handleEdit = async (updatedData) => {
+    
+    try {
+      const url = `http://localhost:8000/dashboard/${props.product.id}`;
+      console.log("URL:", url, "Data:", updatedData);
+      console.log("Product prop in EditDisplay:", props.product);
+      const response = await axios.patch(url, updatedData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log("entered here")
+      console.log(response.status)
+      if (response.status === 200) {
+        alert("Item updated successfully!");
+        navigate("http://localhost:5173/products");
+      }
+    } catch (error) {
+      console.error("Error updating item:", error );
+      alert("Failed to update the item. Please try again.");
+    }
   };
 
   return (
@@ -97,8 +115,8 @@ const EditDisplay = (props) => {
           />
           <p>Category</p>
           <select
-            name="category"
-            value={formData.category}
+            name="cat"
+            value={formData.cat}
             onChange={handleChange}
             required
           >
@@ -109,17 +127,17 @@ const EditDisplay = (props) => {
           <p>Image</p>
           <input
             type="text"
-            name="image"
-            value={formData.image}
+            name="imgPath"
+            value={formData.imgPath}
             onChange={handleChange}
             placeholder="Image URL"
             required
           />
-          <Link to="/products">
+          
             <button type="submit" className="submit-btn">
               Submit
             </button>
-          </Link>
+         
         </form>
       </div>
     </div>
@@ -134,6 +152,7 @@ EditDisplay.propTypes = {
     quantity: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     description: PropTypes.string,
+    cat: PropTypes.string.isRequired
   }).isRequired,
 };
 

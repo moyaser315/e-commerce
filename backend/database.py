@@ -3,13 +3,16 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import event
+
 # from .config import settings
+
 
 # constants
 ## sqlite
 def _fk_pragma_on_connect(dbapi_con, con_record):
-    dbapi_con.execute('pragma foreign_keys=ON')
-    
+    dbapi_con.execute("pragma foreign_keys=ON")
+
+
 SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
 
 ## postgres
@@ -22,7 +25,7 @@ engine = create_engine(
 )
 
 ## sqlite enforce foreign keys
-event.listen(engine, 'connect', _fk_pragma_on_connect)
+event.listen(engine, "connect", _fk_pragma_on_connect)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
