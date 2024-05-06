@@ -1,7 +1,8 @@
 .card {
   border: 1px solid #ccc;
   border-radius: 5px;
-  overflow: hidden;
+  height: fit-content;
+  /* overflow: hidden; */
   margin-bottom: 20px;
 }
 
@@ -13,7 +14,7 @@
 
 .card-content {
   padding: 20px;
-  height: auto;
+  height: fit-content;
 }
 
 .card-content h3 {
