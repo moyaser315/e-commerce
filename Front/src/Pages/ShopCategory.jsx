@@ -6,13 +6,13 @@ import Categories from "../Components/Categories/Categories.jsx";
 import "./ShopCategory.css";
 
 const ShopCategory = (props) => {
-  const { all_product } = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
 
   return (
     <>
       <Categories />
       <div className="shopcategory-products">
-        {all_product.map((item, i) => {
+        {products.map((item, i) => {
           if (props.category === item.category) {
             return (
               <Item
