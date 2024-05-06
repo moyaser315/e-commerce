@@ -97,3 +97,8 @@
 .productdisplay-right button:hover{
     background: rgb(22, 21, 21);
 }
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}

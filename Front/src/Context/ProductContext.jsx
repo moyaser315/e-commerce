@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const ProductContext = React.createContext();
 
-export const ProductProvider = ({ children }) => {
+export const ProductProvider = (props) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -28,7 +28,7 @@ export const ProductProvider = ({ children }) => {
 
     return (
         <ProductContext.Provider value={{ products, loading }}>
-            {children}
+            {props.children}
         </ProductContext.Provider>
     );
 };

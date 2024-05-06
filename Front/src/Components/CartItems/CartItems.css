@@ -28,6 +28,11 @@
     height: 62px;
 }
 
+.cartitems-format button-container{
+    display: flex;
+    gap: 10px;
+}
+
 .cartitems-remove-icon{
     width: 15px;
     margin: 0px 40px;

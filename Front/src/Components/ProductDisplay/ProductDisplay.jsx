@@ -7,7 +7,7 @@ import { ShopContext } from "../../Context/ShopContext";
 
 const ProductDisplay = (props) => {
   const { product } = props;
-  const { addToCart } = useContext(ShopContext);
+  const { addToCart, errorMessage } = useContext(ShopContext);
 
   return (
     <div className="productdisplay">
@@ -54,6 +54,7 @@ const ProductDisplay = (props) => {
         >
           ADD TO CART
         </button>
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
       </div>
     </div>
   );

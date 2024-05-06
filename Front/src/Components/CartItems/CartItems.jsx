@@ -1,56 +1,52 @@
-import { useContext } from "react";
 import "./CartItems.css";
-import remove_icon from "../../../public/removeicon.png";
-import { ShopContext } from "../../Context/ShopContext.jsx";
-import { Link } from "react-router-dom";
+import { useEffect, useState, Link, useContext } from 'react';
+import axios from 'axios';
+import remove_icon from '../../../public/removeicon.png';
+import { hostname } from "../../assets/globalVars";
+import { ShopContext } from '../../Context/ShopContext';
+import { ProductContext } from "../../Context/ProductContext";
+
 
 const CartItems = () => {
   const {
     getTotalCartAmount,
-    all_product,
     cartItems,
-    removeFromCart,
+    removeFromCart, 
     clearCart,
+    addToCart
   } = useContext(ShopContext);
+const {products} = useContext(ProductContext);
+console.log(products);
   return (
-    <div className="cartitems">
-      <div className="cartitems-format-main">
-        <p>Products</p>
-        <p>Title</p>
-        <p>Price</p>
-        <p>Quantity</p>
-        <p>Total</p>
-        <p>Remove</p>
-      </div>
-      <hr />
-      {all_product.map((e) => { //<-- we need to loop over the products
-        // Get user's cart items
-        if (cartItems[e.id] > 0) { //<-- instead of this
-          return (
-            <div key={e.id}>
-              <div className="cartitems-format cartitems-format-main">
-                <img src={e.image} alt="" className="carticon-product-icon" />
-                <p>{e.name}</p>
-                <p>${e.price}</p>
-                <button className="cartitems-quantity">
-                  {cartItems[e.id]}
-                </button>
-                <p>${e.price * cartItems[e.id]}</p>
-                <img
-                  className="cartitems-remove-icon"
-                  src={remove_icon}
-                  onClick={() => {
-                    removeFromCart(e.id);
-                  }}
-                  alt=""
-                />
+      <div className="cartitems">
+        <div className="cartitems-format-main">
+          <p>Product</p>
+          <p>Name</p>
+          <p>Price</p>
+          <p>Quantity</p>
+          <p>Total</p>
+          <p>Add/Remove</p>
+        </div>
+        <hr />
+          {Array.isArray(products) && cartItems.map((cartItem) => {
+            const product = products.find((product) => product.id === cartItem.productID);
+            console.log("Prodict ID:", cartItem.productID, "Matched product", product);
+            return (
+              <div key={cartItem.productID}>
+                <div className="cartitems-format cartitems-format-main">
+                  <img src={product.imgPath} alt="" className="carticon-product-icon" />
+                  <p>{product.name}</p>
+                  <p>${product.price}</p>
+                  <p>{cartItem.quantity}</p>
+                  <p>{product.price * cartItem.quantity}</p>
+                  <div className="cartitems-format button-container">
+                    <button onClick={() => addToCart(cartItem.productID)}>+</button>
+                    <button onClick={() => removeFromCart(cartItem.productID)}>-</button>
+                  </div>
+                </div>
               </div>
-              <hr />
-            </div>
-          );
-        }
-        return null;
-      })}
+            );})}
+          <hr />
       <div className="cartitems-down">
         <div className="cartitems-total">
           <h1>Cart Total</h1>
@@ -78,8 +74,6 @@ const CartItems = () => {
             <input type="text" placeholder="Address" />
             <input type="text" placeholder="Credit Card Number" />
             <hr />
-            <Link to="/">
-              {/*To Do*/}
               <button
                 onClick={() => {
                   clearCart();
@@ -88,7 +82,6 @@ const CartItems = () => {
               >
                 Checkout
               </button>
-            </Link>
           </div>
         </div>
       </div>
