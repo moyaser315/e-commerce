@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import Item from "../Components/Item/Item.jsx";
 import "./Dashboard.css";
+import OrderItem from "../Components/OrderItem/OrderItem.jsx";
 
 const OrderDetailsDisplay = (props) => {
   const { order } = props;
@@ -8,16 +8,16 @@ const OrderDetailsDisplay = (props) => {
   return (
     <div>
       <div className="cards">
-        {order.map((item) => {
+        {order.map((item, i) => {
           return (
-            <Item
-
+            <OrderItem
+              key={i}
               id={item.id}
               name={item.name}
               image={item.imgPath}
               description={item.description}
+              quantity={item.quantity}
               price={item.price}
-              category={item.category}
             />
           );
         })}
