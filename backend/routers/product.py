@@ -28,7 +28,6 @@ async def get_products(
     cat: Optional[str] = "",
     current_user: user_model.User = Depends(oauth.get_current_user),
 ):
-    print(current_user)
     current_user = schema.GetPerson.model_validate(current_user)
     ret = None
     if current_user.user_type.lower() == "seller":

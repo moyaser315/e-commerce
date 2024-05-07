@@ -14,6 +14,7 @@ from .models import seller, user, buyer, cartItem, order, orderItem
 from .routers import product, homepage, auth, cartItems, checkout
 from .routers import user as routers_user
 from .schemas.logging import LogConfig
+from .routers import reports
 
 # setup
 ## loggging
@@ -93,3 +94,4 @@ app.include_router(auth.router)
 app.include_router(cartItems.router)
 app.include_router(checkout.router)
 app.include_router(homepage.router)
+app.include_router(reports.router)
