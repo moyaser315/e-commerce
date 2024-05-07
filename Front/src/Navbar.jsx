@@ -7,15 +7,15 @@ import { useContext, useState } from "react";
 import { ShopContext } from "./Context/ShopContext";
 import MultiSearch from "./Pages/Search";
 import { AuthContext } from "./Context/AuthContext";
-import { UserContext } from "./Context/UserContext"
+import { UserContext } from "./Context/UserContext";
 
 const Navbar = () => {
   const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate;
   const userContext = useContext(UserContext);
-  const user = userContext? userContext.user : null;
-  const setUser = userContext? userContext.setUser : null;
+  const user = userContext ? userContext.user : null;
+  const setUser = userContext ? userContext.setUser : null;
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     setUser(null);
@@ -24,9 +24,15 @@ const Navbar = () => {
     navigate("/");
   };
   const { getTotalCartItems } = useContext(ShopContext);
-  const userType = (user && user.user_info) ? user.user_info.user_type : user ? user.user_type : null;
+  const userType =
+    user && user.user_info
+      ? user.user_info.user_type
+      : user
+      ? user.user_type
+      : null;
   console.log(user);
-  const userName = (user && user.user_info) ? user.user_info.name : user ? user.name : null;
+  const userName =
+    user && user.user_info ? user.user_info.name : user ? user.name : null;
   console.log(user);
   return (
     <nav>
@@ -42,16 +48,16 @@ const Navbar = () => {
             </Link>
             <hr />
           </li>
-          {userType === 'seller' && (
-          <li>
-            {/* TODO: products link only visible to seller*/}
-            <Link className="link" to="/products">
-              Products
-            </Link>
-            <hr />
-          </li>
+          {userType === "seller" && (
+            <li>
+              {/* TODO: products link only visible to seller*/}
+              <Link className="link" to="/products">
+                Products
+              </Link>
+              <hr />
+            </li>
           )}
-          {userType === 'buyer' && (
+          {userType === "buyer" && (
             <li>
               <Link className="link" to="/orders">
                 Orders
@@ -65,13 +71,13 @@ const Navbar = () => {
           {isLoggedIn ? (
             <div>
               <img
+                className="Profile_IMG"
                 src={profile_icon}
                 alt="Profile"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               />
               {dropdownOpen && (
                 <div className="dropdown-menu">
-
                   <p>Hello, {userName}</p>
                   <Link to="/profile" onClick={() => setDropdownOpen(false)}>
                     Profile

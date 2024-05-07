@@ -123,7 +123,11 @@ const CartItems = () => {
       {orderDetails && (
         <div className="order-details">
           <h3>Order Details:</h3>
-          <pre>{JSON.stringify(orderDetails, null, 2)}</pre>
+          <h4>Product ID: {orderDetails.order_item[0].productID}</h4>
+          <h4>quantity: {orderDetails.order_item[0].quantity}</h4>
+          <h4>Price: {orderDetails.order_item[0].buyPrice}</h4>
+          <h4>Order ID: {orderDetails.id}</h4>
+          <h4>Total Cost: {orderDetails.totalCost}</h4>
         </div>
       )}
     </div>
