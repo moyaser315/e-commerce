@@ -9,6 +9,10 @@ class CartItems(BaseModel):
     productID: int
     model_config = ConfigDict(from_attributes=True)
 
+class SellerOrderItem(BaseModel):
+    quantity: int
+    buyPrice: float
+    model_config = ConfigDict(from_attributes=True)
 
 class OrderItem(BaseModel):
     productID: int
