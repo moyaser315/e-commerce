@@ -75,8 +75,8 @@ const SellerDashboard = () => {
               name={item.name}
               image={item.imgPath}
               description={item.description}
-              quantity={item.quantity}
-              price={item.price}
+              quantity={item.quantity_sold}
+              price={item.price * item.quantity_sold}
               category={item.category}
             />
           ))}
