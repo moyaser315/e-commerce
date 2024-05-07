@@ -1,14 +1,20 @@
 import PropTypes from "prop-types";
+import "./Order.css";
+import { Link } from "react-router-dom";
 
 const Order = (props) => {
   return (
-    <div>
-      <div >
-        <h3>{props.id}</h3>
-        <div>
-          <span>Total Cost: ${props.totalCost}</span>
-        </div>
-      </div>
+    <div className="order-card">
+      <p className="order-id">Order ID: {props.id}</p>
+      <p className="total-cost">Total Cost: ${props.totalCost}</p>
+      <Link to={`/Order/${props.id}`}>
+        <button
+          className="view-order-details"
+          // onClick={() => viewDetails(item.id)}
+        >
+          View Details
+        </button>
+      </Link>
     </div>
   );
 };

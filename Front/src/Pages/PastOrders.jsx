@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import Order from "../Components/Order/Order.jsx";
 import axios from "axios";
+import "./PastOrders.css";
 
-const SellerDashboard = () => {
+const PastOrders = () => {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
 
@@ -37,19 +38,16 @@ const SellerDashboard = () => {
   }
 
   return (
-    <div>
+    <div className="container">
       <h1>Your Orders:</h1>
-      <div className="product-cards">
+      <div className="order-cards">
         {Array.isArray(orders) &&
           orders.map((item, i) => (
-            <Order
-              id={item.id}
-              totalCost={item.totalCost}
-            />
+            <Order key={i} id={item.id} totalCost={item.totalCost} />
           ))}
       </div>
     </div>
   );
 };
 
-export default SellerDashboard;
+export default PastOrders;

@@ -5,17 +5,15 @@ import { ProductContext } from "../Context/ProductContext";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
-
 const Dashboard = () => {
-  const { products, loading} = useContext(ProductContext);
+  const { products, loading } = useContext(ProductContext);
 
   if (!products) {
     return <div>Loading...</div>;
   }
 
-
   return (
-    <ProductContext.Provider value={{ products, loading} }>
+    <ProductContext.Provider value={{ products, loading }}>
       <div>
         <Categories />
         <div className="cards">
@@ -39,4 +37,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
