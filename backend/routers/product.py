@@ -34,12 +34,37 @@ async def get_products(
         items = (
             db.query(model.Product)
             .filter(
-                model.Product.name.contains(search), model.Product.cat.contains(cat)
+                model.Product.sellerID == current_user.id,
+                model.Product.name.contains(search),
+                model.Product.cat.contains(cat)
             )
             .limit(limit=limit)
+            .offset(limit*page)
             .all()
         )
+        l=[]
+        for p in items:
+            ord = p.orderItems
+            q = 0
+            for o in ord:
+                q += o.quantity
+                
+            l.append (
+                schema.GetProduct(
+                    id=p.id,
+                    name=p.name,
+                    description=p.description,
+                    price=p.price,
+                    quantity=p.quantity,
+                    cat=p.cat,
+                    quantity_sold=q
+                )
+            )
         items = [schema.GetProduct.model_validate(item) for item in items]
+        for p in items :
+            for i in l:
+                if p.id == i.id :
+                    p.quantity_sold = i.quantity_sold
         ret = schema.GetDashboard(product=items, user_info=current_user)
     else:
         items = (
