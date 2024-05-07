@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional, Union
 
 from ..database import get_db
-from ..models import product as model
+
 from ..models import order as order_model
 from ..schemas import product as schema
 from ..schemas import orders as order_schema
@@ -39,7 +39,7 @@ async def get_products(
         items = items.products
         pdf_filename = f"products_{current_user.id}.pdf"
     else:
-        print("here")
+
         items = (
             db.query(buyer_model.Buyer)
             .filter(current_user.id == buyer_model.Buyer.id)
@@ -60,24 +60,12 @@ async def get_products(
     y = utils.add_user_info(file, current_user, y)
 
     if pdf_filename[0] == "p":
-        file.setFont("Helvetica-Bold", 15)
-        file.drawString(30, y, "Products for sale")
-        y -= 30
-        y = utils.add_items_to_report(y, items, file)
+        utils.add_seller_elem(
+            file=file, db=db, items=items, current_user=current_user, y=y
+        )
+
     else:
-        file.setFont("Helvetica-Bold", 15)
-        file.drawString(30, y, "orders purchased")
-        y -= 30
-        
-        for item in items:
-            file.setFont("Helvetica", 14)
-            file.drawString(30, y, f"order id : {item.id}")
-            y -= 20
-            l = []
-            for i in item.orderItems:
-                
-                l+=[schema.GetProduct.model_validate(i.product)]
-            y=utils.add_items_to_report(y,l,file)
+        utils.add_buyer_elem(file=file, items=items, y=y)
 
     file.save()
 

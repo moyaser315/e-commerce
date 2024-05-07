@@ -146,14 +146,16 @@ async def get_order(
 
     return ret
 
+
 @router.get("/{id}/orders")
 def get_product_orders(
     id: int,
     db: Session = Depends(get_db),
-    current_user: user_model.User = Depends(oauth.get_current_user),    
+    current_user: user_model.User = Depends(oauth.get_current_user),
 ) -> list[order_schema.SellerOrderItem]:
     prod = db.query(model.Product).filter(model.Product.id == id, model.Product.sellerID == current_user.id).first()
+
     if not prod:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="404 not found")
-    
+
     return prod.orderItems
