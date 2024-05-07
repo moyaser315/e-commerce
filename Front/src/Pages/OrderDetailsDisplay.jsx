@@ -8,10 +8,10 @@ const OrderDetailsDisplay = (props) => {
   return (
     <div>
       <div className="cards">
-        {order.map((item, i) => {
+        {order.map((item) => {
           return (
             <Item
-              key={i}
+
               id={item.id}
               name={item.name}
               image={item.imgPath}
