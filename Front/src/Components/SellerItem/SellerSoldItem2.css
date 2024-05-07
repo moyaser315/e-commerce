@@ -1,0 +1,50 @@
+.sellercard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  background-color: #fff;
+  height: auto;
+}
+
+.sellercard img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.sellercard hr {
+  position: absolute;
+  top: calc(75% - 1px);
+  width: calc(100% - 30px);
+  margin: 0 15px;
+}
+
+.sellercard-content {
+  padding: 15px;
+}
+
+.sellercard-content h3 {
+  margin-top: 0;
+}
+
+.sellercard-content p {
+  margin: 5px 0;
+}
+
+.sellercard-content .description {
+  color: grey;
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

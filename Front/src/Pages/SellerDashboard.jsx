@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AddProductForm from "./AddProductForm.jsx";
 import "./SellerDashboard.css";
 import SellerItem from "../Components/SellerItem/SellerItem.jsx";
+import SellerItem2 from "../Components/SellerItem/SellerSoldItem2.jsx";
 import axios from "axios";
 
 const SellerDashboard = () => {
@@ -60,6 +61,22 @@ const SellerDashboard = () => {
               description={item.description}
               quantity={item.quantity}
               price={item.price}
+              category={item.category}
+            />
+          ))}
+      </div>
+      <h1>Sold Products:</h1>
+      <div className="product-cards">
+        {Array.isArray(products) &&
+          products.map((item, i) => (
+            <SellerItem2
+              key={i}
+              id={item.id}
+              name={item.name}
+              image={item.imgPath}
+              description={item.description}
+              quantity={item.quantity_sold}
+              price={item.price * item.quantity_sold}
               category={item.category}
             />
           ))}
