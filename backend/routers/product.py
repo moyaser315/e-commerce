@@ -154,7 +154,8 @@ async def get_order(
 ):  # TODO: is it for buyer only?
     current_user = schema.GetPerson.model_validate(current_user)
     ret = None
-
+    if current_user.user_type != "buyer" :
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED ,detail="please login as user")
     items = db.query(order_model.Order).filter(order_model.Order.id == id).first()
     
     if not items:
@@ -162,10 +163,13 @@ async def get_order(
             status_code=status.HTTP_404_NOT_FOUND, detail="please use the interface"
         )
     cur_order_items = items.orderItems
-    cur_order_items = [
-        schema.GetProduct.model_validate(item.product) for item in cur_order_items
-    ]
-    ret = cur_order_items
+    l = []
+    for item in cur_order_items :
+        i = schema.GetProduct.model_validate(item.product) 
+        i.quantity = item.quantity
+        l.append(i)
+    
+    ret = l
 
     return ret
 
