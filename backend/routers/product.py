@@ -8,7 +8,7 @@ from ..models import product as model
 from ..models import order as order_model
 from ..schemas import product as schema
 from ..schemas import orders as order_schema
-from ..models import user as user_model
+from ..models import user as user_model, orderItem as orderItem_model
 from .. import oauth
 
 router = APIRouter(prefix="/dashboard", tags=["dealing with dashboard"])
@@ -145,3 +145,15 @@ async def get_order(
     )
 
     return ret
+
+@router.get("/{id}/orders")
+def get_product_orders(
+    id: int,
+    db: Session = Depends(get_db),
+    current_user: user_model.User = Depends(oauth.get_current_user),    
+) -> list[order_schema.SellerOrderItem]:
+    prod = db.query(model.Product).filter(model.Product.id == id, model.Product.sellerID == current_user.id).first()
+    if not prod:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="404 not found")
+    
+    return prod.orderItems
