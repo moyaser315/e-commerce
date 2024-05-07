@@ -11,12 +11,13 @@ class Product(BaseModel):
     quantity: int
     cat: str
     imgPath: Optional[str] = ""
-    quantity_sold : Optional[int] = 0
 
 
 class GetProduct(Product):
     id: int
     model_config = ConfigDict(from_attributes=True)
+    quantity_sold : Optional[int] = 0
+
 
 
 class GetDashboard(BaseModel):
