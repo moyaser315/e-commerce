@@ -13,6 +13,6 @@ def send_emails_to_sellers(orders: dict[str, list], orderID: int):
         for seller_email, items in orders.items():
             msg = f"New Order!! ID: {orderID}\n\n"
             for idx, product in enumerate(items):
-                msg += f"Item {idx + 1} ==> Product ID: {product["id"]} - Name: {product["product name"]} - Quantity: {product["quantity"]}\n"
+                msg += f"Item {idx + 1} ==> Product ID: {product['id']} - Name: {product['product name']} - Quantity: {product['quantity']}\n"
                 
             server.sendmail(SENDER_EMAIL, seller_email, msg)    
