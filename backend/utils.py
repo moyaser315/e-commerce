@@ -94,8 +94,8 @@ def add_items_to_report(y, products, file: canvas.Canvas):
     file.drawString(30, y, "ID")
     file.drawString(100, y, "Name")
     file.drawString(200, y, "Price")
-    file.drawString(300, y, "Description")
-    file.drawString(400, y, "Category")
+    
+    file.drawString(300, y, "Category")
     file.drawString(500, y, "Quantity")
 
     # Initial y-coordinate for product details
@@ -106,8 +106,7 @@ def add_items_to_report(y, products, file: canvas.Canvas):
         file.drawString(30, y, str(product.id))
         file.drawString(100, y, product.name)
         file.drawString(200, y, str(product.price))
-        file.drawString(300, y, product.description)
-        file.drawString(400, y, product.cat)
+        file.drawString(300, y, product.cat)
         file.drawString(500, y, str(product.quantity))
 
         y -= 20  # Move down for next product
