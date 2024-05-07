@@ -18,6 +18,22 @@ const CartItems = () => {
   const [orderDetails, setOrderDetails] = useState(null);
   console.log(products);
   const handleCheckout = async () => {
+    const mobileNumber = document.querySelector(
+      'input[placeholder="Mobile Number"]'
+    ).value;
+    const address = document.querySelector(
+      'input[placeholder="Address"]'
+    ).value;
+    const creditCardNumber = document.querySelector(
+      'input[placeholder="Credit Card Number"]'
+    ).value;
+
+    // Check if any of the required fields are empty
+    if (!mobileNumber || !address || !creditCardNumber) {
+      alert("Please fill in all required fields.");
+      return; // Stop execution of the function
+    }
+
     try {
       const response = await axios.get("http://localhost:8000/checkout", {
         headers: {
