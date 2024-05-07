@@ -25,7 +25,7 @@ class Order(Base):
         nullable=True,
     )
     buyer: Mapped[Buyer] = relationship(back_populates="orders")
-    orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="order")
+    orderItems: Mapped[list["OrderItem"]] = relationship(back_populates="order", cascade="all, delete-orphan")
 
     # # options
     __table_args__ = (CheckConstraint("totalCost >= 0", name="min_total_cost"),)
