@@ -7,7 +7,7 @@ from logging.config import dictConfig
 import logging
 import time
 import json
-
+from fastapi.staticfiles import StaticFiles
 from .database import engine
 from .models import product as db_product
 from .models import seller, user, buyer, cartItem, order, orderItem
@@ -39,7 +39,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+app.mount("/static", StaticFiles(directory="static"), name="static")
 ## models
 db_product.Base.metadata.create_all(bind=engine)
 user.Base.metadata.create_all(bind=engine)
