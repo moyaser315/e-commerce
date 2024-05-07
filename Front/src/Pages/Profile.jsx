@@ -1,3 +1,4 @@
+import "./Profile.css"
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -61,10 +62,11 @@ const Profile = () => {
   }
 
   return (
-    <div>
-      <p>{user.name}</p>
-      <p>This user is a {user.user_type}</p>
-      <p>{user.email}</p>
+    <div className="profile-container">
+      <h1> Profile: </h1>
+      <p>User Name: {user.name}</p>
+      <p>User Type: {user.user_type}</p>
+      <p>Email: {user.email}</p>
       {user.user_type === "seller" && <p>Sellers Product: {products}</p>}
       <button onClick={fetchReports}>Genereate Reports</button>
     </div>

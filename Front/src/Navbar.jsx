@@ -26,6 +26,8 @@ const Navbar = () => {
   const { getTotalCartItems } = useContext(ShopContext);
   const userType = (user && user.user_info) ? user.user_info.user_type : user ? user.user_type : null;
   console.log(user);
+  const userName = (user && user.user_info) ? user.user_info.name : user ? user.name : null;
+  console.log(user);
   return (
     <nav>
       <div className="navbar">
@@ -61,6 +63,8 @@ const Navbar = () => {
               />
               {dropdownOpen && (
                 <div className="dropdown-menu">
+
+                  <p>Hello, {userName}</p>
                   <Link to="/profile" onClick={() => setDropdownOpen(false)}>
                     Profile
                   </Link>
