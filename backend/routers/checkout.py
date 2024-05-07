@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import cartItem as cart_model
@@ -6,12 +6,15 @@ from ..models import order, orderItem, seller
 from ..schemas import orders as schema
 from ..schemas import person as user_scheme
 from .. import oauth
+from ..sender import send_emails_to_sellers
+
 
 router = APIRouter(prefix="/checkout", tags=["checkout"])
 
 
 @router.get("", response_model=schema.OrderCheckOut)
 async def get_products(
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     current_user=Depends(oauth.get_current_user),
 ):
@@ -30,6 +33,7 @@ async def get_products(
     db.commit()
     db.refresh(cur_order)
 
+    orders = {}
     for item in items:
         item = schema.CartItems.model_validate(item)
 
@@ -59,6 +63,12 @@ async def get_products(
         seller_user.balance += cost
         cur_order.totalCost += cost
         db.add(new_item)
+        
+        exists = orders.get(seller_user.email)
+        if exists:
+            orders[seller_user.email].append({"id": pr.id, "product name": pr.name, "quantity": new_item.quantity})
+        else:
+            orders[seller_user.email] = [{"id": pr.id, "product name": pr.name, "quantity": new_item.quantity}]
 
     # current_user.balance -= cur_order.totalCost
     items_query.delete(False)
@@ -78,5 +88,10 @@ async def get_products(
             "id": cur_order.id,
         }
     )
-
+    
+    try:
+        background_tasks.add_task(send_emails_to_sellers, orders, cur_order.id)
+    except:
+        pass
+    
     return cur_order
