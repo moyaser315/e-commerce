@@ -1,0 +1,29 @@
+.order-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.order-id {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.total-cost {
+  margin-bottom: 10px;
+}
+
+.view-order-details {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.view-order-details:hover {
+  background-color: #0056b3;
+}
