@@ -2,6 +2,8 @@ import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
+import { UserContext } from "../Context/UserContext"
+import { hostname } from "../assets/globalVars";
 import axios from "axios";
 
 const Login = () => {
@@ -12,6 +14,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate()
   const { setLoggedIn } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
   const loginUser = async (e) => {
     e.preventDefault();
     try {
@@ -30,7 +33,13 @@ const Login = () => {
       console.log(response.data);
       // Store the access token
       localStorage.setItem("accessToken", response.data.access_token)
-      
+      const user = await axios.get(`${hostname}/dashboard`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+        },
+      })
+      setUser(user.data);
       console.log("User logged in");
       setLoggedIn(true);
       navigate("/");

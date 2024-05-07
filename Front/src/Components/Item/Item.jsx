@@ -12,7 +12,6 @@ const Item = (props) => {
           alt={props.name}
         />{" "}
       </Link>
-      <hr />
       <div className="card-content">
         <h3>{props.name}</h3>
         <div className="price-btn">

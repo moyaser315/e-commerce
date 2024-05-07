@@ -7,18 +7,25 @@ import { useContext, useState } from "react";
 import { ShopContext } from "./Context/ShopContext";
 import MultiSearch from "./Pages/Search";
 import { AuthContext } from "./Context/AuthContext";
+import { UserContext } from "./Context/UserContext"
 
 const Navbar = () => {
   const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate;
+  const userContext = useContext(UserContext);
+  const user = userContext? userContext.user : null;
+  const setUser = userContext? userContext.setUser : null;
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    setUser(null);
     setLoggedIn(false);
     setDropdownOpen(false);
     navigate("/");
   };
   const { getTotalCartItems } = useContext(ShopContext);
+  const userType = (user && user.user_info) ? user.user_info.user_type : user ? user.user_type : null;
+  console.log(user);
   return (
     <nav>
       <div className="navbar">
@@ -33,6 +40,7 @@ const Navbar = () => {
             </Link>
             <hr />
           </li>
+          {userType === 'seller' && (
           <li>
             {/* TODO: products link only visible to seller*/}
             <Link className="link" to="/products">
@@ -40,6 +48,7 @@ const Navbar = () => {
             </Link>
             <hr />
           </li>
+          )}
         </ul>
         <MultiSearch />
         <div className="nav-cart-login-signup">

@@ -11,7 +11,7 @@ const Profile = () => {
       try {
         const token = localStorage.getItem("accessToken");
         console.log(`Access token: ${token}`);
-        const response = await axios.get("http://localhost:8000/dashboard/", {
+        const response = await axios.get("http://localhost:8000/dashboard", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

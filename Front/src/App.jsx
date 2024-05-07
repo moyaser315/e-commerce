@@ -6,7 +6,7 @@ import Product from "./Pages/Product";
 import Signup from "./Pages/Signup";
 import { AuthContext } from "./Context/AuthContext.jsx";
 import { ProductProvider } from "./Context/ProductContext.jsx";
-import ShopContextProvider from "./Context/ShopContext.jsx";
+import UserProvider from "./Context/UserContext.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ShopCategory from "./Pages/ShopCategory.jsx";
@@ -28,6 +28,7 @@ function App() {
   }, [isLoggedIn]);
   return (
     <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>
+      <UserProvider>
       <ProductProvider>
         <div>
           <BrowserRouter>
@@ -69,6 +70,7 @@ function App() {
           </BrowserRouter>
         </div>
       </ProductProvider>
+      </UserProvider>
     </AuthContext.Provider>
   );
 }
