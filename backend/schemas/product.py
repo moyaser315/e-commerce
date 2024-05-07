@@ -11,6 +11,7 @@ class Product(BaseModel):
     quantity: int
     cat: str
     imgPath: Optional[str] = ""
+    quantity_sold : Optional[int] = 0
 
 
 class GetProduct(Product):
