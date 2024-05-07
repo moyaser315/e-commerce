@@ -67,7 +67,7 @@ const Profile = () => {
       <p>User Name: {user.name}</p>
       <p>User Type: {user.user_type}</p>
       <p>Email: {user.email}</p>
-      {user.user_type === "seller" && <p>Sellers Product: {products}</p>}
+      {user.user_type === 'seller' && (<p>Balance: $ {user.balance}</p>)}
       <button onClick={fetchReports}>Genereate Reports</button>
     </div>
   );
