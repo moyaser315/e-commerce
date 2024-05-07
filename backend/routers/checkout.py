@@ -90,7 +90,7 @@ async def get_products(
     )
     
     try:
-        background_tasks.add_task(send_emails_to_sellers, orders, cur_order.id)
+        background_tasks.add_task(send_emails_to_sellers, orders, cur_order.id, current_user.email)
     except:
         pass
     
