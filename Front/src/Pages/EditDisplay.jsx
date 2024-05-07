@@ -7,14 +7,12 @@ const EditDisplay = (props) => {
   const { product } = props;
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-
-    imgPath: "",
-    name: "",
-    description: "",
-    price: 0,
-    quantity: 0,
-    cat: "Electronics & Devices",
-
+    imgPath: product.imgPath,
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    quantity: product.quantity,
+    cat: product.cat,
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +32,6 @@ const EditDisplay = (props) => {
   };
 
   const handleEdit = async (updatedData) => {
-    
     try {
       const url = `http://localhost:8000/dashboard/${props.product.id}`;
       console.log("URL:", url, "Data:", updatedData);
@@ -45,14 +42,14 @@ const EditDisplay = (props) => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-      console.log("entered here")
-      console.log(response.status)
+      console.log("entered here");
+      console.log(response.status);
       if (response.status === 200) {
         alert("Item updated successfully!");
         navigate("http://localhost:5173/products");
       }
     } catch (error) {
-      console.error("Error updating item:", error );
+      console.error("Error updating item:", error);
       alert("Failed to update the item. Please try again.");
     }
   };
@@ -133,11 +130,9 @@ const EditDisplay = (props) => {
             placeholder="Image URL"
             required
           />
-          
-            <button type="submit" className="submit-btn">
-              Submit
-            </button>
-         
+          <button type="submit" className="submit-btn">
+            Submit
+          </button>
         </form>
       </div>
     </div>
@@ -152,7 +147,7 @@ EditDisplay.propTypes = {
     quantity: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     description: PropTypes.string,
-    cat: PropTypes.string.isRequired
+    cat: PropTypes.string.isRequired,
   }).isRequired,
 };
 

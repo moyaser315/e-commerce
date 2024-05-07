@@ -21,7 +21,7 @@ const ShopCategory = (props) => {
                 key={i}
                 id={item.id}
                 name={item.name}
-                image={item.image}
+                image={item.imgPath}
                 description={item.description}
                 price={item.price}
                 category={item.category}
