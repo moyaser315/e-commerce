@@ -1,4 +1,6 @@
+import os
 from fastapi import APIRouter, HTTPException, Response, status, Depends
+from fastapi.responses import JSONResponse
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from typing import List, Optional, Union
@@ -47,8 +49,11 @@ async def get_products(
         )
         items = items.orders
         pdf_filename = f"orders_{current_user.id}.pdf"
-
-    file = canvas.Canvas(pdf_filename, pagesize=letter)
+    pdf_directory = "static/pdf/"
+    if not os.path.exists(pdf_directory):
+        os.makedirs(pdf_directory)
+    pdf_filepath = os.path.join(pdf_directory, pdf_filename)
+    file = canvas.Canvas(pdf_filepath, pagesize=letter)
 
     file.setFont("Helvetica", 12)
 
@@ -68,6 +73,7 @@ async def get_products(
         utils.add_buyer_elem(file=file, items=items, y=y)
 
     file.save()
-
+    PDF_BASE_URL = "http://localhost:8000/"
+    pdf_url = PDF_BASE_URL + pdf_filepath
     # Return the path to the PDF file
-    return pdf_filename
+    return JSONResponse(content={"pdf_url": pdf_url})
