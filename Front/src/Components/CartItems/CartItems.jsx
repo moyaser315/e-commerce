@@ -139,9 +139,13 @@ const CartItems = () => {
       {orderDetails && (
         <div className="order-details">
           <h3>Order Details:</h3>
-          <h4>Product ID: {orderDetails.order_item[0].productID}</h4>
-          <h4>quantity: {orderDetails.order_item[0].quantity}</h4>
-          <h4>Price: {orderDetails.order_item[0].buyPrice}</h4>
+          {orderDetails.order_item.map((item, index) => (
+            <div key={index}>
+              <h4>Product ID: {item.productID}</h4>
+              <h4>Quantity: {item.quantity}</h4>
+              <h4>Price: {item.buyPrice}</h4>
+            </div>
+          ))}
           <h4>Order ID: {orderDetails.id}</h4>
           <h4>Total Cost: {orderDetails.totalCost}</h4>
         </div>
