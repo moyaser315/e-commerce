@@ -2,8 +2,8 @@ import smtplib, ssl, os
 
 # Vars
 PORT = 587  # For SSL
-SENDER_EMAIL = os.getenv("SENDER_EMAIL")
-SENDER_PASS = os.getenv("SENDER_PASS")
+SENDER_EMAIL = "shopapi@outlook.com"
+SENDER_PASS = "apishop159"
 
 def send_emails_to_sellers(orders: dict[str, list], orderID: int):
     with smtplib.SMTP("smtp-mail.outlook.com", PORT) as server:
