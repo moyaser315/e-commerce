@@ -6,6 +6,7 @@ from ..schemas import person
 from .. import utils
 from ..models import seller, buyer, user
 from ..database import get_db
+from .. import oauth
 
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -43,6 +44,19 @@ def get_user(id: int, db: Session = Depends(get_db)):
         )
 
     return usr
+
+@router.delete("")
+def delete_user(
+    current_user: user.User = Depends(oauth.get_current_user),
+    db: Session = Depends(get_db)
+) -> dict[str, str]:
+    try:
+        db.delete(current_user)
+        db.commit()
+    except Exception as error:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Couldn't delete user")
+    
+    return {"message": "Success"}
 
 
 #### dev only :
