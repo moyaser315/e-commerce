@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
 import "./SellerItem.css";
 import { Link } from "react-router-dom";
 

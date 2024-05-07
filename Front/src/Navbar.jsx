@@ -51,6 +51,14 @@ const Navbar = () => {
             <hr />
           </li>
           )}
+          {userType === 'buyer' && (
+            <li>
+              <Link className="link" to="/orders">
+                Orders
+              </Link>
+              <hr />
+            </li>
+          )}
         </ul>
         <MultiSearch />
         <div className="nav-cart-login-signup">
@@ -67,6 +75,7 @@ const Navbar = () => {
                   <p>Hello, {userName}</p>
                   <Link to="/profile" onClick={() => setDropdownOpen(false)}>
                     Profile
+                    <hr />
                   </Link>
                   <button onClick={handleLogout}>Sign out</button>
                 </div>

@@ -46,7 +46,7 @@ const EditDisplay = (props) => {
       console.log(response.status);
       if (response.status === 200) {
         alert("Item updated successfully!");
-        navigate("http://localhost:5173/products");
+        navigate("/products");
       }
     } catch (error) {
       console.error("Error updating item:", error);

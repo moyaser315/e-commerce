@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import ShopCategory from "./Pages/ShopCategory.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
 import SellerDashboard from "./Pages/SellerDashboard.jsx";
+import PastOrders from "./Pages/PastOrders.jsx"
 import Profile from "./Pages/Profile.jsx";
 import MultiSearch from "./Pages/Search"; // Import the MultiSearch component
 import SearchResults from "./Pages/SearchResults";
@@ -58,6 +59,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/products" element={<SellerDashboard />} />
+              <Route path="/orders" element={<PastOrders />} />
               <Route path="/edit" element={<Edit />}>
                 <Route path=":productId" element={<Edit />} />
               </Route>
