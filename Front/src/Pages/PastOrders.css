@@ -1,0 +1,12 @@
+.container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: black;
+    font-family: Arial, sans-serif;
+}
+  
+.order-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
