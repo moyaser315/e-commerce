@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Response, status, Depends
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from typing import Optional, Union
+from typing import List, Optional, Union
 
 from ..database import get_db
 from ..models import product as model
@@ -121,7 +121,7 @@ def update_item(
     return query_item.first()
 
 
-@router.get("/{id}", response_model=order_schema.OrderCheckOut)
+@router.get("/{id}", response_model=List[schema.GetProduct])
 async def get_order(
     id: int,
     db: Session = Depends(get_db),
@@ -131,18 +131,16 @@ async def get_order(
     ret = None
 
     items = db.query(order_model.Order).filter(order_model.Order.id == id).first()
-    print(items.id)
+    
     if not items:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="please use the interface"
         )
     cur_order_items = items.orderItems
     cur_order_items = [
-        order_schema.OrderItem.model_validate(item) for item in cur_order_items
+        schema.GetProduct.model_validate(item.product) for item in cur_order_items
     ]
-    ret = order_schema.OrderCheckOut.model_validate(
-        {"totalCost": items.totalCost, "order_item": cur_order_items, "id": items.id}
-    )
+    ret = cur_order_items
 
     return ret
 
