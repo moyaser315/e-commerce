@@ -94,7 +94,7 @@ def add_items_to_report(y, products, file: canvas.Canvas):
     file.drawString(30, y, "ID")
     file.drawString(100, y, "Name")
     file.drawString(200, y, "Price")
-    
+
     file.drawString(300, y, "Category")
     file.drawString(500, y, "Quantity")
 

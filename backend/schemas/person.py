@@ -1,5 +1,3 @@
-from datetime import datetime
-from typing import Optional
 from pydantic import BaseModel, ConfigDict, EmailStr
 
 
@@ -7,7 +5,7 @@ class PersonBase(BaseModel):
     name: str
     email: EmailStr
     user_type: str
-    balance: Optional[float] = 0.0
+    balance: float | None = 0.0
 
 
 class CreatePerson(PersonBase):
@@ -25,4 +23,4 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    id: Optional[int] = None
+    id: int | None = None

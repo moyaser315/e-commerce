@@ -36,35 +36,35 @@ async def get_products(
             .filter(
                 model.Product.sellerID == current_user.id,
                 model.Product.name.contains(search),
-                model.Product.cat.contains(cat)
+                model.Product.cat.contains(cat),
             )
             .limit(limit=limit)
-            .offset(limit*page)
+            .offset(limit * page)
             .all()
         )
-        l=[]
-        for p in items:
-            ord = p.orderItems
-            q = 0
+        product_list = []
+        for item in items:
+            ord = item.orderItems
+            quantity_sold = 0
             for o in ord:
-                q += o.quantity
-                
-            l.append (
+                quantity_sold += o.quantity
+
+            product_list.append(
                 schema.GetProduct(
-                    id=p.id,
-                    name=p.name,
-                    description=p.description,
-                    price=p.price,
-                    quantity=p.quantity,
-                    cat=p.cat,
-                    quantity_sold=q
+                    id=item.id,
+                    name=item.name,
+                    description=item.description,
+                    price=item.price,
+                    quantity=item.quantity,
+                    cat=item.cat,
+                    quantity_sold=quantity_sold,
                 )
             )
         items = [schema.GetProduct.model_validate(item) for item in items]
-        for p in items :
-            for i in l:
-                if p.id == i.id :
-                    p.quantity_sold = i.quantity_sold
+        for item in items:
+            for i in product_list:
+                if item.id == i.id:
+                    item.quantity_sold = i.quantity_sold
         ret = schema.GetDashboard(product=items, user_info=current_user)
     else:
         items = (
@@ -154,21 +154,23 @@ async def get_order(
 ):  # TODO: is it for buyer only?
     current_user = schema.GetPerson.model_validate(current_user)
     ret = None
-    if current_user.user_type != "buyer" :
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED ,detail="please login as user")
+    if current_user.user_type != "buyer":
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="please login as user"
+        )
     items = db.query(order_model.Order).filter(order_model.Order.id == id).first()
-    
+
     if not items:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="please use the interface"
         )
     cur_order_items = items.orderItems
     l = []
-    for item in cur_order_items :
-        i = schema.GetProduct.model_validate(item.product) 
+    for item in cur_order_items:
+        i = schema.GetProduct.model_validate(item.product)
         i.quantity = item.quantity
         l.append(i)
-    
+
     ret = l
 
     return ret

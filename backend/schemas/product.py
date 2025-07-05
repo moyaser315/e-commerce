@@ -9,15 +9,14 @@ class Product(BaseModel):
     description: str
     price: float
     quantity: int
-    cat: str
-    imgPath: Optional[str] = ""
+    cat: str | None = "devices"
+    imgPath: str | None = ""
 
 
 class GetProduct(Product):
     id: int
     model_config = ConfigDict(from_attributes=True)
-    quantity_sold : Optional[int] = 0
-
+    quantity_sold: int | None = 0
 
 
 class GetDashboard(BaseModel):

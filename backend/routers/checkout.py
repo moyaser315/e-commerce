@@ -63,12 +63,16 @@ async def get_products(
         seller_user.balance += cost
         cur_order.totalCost += cost
         db.add(new_item)
-        
+
         exists = orders.get(seller_user.email)
         if exists:
-            orders[seller_user.email].append({"id": pr.id, "product name": pr.name, "quantity": new_item.quantity})
+            orders[seller_user.email].append(
+                {"id": pr.id, "product name": pr.name, "quantity": new_item.quantity}
+            )
         else:
-            orders[seller_user.email] = [{"id": pr.id, "product name": pr.name, "quantity": new_item.quantity}]
+            orders[seller_user.email] = [
+                {"id": pr.id, "product name": pr.name, "quantity": new_item.quantity}
+            ]
 
     # current_user.balance -= cur_order.totalCost
     items_query.delete(False)
@@ -88,10 +92,12 @@ async def get_products(
             "id": cur_order.id,
         }
     )
-    
+
     try:
-        background_tasks.add_task(send_emails_to_sellers, orders, cur_order.id, current_user.email)
+        background_tasks.add_task(
+            send_emails_to_sellers, orders, cur_order.id, current_user.email
+        )
     except:
         pass
-    
+
     return cur_order

@@ -17,7 +17,9 @@ class Buyer(User):
     )
     # relations
     orders: Mapped[list["Order"]] = relationship(back_populates="buyer")
-    cartItems: Mapped[list["CartItem"]] = relationship(back_populates="buyer", cascade="all, delete-orphan")
+    cartItems: Mapped[list["CartItem"]] = relationship(
+        back_populates="buyer", cascade="all, delete-orphan"
+    )
 
     # options
     __mapper_args__ = {

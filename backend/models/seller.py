@@ -20,7 +20,9 @@ class Seller(User):
     # __balance: Mapped[float] = mapped_column("balance", nullable=False, default=0)
 
     # relations
-    products: Mapped[list["Product"]] = relationship(back_populates="seller", cascade="all, delete-orphan")
+    products: Mapped[list["Product"]] = relationship(
+        back_populates="seller", cascade="all, delete-orphan"
+    )
 
     # options
     __mapper_args__ = {

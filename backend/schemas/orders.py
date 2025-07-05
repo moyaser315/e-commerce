@@ -1,6 +1,5 @@
 from typing import List
-from pydantic import BaseModel, ConfigDict, EmailStr
-from datetime import datetime
+from pydantic import BaseModel, ConfigDict
 from .person import GetPerson
 
 
