@@ -18,8 +18,8 @@ class User(Base):
         "email", unique=True, index=True, nullable=False
     )
     __password: Mapped[str] = mapped_column("password", nullable=False)
-    # __mobile: Mapped[str] = mapped_column("mobile", unique=True, nullable=True)
     __user_type: Mapped[str] = mapped_column("user_type", nullable=False)
+    __phone: Mapped[str] = mapped_column("phone",unique=True, nullable=False)
 
     # relations
     # comments: Mapped[list["Comment"]] = relationship(back_populates="user")
@@ -83,17 +83,17 @@ class User(Base):
 
         self.__password = value
 
-    # @hybrid_property
-    # def mobile(self):
-    #     return self.__mobile
+    @hybrid_property
+    def phone(self):
+        return self.__phone
 
-    # @mobile.setter
-    # def mobile(self, value: str):  # come back and verify
-    #     value = value.strip()
-    #     # if (value is None or not re.match(r"^[0-9]+$", value)):
-    #     #     raise Exception("Invalid mobile number")
+    @phone.setter
+    def phone(self, value: str):
+        value = value.strip()
+        if (value is None or not re.match(r"^[0-9]+$", value)):
+            raise Exception("Invalid phone number")
 
-    #     self.__mobile = value
+        self.__phone = value
 
     @hybrid_property
     def user_type(self):
