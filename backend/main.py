@@ -1,20 +1,18 @@
-from fastapi import FastAPI, Depends, Request
-from fastapi.security.oauth2 import OAuth2PasswordRequestForm
+from fastapi import FastAPI, Request
 from starlette.concurrency import iterate_in_threadpool
 from starlette.background import BackgroundTask
 from fastapi.middleware.cors import CORSMiddleware
 from logging.config import dictConfig
 import logging
 import time
-import json
 from fastapi.staticfiles import StaticFiles
-from .database import engine
-from .models import product as db_product
-from .models import seller, user, buyer, cartItem, order, orderItem
-from .routers import product, homepage, auth, cartItems, checkout
-from .routers import user as routers_user
-from .schemas.logging import LogConfig
-from .routers import reports
+from backend.database import engine
+from backend.models import product as db_product
+from backend.models import seller, user, buyer, cartItem, order, orderItem
+from backend.routers import product, homepage, auth, cartItems, checkout
+from backend.routers import user as routers_user
+from backend.schemas.logging import LogConfig
+from backend.routers import reports
 
 # setup
 ## loggging
@@ -80,12 +78,6 @@ async def root(req: Request, call_next):
     response.background = task
     return response
 
-
-# @app.post("/login/test")
-# def login(
-#     user_cerd : OAuth2PasswordRequestForm = Depends()
-# ):
-#     return {"access_token": user_cerd.username}
 
 
 app.include_router(product.router)
