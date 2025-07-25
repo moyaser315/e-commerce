@@ -1,9 +1,9 @@
 from typing import Optional, List
 from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy.orm import Session
-from ..database import get_db
-from ..models import product as model
-from ..schemas import product as schema
+from backend.database import get_db
+from backend.models import product as model
+from backend.schemas import product as schema
 
 router = APIRouter(tags=["Home page viewing products"])
 

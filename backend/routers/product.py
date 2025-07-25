@@ -3,13 +3,13 @@ from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from typing import List, Optional, Union
 
-from ..database import get_db
-from ..models import product as model
-from ..models import order as order_model
-from ..schemas import product as schema
-from ..schemas import orders as order_schema
-from ..models import user as user_model, orderItem as orderItem_model
-from .. import oauth
+from backend.database import get_db
+from backend.models import product as model
+from backend.models import order as order_model
+from backend.schemas import product as schema
+from backend.schemas import orders as order_schema
+from backend.models import user as user_model, orderItem as orderItem_model
+from backend import oauth
 
 router = APIRouter(prefix="/dashboard", tags=["dealing with dashboard"])
 

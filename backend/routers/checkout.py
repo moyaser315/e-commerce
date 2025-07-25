@@ -1,12 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
-from ..database import get_db
-from ..models import cartItem as cart_model
-from ..models import order, orderItem, seller
-from ..schemas import orders as schema
-from ..schemas import person as user_scheme
-from .. import oauth
-from ..sender import send_emails_to_sellers
+from backend.database import get_db
+from backend.models import cartItem as cart_model
+from backend.models import order, orderItem, seller
+from backend.schemas import orders as schema
+from backend import oauth
+from backend.sender import send_emails_to_sellers
 
 
 router = APIRouter(prefix="/checkout", tags=["checkout"])
