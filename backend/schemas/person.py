@@ -5,6 +5,7 @@ class PersonBase(BaseModel):
     name: str
     email: EmailStr
     user_type: str
+    phone: str
     balance: float | None = 0.0
 
 

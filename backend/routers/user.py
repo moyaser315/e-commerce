@@ -1,12 +1,11 @@
 from fastapi import status, HTTPException, Depends, APIRouter
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-
-
-from ..schemas import person
-from .. import utils
-from ..models import seller, buyer, user
-from ..database import get_db
-from .. import oauth
+from backend.schemas import person
+from backend.services.users_services import UserService
+from backend.models import user
+from backend.database import get_db
+from backend import oauth
 
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -16,22 +15,15 @@ router = APIRouter(prefix="/users", tags=["users"])
     "/signup", status_code=status.HTTP_201_CREATED, response_model=person.GetPerson
 )
 def create_user(user: person.CreatePerson, db: Session = Depends(get_db)):
-    user.password = utils.hash(user.password)
-    if user.user_type == "seller":
-        new_user = seller.Seller(**user.model_dump())
-    else:
-        new_user = buyer.Buyer(**user.model_dump())
+    return UserService.create_user(user, db)
 
-    try:
-        db.add(new_user)
-        db.commit()
-        db.refresh(new_user)
-    except Exception as error:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Email is already used"
-        )
 
-    return new_user
+@router.post("/login", response_model=person.Token)
+def login(
+    user_cerd: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
+):
+    token = UserService.auth_user(user_cerd, db)
+    return {"access_token": token, "token_type": "Bearer"}
 
 
 @router.get("/{id}", response_model=person.GetPerson)
@@ -62,10 +54,3 @@ def delete_user(
         )
 
     return {"message": "Success"}
-
-
-#### dev only :
-# @router.get("/", response_model=List[person.GetPerson])
-# def get_users(db: Session = Depends(get_db)):
-#     user = db.query(Person).all()
-#     return user

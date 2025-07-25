@@ -6,3 +6,4 @@ info.log
 *.log
 *.db
 .vscode/
+static/

@@ -1,13 +1,13 @@
-from fastapi import APIRouter, HTTPException, Response, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy.orm import Session
 from typing import List
 
-from ..database import get_db
-from ..models import cartItem as model
-from ..models import user as user_model
-from ..schemas import orders as schema
-from ..schemas import person as user_scheme
-from .. import oauth
+from backend.database import get_db
+from backend.models import cartItem as model
+from backend.models import user as user_model
+from backend.schemas import orders as schema
+from backend.schemas import person as user_scheme
+from backend import oauth
 
 router = APIRouter(prefix="/cart", tags=["Cart Item"])
 
