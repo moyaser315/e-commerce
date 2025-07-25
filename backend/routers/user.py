@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 
 from backend.schemas import person
-from backend import utils
+from backend.services.users_services import UserService
 from backend.models import seller, buyer, user
 from backend.database import get_db
 from backend import oauth
@@ -16,26 +16,7 @@ router = APIRouter(prefix="/users", tags=["users"])
     "/signup", status_code=status.HTTP_201_CREATED, response_model=person.GetPerson
 )
 def create_user(user: person.CreatePerson, db: Session = Depends(get_db)):
-    print(user)
-    print("entered here")
-    user.password = utils.hash(user.password)
-    if user.user_type == "seller":
-        new_user = seller.Seller(**user.model_dump())
-    else:
-        new_user = buyer.Buyer(**user.model_dump())
-
-    try:
-        db.add(new_user)
-        
-        db.commit()
-        db.refresh(new_user)
-    except Exception as error:
-        print(error)
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Email is already used"
-        )
-
-    return new_user
+    return UserService.create_user(user,db)
 
 
 @router.get("/{id}", response_model=person.GetPerson)
