@@ -19,7 +19,7 @@ class User(Base):
     )
     __password: Mapped[str] = mapped_column("password", nullable=False)
     __user_type: Mapped[str] = mapped_column("user_type", nullable=False)
-    __phone: Mapped[str] = mapped_column("phone",unique=True, nullable=False)
+    __phone: Mapped[str] = mapped_column("phone", unique=True, nullable=False)
 
     # relations
     # comments: Mapped[list["Comment"]] = relationship(back_populates="user")
@@ -90,7 +90,7 @@ class User(Base):
     @phone.setter
     def phone(self, value: str):
         value = value.strip()
-        if (value is None or not re.match(r"^[0-9]+$", value)):
+        if value is None or not re.match(r"^[0-9]+$", value):
             raise Exception("Invalid phone number")
 
         self.__phone = value

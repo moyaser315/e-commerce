@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from backend.database import engine
 from backend.models import product as db_product
 from backend.models import seller, user, buyer, cartItem, order, orderItem
-from backend.routers import product, homepage, auth, cartItems, checkout
+from backend.routers import product, homepage, cartItems, checkout
 from backend.routers import user as routers_user
 from backend.schemas.logging import LogConfig
 from backend.routers import reports
@@ -79,10 +79,9 @@ async def root(req: Request, call_next):
     return response
 
 
-
 app.include_router(product.router)
 app.include_router(routers_user.router)
-app.include_router(auth.router)
+
 app.include_router(cartItems.router)
 app.include_router(checkout.router)
 app.include_router(homepage.router)
