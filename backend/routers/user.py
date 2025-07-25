@@ -56,8 +56,3 @@ def delete_user(
     return {"message": "Success"}
 
 
-#### dev only :
-# @router.get("/", response_model=List[person.GetPerson])
-# def get_users(db: Session = Depends(get_db)):
-#     user = db.query(Person).all()
-#     return user
