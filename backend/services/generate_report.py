@@ -8,26 +8,20 @@ from backend import utils
 
 
 import os
+
+
 class ReportService:
     @staticmethod
     def generate(current_user: GetPerson, db: Session):
         pdf_filename = None
         items = None
         if current_user.user_type.lower() == "seller":
-            items = (
-                db.query(Seller)
-                .filter(current_user.id == Seller.id)
-                .first()
-            )
+            items = db.query(Seller).filter(current_user.id == Seller.id).first()
             items = items.products
             pdf_filename = f"products_{current_user.id}.pdf"
         else:
 
-            items = (
-                db.query(Buyer)
-                .filter(current_user.id == Buyer.id)
-                .first()
-            )
+            items = db.query(Buyer).filter(current_user.id == Buyer.id).first()
             items = items.orders
             pdf_filename = f"orders_{current_user.id}.pdf"
         pdf_directory = "static/pdf/"

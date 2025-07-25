@@ -30,6 +30,7 @@ class UserService:
             )
         token = create_access_token(data={"user_id": user.id})
         return token
+
     @staticmethod
     def create_user(user: CreatePerson, db: Session):
         user.password = hash(user.password)

@@ -54,5 +54,3 @@ def delete_user(
         )
 
     return {"message": "Success"}
-
-
