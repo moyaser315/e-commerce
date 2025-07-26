@@ -12,7 +12,7 @@ from backend.models import seller, user, buyer, cartItem, order, orderItem
 from backend.routers import product, homepage, cartItems, checkout
 from backend.routers import user as routers_user
 from backend.schemas.logging import LogConfig
-from backend.routers import reports
+from backend.routers import reports, communication
 
 # setup
 ## loggging
@@ -86,3 +86,4 @@ app.include_router(cartItems.router)
 app.include_router(checkout.router)
 app.include_router(homepage.router)
 app.include_router(reports.router)
+app.include_router(communication.router)
