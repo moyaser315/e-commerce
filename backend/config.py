@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int
+    twilio_sid: str
+    twilio_auth: str
+    twilio_phone: str
 
     class Config:
         env_file = ".env"
