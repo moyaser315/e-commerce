@@ -7,7 +7,8 @@ class CommunicationService:
         self.client =  Client(settings.twilio_phone, settings.twilio_auth)
         self.phone = settings.twilio_phone
 
-    def twilio_wp(self):
+    def twilio_convo(self, friendly_name:str):
+        #TODO: search for convos and create if not existent
         pass
     
 
