@@ -1,0 +1,4 @@
+curl -X POST http://127.0.0.1:8000/comm/reply \
+  -d "Body=help" \
+  -d "From=+201234567890" \
+  -d "To=+14155556666"
