@@ -1,21 +1,36 @@
 #TODO: Implement Twilio methods
+import re
 from backend.config import settings
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
+from sqlalchemy.orm import Session
 class CommunicationService:
     def __init__(self):
-        self.client =  Client(settings.twilio_phone, settings.twilio_auth)
+        self.client =  Client(settings.twilio_sid, settings.twilio_auth)
         self.phone = settings.twilio_phone
+        # print(self.get_failed_content())
 
-    def twilio_convo(self, friendly_name:str):
-        #TODO: search for convos and create if not existent
-        pass
-    
 
-    def twilio_send_sms(self,msg:str, pnumber:str,schedule_type:str=None, time:str=None):
+    def get_phone_number(self, phone: str):
+        return re.sub(r'[^\d+]', '', phone)
+
+    def get_convo(self):
+        self.client.conversations.conversations.get()
+
+    def twilio_send_sms(self,msg:str, phone:str,schedule_type:str=None, time:str=None):
         message = self.client.messages.create(
-            to=pnumber,
+            to=phone,
             from_=self.phone,
+            body=msg,
+            send_at=time,
+            schedule_type=schedule_type
+        )
+        print(f"message {message.sid} status: {message.status}")
+        
+    def twilio_send_wp(self,msg:str, phone:str,schedule_type:str=None, time:str=None):
+        message = self.client.messages.create(
+            to='whatsapp:'+phone,
+            from_='whatsapp:'+self.phone,
             body=msg,
             send_at=time,
             schedule_type=schedule_type
@@ -34,11 +49,17 @@ class CommunicationService:
         
         return str(response)
         
-    def twilio_list_sms(self, pnumber:str):
-        messages =self.client.messages.list(pnumber)
+    def twilio_list_sms(self, phone:str):
+        messages =self.client.messages.list(phone)
         for m in messages:
             print(f"message {m.sid} status: {m.status}")
-    
+            
+            
+    def get_failed_content(self, phone:str):
+        messages =self.client.messages.list(phone)
+        for m in messages:
+            if m.status == 'failed':
+                print(f"Message sid: {m.sid}\n From:{m.from_}\n To: {m.to} \n content: {m.body}\n date: {m.date_sent}")
 
     def twilio_mail(self):
         pass
@@ -58,5 +79,6 @@ class CommunicationService:
 
 if __name__ == "__main__":
     comm = CommunicationService()
-    # comm.twilio_sms("testing sms")
+    # comm.twilio_send_sms("hello world")
+    # comm.twilio_list_sms()
     # comm.twilio_list_sms()
