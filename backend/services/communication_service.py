@@ -3,6 +3,7 @@ import re
 from backend.config import settings
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
+from twilio.twiml.voice_response import VoiceResponse
 from sqlalchemy.orm import Session
 class CommunicationService:
     def __init__(self):
@@ -65,9 +66,13 @@ class CommunicationService:
         pass
     
 
-    def twilio_call(self):
-        pass
-    
+    def twilio_send_call(self, phone:str):
+        content = VoiceResponse()
+        # print("start")
+        content.say("Welcome to mo e-commerce, please enter number")
+        # content.redirect("/comm/call")
+        call = self.client.calls.create(to=phone,from_=self.phone,twiml=str(content))
+        return call.status
 
     def twilio_video(self):
         pass

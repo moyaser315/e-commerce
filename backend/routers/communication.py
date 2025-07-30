@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.params import Form
 import urllib
 from backend.services.communication_service import CommunicationService
-from twilio.twiml.messaging_response import MessagingResponse
+from twilio.twiml.voice_response import Gather, VoiceResponse
 router = APIRouter(prefix="/comm", tags=["communication"])
 services = CommunicationService()
 
@@ -119,3 +119,81 @@ body:
   ApiVersion: 2010-04-01
 
 '''
+
+
+@router.post('/call', status_code=status.HTTP_200_OK)
+async def call(request: Request):
+    print(request)
+    print(request.headers)
+    print(f"Method: {request.method}")
+    print(f"URL: {request.url}")
+    # print(f"f: {From}\t {To}\n\n\n")
+    # Print request headers
+    print("Headers:")
+    for header_name, header_value in request.headers.items():
+        print(f"  {header_name}: {header_value}")
+    pressed_number = Gather(num_digits=1)
+    print(f"number pressed: {pressed_number}")
+
+    resp.append(pressed_number)
+    try:
+        body = await request.body()
+        decoded = body.decode('utf-8')
+        parsed = dict(urllib.parse.parse_qsl(decoded))
+        print("body:")
+        for i, j in parsed.items():
+            print(f"  {i}: {j}")
+    except Exception as e:
+        print(f"Could not read body: {e}")
+
+    resp = VoiceResponse()
+    resp.say("thanks for calling")
+    resp.hangup()
+    return Response(content=str(resp), media_type='text/xml')
+        
+@router.get("/call/start", status_code=status.HTTP_201_CREATED)
+async def make_call(phone:str = "+201096905593"):
+    print(f"Making call to {phone}")
+    status = services.twilio_send_call(phone=phone)
+    return {"status": status, "message": "Call initiated successfully."}
+
+
+'''
+Headers:
+  host: 
+  user-agent: TwilioProxy/1.1
+  content-length: 456
+  accept: */*
+  content-type: application/x-www-form-urlencoded; charset=UTF-8
+  i-twilio-idempotency-token: 
+  x-forwarded-for: 13.222.192.44
+  x-forwarded-host: 
+  x-forwarded-proto: https
+  x-home-region: us1
+  x-twilio-service-flow-event: %7B%22flow_id%22%3A%22voice_twimlverb_01k1cc4q18eqzv3r6x15fh024e%22%2C%22type%22%3A%22api_event%22%2C%22action%22%3A%22twiml_fetch%22%2C%22sub_action%22%3A%22completed%22%2C%22result%22%3A%22success%22%2C%22metadata%22%3A%7B%22transfer_type%22%3A%22call_transfer_url%22%7D%7D
+  x-twilio-signature: 
+  accept-encoding: gzip
+number pressed: <?xml version="1.0" encoding="UTF-8"?><Gather numDigits="1" />
+body:
+  Called: 
+  CallerCountry: US
+  Direction: outbound-api
+  CallerState: MN
+  CallSid: 
+  To: 
+  CallerZip: 56091
+  ToCountry: EG
+  ApiVersion: 2010-04-01
+  CallStatus: in-progress
+  From: 
+  AccountSid: 
+  CalledCountry: EG
+  CallerCity: WALDORF
+  FromCountry: US
+  Caller: 
+  FromCity: WALDORF
+  FromZip: 56091
+  FromState: MN
+
+'''
+    
