@@ -70,7 +70,7 @@ class CommunicationService:
         content = VoiceResponse()
         # print("start")
         content.say("Welcome to mo e-commerce, please enter number")
-        content.redirect("https://f0c0940f2ba7.ngrok-free.app/comm/call")
+        # content.redirect("/comm/call")
         call = self.client.calls.create(to=phone,from_=self.phone,twiml=str(content))
         return call.status
 
