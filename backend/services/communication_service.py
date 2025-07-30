@@ -4,7 +4,17 @@ from backend.config import settings
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.twiml.voice_response import VoiceResponse
-from sqlalchemy.orm import Session
+from enum import Enum
+
+class MessageState(str, Enum):
+    INITIAL = 'initial'
+    MAIN_MENU = 'main_menu',
+    SALES = 'sales'
+    SUPPORT = 'support'
+    APPOINTMENT = 'appointment'
+    COLLECT_INFO = 'collect_info'
+    CONFIRMATION = 'confirmation'
+    TRANSFER = 'transfer'
 class CommunicationService:
     def __init__(self):
         self.client =  Client(settings.twilio_sid, settings.twilio_auth)
